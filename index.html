@@ -886,6 +886,15 @@ function initTilt(){
     labelWrap.appendChild(lab);
     pins.push({grp,head,lab,base:y});
   });
+  /* portrait viewports get their own hand-placed layout so all 8 pins stay in frame */
+  const pinDefsPortrait=[[-4,26],[-8,8],[-2,17],[3,2],[7,12],[0,-8],[-4,-14],[6,21]];
+  function placePins(){
+    const defs=cam.aspect<1.2?pinDefsPortrait:pinDefs;
+    pins.forEach((p,i)=>{
+      const [x,z]=defs[i];
+      p.grp.position.set(x,hgt(x,-z),z);
+    });
+  }
 
   /* sky palette (day ↔ dusk) */
   const skyDay=new THREE.Color('#cfe4e0'), skyDusk=new THREE.Color('#8f7a8d'),
@@ -935,6 +944,7 @@ function initTilt(){
   function resize(){
     const w=hero.clientWidth,h=hero.clientHeight;
     renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix();
+    placePins();
   }
   addEventListener('resize',resize); resize();
 
