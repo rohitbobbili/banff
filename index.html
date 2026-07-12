@@ -378,6 +378,19 @@ footer.site{padding:var(--s6) 1.2rem}
   .side-collage{gap:1rem}
 }
 
+/* day at-a-glance chips */
+.glance{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;max-width:640px}
+.glance span{display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:var(--cream);
+  background:rgba(18,43,32,.38);border:1px solid rgba(246,241,231,.3);backdrop-filter:blur(4px);
+  padding:.28rem .7rem;border-radius:999px}
+/* closing */
+.closing{position:relative;height:72svh;min-height:420px;overflow:hidden;background:var(--pine-deep)}
+.closing img{width:100%;height:100%;object-fit:cover;filter:saturate(.95)}
+.closing::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,43,32,.25),rgba(18,43,32,.65))}
+.closing-copy{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem}
+.closing-copy h2{font-size:clamp(2.2rem,6vw,4.2rem);color:var(--cream);text-shadow:0 4px 30px rgba(18,43,32,.8)}
+.closing-copy p{font-family:var(--serif);font-style:italic;color:var(--larch-soft);font-size:clamp(.95rem,2vw,1.2rem);margin-top:.6rem}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .rev{opacity:1;transform:none}
@@ -438,6 +451,26 @@ footer.site{padding:var(--s6) 1.2rem}
     <div class="cover-intro wrap">
       <span class="eyebrow">Editor's Welcome</span>
       <p class="lead">"Eight days, three national parks, and more shades of turquoise than we have names for. This is the week we've been waiting for — printed here in light, pixels, and anticipation."</p>
+    </div>
+
+    <div class="chapters wrap">
+      <h2>The Chapters</h2>
+      <p class="sub">One page per day. Tap any card to step inside.</p>
+      <div id="cards"></div>
+    </div>
+
+    <div class="borrow wrap" id="borrow">
+      <span class="eyebrow">Borrow This Itinerary</span>
+      <h2>Traveling this route yourself? Take it — it's yours.</h2>
+      <p>This is a real, field-planned eight-day loop that uses <strong>Cochrane</strong> as a single base camp — cheaper and calmer than staying in Banff, with every day trip under two hours' drive. Fly into Calgary (YYC) and rent a car — you'll want it every single day. The chapters below work as a template: same order, same timing, swap the buffer day for whatever the sky gives you. Three practical things to sort out before you go:</p>
+      <div class="stats-strip" role="group" aria-label="What this trip asks of you">
+        <div class="stat-card"><b>📅 8</b><span>days, one base</span></div>
+        <div class="stat-card"><b>🚗 ~2 hr 40</b><span>driving per day, avg</span></div>
+        <div class="stat-card"><b>🥾 7 km</b><span>longest hike</span></div>
+        <div class="stat-card"><b>🚡 1</b><span>summit gondola</span></div>
+        <div class="stat-card"><b>☕ 1</b><span>alpine teahouse</span></div>
+        <div class="stat-card"><b>🌲 4</b><span>parks, 2 passes</span></div>
+      </div>
       <div class="weather" role="group" aria-label="Typical September weather in Banff">
         <div class="wx-scene" aria-hidden="true">
           <div class="wx-sun"></div><div class="wx-cloud"></div>
@@ -449,20 +482,7 @@ footer.site{padding:var(--s6) 1.2rem}
           <div class="wx-temps"><span>High <b>~16°C</b></span><span>Low <b>~3°C</b></span><span>Layers <b>always</b></span></div>
         </div>
       </div>
-      <div class="stats-strip" role="group" aria-label="The trip in numbers">
-        <div class="stat-card"><b>8</b><span>days</span></div>
-        <div class="stat-card"><b>3+1</b><span>parks to roam</span></div>
-        <div class="stat-card"><b>~1,600</b><span>km of road</span></div>
-        <div class="stat-card"><b>2,281 m</b><span>highest point</span></div>
-        <div class="stat-card"><b>373 m</b><span>tallest waterfall</span></div>
-        <div class="stat-card"><b>∞</b><span>photos</span></div>
-      </div>
-    </div>
 
-    <div class="borrow wrap" id="borrow">
-      <span class="eyebrow">Borrow This Itinerary</span>
-      <h2>Traveling this route yourself? Take it — it's yours.</h2>
-      <p>This is a real, field-planned eight-day loop that uses <strong>Cochrane</strong> as a single base camp — cheaper and calmer than staying in Banff, with every day trip under two hours' drive. Fly into Calgary (YYC) and rent a car — you'll want it every single day. The chapters below work as a template: same order, same timing, swap the buffer day for whatever the sky gives you. Three practical things to sort out before you go:</p>
       <div class="practical">
         <details class="fn-card" open>
           <summary>🎟️ Park passes (two different ones!)</summary>
@@ -496,14 +516,16 @@ footer.site{padding:var(--s6) 1.2rem}
       </div>
     </div>
 
-    <div class="chapters wrap">
-      <h2>The Chapters</h2>
-      <p class="sub">One page per day. Tap any card to step inside.</p>
-      <div id="cards"></div>
-    </div>
+
+    <section class="closing" aria-label="Closing">
+      <img src="img/moraine-lake-classic.jpg" alt="A last look across Moraine Lake and the Valley of the Ten Peaks" loading="lazy">
+      <div class="closing-copy">
+        <h2>See you in the Rockies.</h2>
+        <p>The mountains are calling — and this time, we're all going.</p>
+      </div>
+    </section>
 
     <footer class="site">
-      <span class="serif">"The mountains are calling — and this time, we're all going."</span>
       Made with love for the whole family · Banff · Yoho · Kootenay · Kananaskis
       <p class="disclaimer">This is an unofficial, personal travel guide. Hours, prices, road access and trail conditions change — always verify with <a href="https://parks.canada.ca/pn-np/ab/banff" target="_blank" rel="noopener" style="color:rgba(246,241,231,.8)">Parks Canada</a> and <a href="https://www.alberta.ca/kananaskis-country" target="_blank" rel="noopener" style="color:rgba(246,241,231,.8)">Alberta Parks</a> before you go.</p>
       <details class="credits">
@@ -598,6 +620,7 @@ const DAYS=[
  hero:'calgary',polas:[['cochrane','The Bow Valley, from Cochrane Ranche'],['banffmist','Mist on tomorrow\'s mountains']],
  ed:`Every story needs a threshold. Ours opens on the prairie's edge in Cochrane, where the foothills gather themselves before becoming mountains. Tonight we stock the cooler, walk the old ranche, and sleep early — the Rockies are waiting.`,
  plan:'Land in Calgary, drive forty-five easy minutes to Cochrane, stock the cooler for the week, stretch your legs at the old ranche — and get to bed early, because the mountains start tomorrow.',
+ glance:{drive:'~45 min',walk:'easy strolls',star:'Cochrane Ranche at golden hour',book:'none needed',wx:'any weather works'},
  fn:{fact:'Cochrane sits on the Bow River — the same water we\'ll follow all week, from Bow Lake to Bow Falls.',
      pack:'Comfy travel clothes, a light jacket for the evening, and the grocery list (below).',
      food:'Cochrane is famous for MacKay\'s Ice Cream — a local institution since 1948. Dessert before dinner is allowed on arrival day.',
@@ -623,6 +646,7 @@ const DAYS=[
  hero:'sulphur',polas:[['minnewanka','Minnewanka\'s spirit-water'],['vermilion','The Vermilion Lakes, rehearsing for dusk']],
  ed:`Banff introduces itself all at once — a waterfall, a castle in the trees, a gondola rising into thin blue air. By evening, if the wind holds its breath, Mount Rundle will lay itself down twice: once in stone, once in still water.`,
  plan:'Waterfalls and castle views before ten, a gondola to a 360° summit by noon, Minnewanka\'s blue in the afternoon, dinner on Banff Avenue — and, wind willing, mirror-still reflections at dusk.',
+ glance:{drive:'~2 hr 45 min',walk:'~3 km, easy',star:'Sulphur Mountain summit',book:'gondola tickets',wx:'calm evening = Vermilion reflections'},
  fn:{fact:'Bow Falls appeared in the 1953 Marilyn Monroe film “River of No Return.”',
      pack:'Warm layer for the 2,281 m summit — it can be 10° colder up top. Camera charged for sunset.',
      food:'Banff Avenue poutine or a BeaverTail pastry — the official taste of a Canadian mountain town.',
@@ -658,6 +682,7 @@ const DAYS=[
  hero:'moraine',polas:[['louise','Red canoes, Lake Louise'],['moraineClassic','The twenty-dollar view']],
  ed:`Some colors have to be seen to be believed. Today we stand on the Rockpile at Moraine Lake — the view once printed on the back of the twenty-dollar bill — then walk the quiet shoreline of Lake Louise beneath the hanging ice of the Victoria Glacier.`,
  plan:'A dawn drive to Lake Louise, the shuttle to Moraine for an unhurried morning on the Rockpile, lunch at a 1920s log lodge, then a flat lakeshore stroll beneath the Victoria Glacier.',
+ glance:{drive:'~3 hrs',walk:'~5 km, easy',star:'the Rockpile at Moraine Lake',book:'Moraine shuttle',wx:'clear mornings show the peaks'},
  fn:{fact:'The impossible turquoise is “rock flour” — glacier-ground stone dust suspended in meltwater, scattering blue-green light.',
      pack:'Early alarm, warm hat for the 8 AM lakeshore, and grippy shoes for the Rockpile scramble.',
      food:'Afternoon tea or lunch at Deer Lodge — a 1920s log lodge steps from Lake Louise.',
@@ -684,6 +709,7 @@ const DAYS=[
  hero:'peyto',polas:[['mistaya','Mistaya\'s carved corridors'],['athabasca','Walking on the Athabasca ice']],
  ed:`The Icefields Parkway may be the most beautiful road on Earth, and today we drive it slowly. Peyto's wolf-shaped turquoise, a canyon carved through limestone, and — if the skies allow — our first look at ten-thousand-year-old glacial ice.`,
  plan:'North up the most beautiful road on Earth: Peyto\'s wolf-shaped lake, a picnic above Mistaya Canyon, and a decision at the Crossing — turn back easy, or push on to a 10,000-year-old glacier.',
+ glance:{drive:'3¾–4¾ hrs',walk:'~2 km, easy',star:'Peyto Lake viewpoint',book:'Ice Explorer (optional)',wx:'blue skies? push to the glacier'},
  fn:{fact:'The Columbia Icefield covers ~200 km² and feeds meltwater to three different oceans — Pacific, Arctic and Atlantic.',
      pack:'Full picnic (made at breakfast), all the layers, and a FULL TANK — no fuel beyond Lake Louise.',
      food:'Picnic at Mistaya Canyon: sandwiches with a limestone-canyon soundtrack.',
@@ -756,6 +782,8 @@ const DAYS=[
  hero:'grassiTrail',polas:[['grassiFalls','The waterfall below Grassi Lakes'],['spray','Spray Lakes, from the eagle\'s view']],
  ed:`A slower rhythm today. We climb to the twin turquoise pools above Canmore, wander a reservoir most tourists never find, and let the afternoon drift along a creekside boardwalk. Mountain life, at walking pace.`,
  plan:'A slow day done right: earn the twin turquoise pools above Canmore, lunch in town, wander a gravel road to Spray Lakes, and let the evening drift down a creekside boardwalk.',
+ glance:{drive:'~2 hr 30 min',walk:'~7 km, moderate',star:'pictographs at Grassi Lakes',book:'Kananaskis pass',wx:'trail works even in light rain'},
+ glance:{drive:'~5 hr 20 min',walk:'~8 km, easy',star:'Takakkaw Falls',book:'none needed',wx:'swap with Day 4 if forecast favors one'},
  fn:{fact:'Near Upper Grassi Lake are ancient Indigenous pictographs — rock paintings hundreds of years old.',
      pack:'Proper shoes for rocky switchbacks, water bottles, and patience for photo stops on the Smith-Dorrien.',
      food:'Downtown Canmore café culture — grab a bakery treat on Main Street after the hike.',
@@ -783,6 +811,7 @@ const DAYS=[
  hero:'johnston',polas:[['agnes','The tea house at Lake Agnes'],['herbert','One more quiet lake']],
  ed:`A blank page, on purpose. Today the weather writes the itinerary — a teahouse in the clouds, a canyon catwalk, or one more quiet lake. Whatever we choose over breakfast will be the right choice.`,
  plan:'No plan — that\'s the plan. Check the sky over breakfast, pick a teahouse hike, a canyon catwalk, or one more quiet lake. Be packed by dark; tomorrow starts at 4:45.',
+ glance:{drive:'1–3 hrs',walk:'your choice',star:'teahouse, canyon or lake',book:'none needed',wx:'the sky decides today'},
  fn:{fact:'The Lake Agnes Tea House has been serving hikers since 1905 — supplies still arrive largely by helicopter and horseback.',
      pack:'Decided at breakfast! Hiking shoes regardless; cash for the teahouse if that wins.',
      food:'Tea and fresh-baked bread at 2,135 m — if the sky cooperates.',
@@ -810,6 +839,7 @@ const DAYS=[
  hero:'yyc',polas:[['cochraneAir','Cochrane from the climb-out'],['moraineClassic','One last look back']],
  ed:`Every story earns its ending. We slip out before dawn, trade mountains for clouds, and carry home a week of turquoise water and golden light. Until next time, Rockies.`,
  plan:'Out before dawn, keys in the rental drop box, one last long look at the Rockies from the departure lounge — and home with a week of turquoise in your pocket.',
+ glance:{drive:'~40 min',walk:'airport only',star:'last Rockies view at takeoff',book:'none needed',wx:'pre-dawn = zero traffic'},
  fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies stays in view for several minutes — grab a window seat on the mountain side.',
      pack:'Everything! Passports handy, snacks in carry-ons, and one last check of the room before leaving.',
      food:'Airport breakfast at YYC — the trip\'s least scenic, most necessary meal.',
@@ -877,7 +907,9 @@ function renderDay(n){
         <span class="daynum">Chapter ${d.n} of 8</span>
         <h1>Day ${d.n} — ${d.title}</h1>
         <div class="ddate">${d.sub}</div>
-        <span class="drive-chip">🚗 ${d.drive}</span>
+        <div class="glance">
+          <span>🚗 ${d.glance.drive}</span><span>🥾 ${d.glance.walk}</span><span>⭐ ${d.glance.star}</span><span>🎫 ${d.glance.book}</span><span>☔ ${d.glance.wx}</span>
+        </div>
       </div>
     </div>
     <svg class="mtn-divider flip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--pine-deep);margin-top:-1px">
@@ -901,7 +933,6 @@ function renderDay(n){
               <dt>Fun fact</dt><dd>${d.fn.fact}</dd>
               <dt>What to pack</dt><dd>${d.fn.pack}</dd>
               <dt>Taste of the day</dt><dd>${d.fn.food}</dd>
-              <dt>Drive & walk times</dt><dd>${d.fn.drive}</dd>
             </dl></div>
           </details>
           <div class="side-collage">
