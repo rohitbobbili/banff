@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banff, September 2026 — Our Rocky Mountain Story</title>
+<meta name="description" content="A family travel catalog for eight days in the Canadian Rockies — Banff, Lake Louise, the Icefields Parkway, Yoho, Kootenay and Kananaskis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine:#1b3a2d; --pine-deep:#122b20; --turq:#2ea6a0; --turq-bright:#3fc1bb;
+  --larch:#d9a441; --larch-soft:#e8c37a; --cream:#f6f1e7; --paper:#fbf8f1;
+  --ink:#22301f; --ink-soft:#4c5a4a; --rust:#b4552d;
+  --serif:"Playfair Display",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  --shadow:0 18px 50px rgba(18,43,32,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+h1,h2,h3,h4,.serif{font-family:var(--serif)}
+::selection{background:var(--larch-soft)}
+
+/* ---------- top bar ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--turq),var(--larch));z-index:60}
+#topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:.75rem;
+  padding:.55rem .9rem;background:rgba(251,248,241,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(27,58,45,.12);transform:translateY(-110%);transition:transform .4s ease}
+#topbar.show{transform:translateY(0)}
+#topbar .brand{font-family:var(--serif);font-weight:600;font-size:.95rem;color:var(--pine);white-space:nowrap}
+#homeBtn{background:none;border:1px solid rgba(27,58,45,.25);border-radius:999px;padding:.25rem .8rem;font-size:.78rem;color:var(--pine)}
+#homeBtn:hover{background:var(--pine);color:var(--cream)}
+#dayDots{display:flex;gap:.35rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+#dayDots::-webkit-scrollbar{display:none}
+#dayDots button{width:30px;height:30px;border-radius:50%;border:1px solid rgba(27,58,45,.25);background:none;
+  font-size:.72rem;font-weight:600;color:var(--pine);flex:0 0 auto;transition:all .25s}
+#dayDots button:hover{border-color:var(--turq);color:var(--turq)}
+#dayDots button.on{background:var(--pine);color:var(--cream);border-color:var(--pine)}
+#shareBtn{border:none;background:var(--larch);color:#3d2c0d;border-radius:999px;padding:.35rem .9rem;font-size:.78rem;font-weight:600}
+#shareBtn:hover{background:var(--larch-soft)}
+#toast{position:fixed;bottom:1.4rem;left:50%;transform:translate(-50%,20px);background:var(--pine);color:var(--cream);
+  padding:.55rem 1.1rem;border-radius:999px;font-size:.82rem;opacity:0;pointer-events:none;transition:all .35s;z-index:80}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- hero (real Banff photo) ---------- */
+#hero{position:relative;height:100svh;min-height:560px;overflow:hidden;
+  background:linear-gradient(150deg,var(--pine) 0%,var(--turq) 55%,var(--larch) 120%)}
+#heroPhoto{position:absolute;inset:0}
+#heroPhoto img{width:100%;height:100%;object-fit:cover;filter:saturate(.96) contrast(1.05) sepia(.05)}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
+#heroPhoto img{animation:kenburns 24s ease-in-out infinite alternate}
+#hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(18,43,32,.32),rgba(18,43,32,.12) 42%,rgba(18,43,32,.62))}
+#hero.fail #heroPhoto{display:none}
+/* ---------- 3D route map ---------- */
+#routeMap{position:relative;height:74svh;min-height:460px;overflow:hidden;background:linear-gradient(#cfe4e0,#eef4ef)}
+#hero3d{position:absolute;inset:0;width:100%;height:100%}
+#heroFallback{position:absolute;inset:0;display:none;
+  background:linear-gradient(180deg,#9fc6c2 0%,#5c8f83 45%,#1b3a2d 46%,#122b20 70%,#d9a441 71%,#1b3a2d 72%,#122b20 100%)}
+#routeMap.no3d #heroFallback{display:block}
+.route-head{position:absolute;top:1.6rem;left:0;right:0;z-index:3;text-align:center;pointer-events:none}
+.route-head h2{font-size:clamp(1.4rem,3vw,2rem);color:var(--pine-deep)}
+.route-head p{font-size:.8rem;color:var(--ink-soft)}
+#pinLabels{position:absolute;inset:0;pointer-events:none;z-index:2}
+.pin-label{position:absolute;transform:translate(-50%,-130%);background:rgba(251,248,241,.9);color:var(--pine);
+  font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:999px;border:1px solid rgba(27,58,45,.2);
+  white-space:nowrap;opacity:0;transition:opacity .3s}
+.pin-label.vis{opacity:1}
+.hero-copy{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:1.2rem;pointer-events:none}
+.hero-copy .kicker{letter-spacing:.35em;text-transform:uppercase;font-size:.72rem;color:var(--cream);
+  background:rgba(18,43,32,.42);border:1px solid rgba(246,241,231,.35);backdrop-filter:blur(4px);
+  padding:.3rem .9rem;border-radius:999px;margin-bottom:1rem}
+.hero-copy h1{font-size:clamp(2.4rem,7vw,5.2rem);font-weight:800;color:var(--cream);line-height:1.05;
+  text-shadow:0 4px 34px rgba(18,43,32,.85)}
+.hero-copy h1 em{font-style:italic;color:var(--larch-soft);display:block;font-size:.55em;font-weight:400;margin-top:.4rem}
+.hero-copy .dates{margin-top:1.1rem;font-size:.9rem;color:var(--cream);background:rgba(18,43,32,.42);
+  border:1px solid rgba(246,241,231,.3);backdrop-filter:blur(4px);padding:.35rem 1rem;border-radius:999px}
+.hero-hint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:3;font-size:.75rem;color:var(--pine);
+  background:rgba(251,248,241,.85);padding:.3rem .9rem;border-radius:999px;pointer-events:none}
+.scroll-cue{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;
+  border:2px solid var(--cream);border-radius:14px;pointer-events:none}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;
+  border-radius:2px;background:var(--cream);animation:cue 1.8s infinite}
+@keyframes cue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(14px);opacity:0}100%{opacity:0}}
+
+/* ---------- mountain divider ---------- */
+.mtn-divider{display:block;width:100%;height:60px;color:var(--pine)}
+.mtn-divider.flip{transform:scaleY(-1)}
+
+/* ---------- cover sections ---------- */
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.2rem}
+.cover-intro{padding:4rem 0 2rem;text-align:center}
+.cover-intro p.lead{font-family:var(--serif);font-size:clamp(1.15rem,2.4vw,1.5rem);font-style:italic;
+  color:var(--pine);max-width:44rem;margin:0 auto 2.4rem}
+.eyebrow{letter-spacing:.3em;text-transform:uppercase;font-size:.7rem;color:var(--rust);display:block;margin-bottom:.8rem}
+
+/* weather widget */
+.weather{display:inline-flex;align-items:center;gap:1.2rem;background:var(--paper);border:1px solid rgba(27,58,45,.12);
+  border-radius:20px;padding:1rem 1.6rem;box-shadow:var(--shadow);flex-wrap:wrap;justify-content:center}
+.wx-scene{position:relative;width:74px;height:64px}
+.wx-sun{position:absolute;top:4px;left:8px;width:30px;height:30px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#ffe9ad,var(--larch));box-shadow:0 0 18px rgba(217,164,65,.8);
+  animation:wxsun 6s ease-in-out infinite}
+@keyframes wxsun{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.wx-cloud{position:absolute;bottom:14px;left:18px;width:44px;height:16px;border-radius:999px;background:#fff;
+  box-shadow:-10px 4px 0 -2px #fff,12px 4px 0 -3px #fff;animation:wxcloud 8s ease-in-out infinite}
+@keyframes wxcloud{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
+.wx-flake{position:absolute;top:0;font-size:.6rem;color:var(--turq);animation:wxflake 5s linear infinite;opacity:0}
+.wx-flake:nth-child(4){left:56px;animation-delay:2.2s}
+@keyframes wxflake{0%{transform:translateY(6px);opacity:0}20%{opacity:.9}100%{transform:translateY(52px);opacity:0}}
+.wx-text{text-align:left;font-size:.82rem;color:var(--ink-soft)}
+.wx-text strong{display:block;font-family:var(--serif);font-size:1.05rem;color:var(--pine)}
+.wx-temps{display:flex;gap:1rem;margin-top:.2rem}
+.wx-temps span b{color:var(--turq);font-size:1.05rem}
+.wx-temps span:last-child b{color:var(--rust)}
+
+/* chapter cards */
+.chapters{padding:2.5rem 0 5rem}
+.chapters h2{text-align:center;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--pine);margin-bottom:.4rem}
+.chapters .sub{text-align:center;color:var(--ink-soft);font-size:.9rem;margin-bottom:2.4rem}
+#cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.3rem}
+.card{position:relative;border-radius:18px;overflow:hidden;background:var(--pine);color:var(--cream);
+  aspect-ratio:3/4;text-align:left;border:none;box-shadow:var(--shadow);
+  transition:transform .45s cubic-bezier(.2,.9,.3,1.2),box-shadow .45s;display:block;width:100%}
+.card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 26px 60px rgba(18,43,32,.32)}
+.card .ph{position:absolute;inset:0;border-radius:0}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.card:hover .ph img{transform:scale(1.07)}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,43,32,0) 30%,rgba(18,43,32,.88) 88%)}
+.card .meta{position:absolute;left:0;right:0;bottom:0;padding:1.1rem;z-index:2}
+.card .daynum{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--larch-soft)}
+.card h3{font-size:1.25rem;margin:.25rem 0 .15rem;line-height:1.2}
+.card .cdate{font-size:.75rem;opacity:.85}
+.card .go{position:absolute;top:.9rem;right:.9rem;z-index:2;width:34px;height:34px;border-radius:50%;
+  background:rgba(251,248,241,.2);backdrop-filter:blur(4px);display:grid;place-items:center;font-size:1rem;color:var(--cream);
+  border:1px solid rgba(251,248,241,.4);transition:all .3s}
+.card:hover .go{background:var(--larch);color:#3d2c0d}
+
+/* ---------- photos / collage ---------- */
+.ph{position:relative;overflow:hidden;border-radius:14px;background:linear-gradient(150deg,var(--pine) 0%,var(--turq) 55%,var(--larch) 120%)}
+.ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.94) contrast(1.06) sepia(.07)}
+.ph::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(160deg,rgba(27,58,45,.28),rgba(46,166,160,.14) 50%,rgba(217,164,65,.22));mix-blend-mode:soft-light}
+.ph.fail::before{content:attr(data-loc);position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--cream);text-align:center;padding:1rem;z-index:2}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:1.6rem .9rem .6rem;font-size:.72rem;
+  font-style:italic;color:var(--cream);background:linear-gradient(transparent,rgba(18,43,32,.75))}
+
+/* ---------- day view ---------- */
+.view{animation:viewin .6s ease both}
+@keyframes viewin{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.day-head{position:relative;min-height:78svh;display:flex;align-items:flex-end;overflow:hidden;
+  padding:7rem 1.2rem 3rem;background:var(--pine-deep)}
+.day-head .bg{position:absolute;inset:0;border-radius:0}
+.day-head .bg img{height:100%}
+.day-head::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,43,32,.35),rgba(18,43,32,.05) 40%,rgba(18,43,32,.82));z-index:1}
+.day-head .head-copy{position:relative;z-index:3;max-width:1080px;margin:0 auto;width:100%;color:var(--cream)}
+.day-head .daynum{letter-spacing:.35em;text-transform:uppercase;font-size:.75rem;color:var(--larch-soft)}
+.day-head h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.06;margin:.5rem 0;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+.day-head .ddate{font-size:.95rem;opacity:.9}
+.day-head .drive-chip{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;font-size:.78rem;
+  background:rgba(251,248,241,.16);border:1px solid rgba(251,248,241,.35);padding:.3rem .9rem;border-radius:999px;backdrop-filter:blur(4px)}
+.polas{position:absolute;right:3%;top:12%;z-index:2;display:flex;gap:1rem}
+.pola{width:clamp(120px,16vw,210px);background:var(--paper);padding:.5rem .5rem 2rem;border-radius:6px;
+  box-shadow:0 16px 40px rgba(0,0,0,.35);transform:rotate(4deg);transition:transform .5s;will-change:transform}
+.pola:first-child{transform:rotate(-5deg) translateY(22px)}
+.pola .ph{border-radius:3px;aspect-ratio:4/5}
+.pola .pcap{font-family:var(--serif);font-style:italic;font-size:.68rem;color:var(--ink-soft);text-align:center;margin-top:.45rem}
+@media (max-width:720px){.polas{position:static;justify-content:center;margin-bottom:1.4rem}.day-head{padding-top:5.5rem}}
+
+.day-body{max-width:1080px;margin:0 auto;padding:3rem 1.2rem 6rem;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:3rem}
+@media (max-width:900px){.day-body{grid-template-columns:1fr}}
+.ed-note{font-family:var(--serif);font-size:clamp(1.05rem,2vw,1.3rem);font-style:italic;color:var(--pine);
+  border-left:3px solid var(--larch);padding-left:1.2rem;margin-bottom:2.6rem}
+.ed-note .eyebrow{font-family:var(--sans);font-style:normal}
+
+/* timeline */
+.tl{position:relative;padding-left:2rem}
+.tl-track{position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:rgba(27,58,45,.14);border-radius:2px}
+.tl-fill{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(var(--turq),var(--larch));
+  transform-origin:top;transform:scaleY(0);border-radius:2px}
+.stop{position:relative;padding:0 0 2.2rem}
+.stop::before{content:"";position:absolute;left:-1.62rem;top:.45rem;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--turq);z-index:2;transition:all .3s}
+.stop:hover::before{background:var(--larch);border-color:var(--pine)}
+.stop .when{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;margin-bottom:.3rem}
+.stop .time{font-weight:600;font-size:.88rem;color:var(--pine)}
+.chip{font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.14rem .55rem;border-radius:999px}
+.chip.ARRIVE{background:rgba(46,166,160,.16);color:#17615d}
+.chip.DEPART{background:rgba(217,164,65,.22);color:#7a5410}
+.chip.START{background:rgba(27,58,45,.12);color:var(--pine)}
+.chip.OPTION{background:rgba(180,85,45,.14);color:var(--rust)}
+.chip.NOTE{background:rgba(180,85,45,.14);color:var(--rust)}
+.stop h3{font-size:1.2rem;color:var(--pine-deep);margin-bottom:.25rem}
+.stop p.desc{font-size:.9rem;color:var(--ink-soft);max-width:38rem}
+.stat-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.55rem}
+.stat{font-size:.7rem;background:var(--paper);border:1px solid rgba(27,58,45,.15);border-radius:999px;padding:.18rem .6rem;color:var(--ink-soft)}
+.ticket,.warn,.moment{margin-top:.7rem;border-radius:12px;padding:.7rem .9rem;font-size:.8rem;max-width:38rem}
+.ticket{background:#fdf3e0;border:1px dashed var(--larch);color:#6a4a10}
+.warn{background:#faeae2;border:1px dashed var(--rust);color:#7c3a1c}
+.moment{background:#e8f4f2;border:1px solid rgba(46,166,160,.35);color:#175a56;font-style:italic;font-family:var(--serif)}
+.moment b{font-family:var(--sans);font-style:normal;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:.2rem;color:var(--turq)}
+.searchline{margin-top:.5rem;font-size:.72rem;color:#7d8a7b}
+.searchline span{display:block}
+.stop ul.plain{margin:.5rem 0 0 1.1rem;font-size:.85rem;color:var(--ink-soft)}
+
+/* reveal */
+.rev{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rev.in{opacity:1;transform:none}
+
+/* sidebar */
+.sidebar{position:relative}
+.fn-card{background:var(--paper);border:1px solid rgba(27,58,45,.12);border-radius:16px;box-shadow:var(--shadow);
+  overflow:hidden;margin-bottom:1.1rem}
+.fn-card summary{list-style:none;cursor:pointer;padding:.9rem 1.1rem;font-family:var(--serif);font-weight:600;
+  color:var(--pine);display:flex;justify-content:space-between;align-items:center;font-size:.98rem}
+.fn-card summary::-webkit-details-marker{display:none}
+.fn-card summary::after{content:"+";font-size:1.2rem;color:var(--larch);transition:transform .3s}
+.fn-card[open] summary::after{transform:rotate(45deg)}
+.fn-card .fn-body{padding:0 1.1rem 1rem;font-size:.82rem;color:var(--ink-soft)}
+.fn-body dt{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin-top:.7rem}
+.fn-body dd{margin:0}
+.side-collage{display:grid;gap:.8rem}
+.side-collage .ph{aspect-ratio:4/3;transform-style:preserve-3d;transition:transform .35s;will-change:transform}
+@media (min-width:901px){.sidebar .sticky{position:sticky;top:4.5rem}}
+
+/* day nav arrows */
+.dayArrow{position:fixed;top:50%;transform:translateY(-50%);z-index:40;width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(27,58,45,.2);background:rgba(251,248,241,.85);backdrop-filter:blur(6px);color:var(--pine);
+  font-size:1.2rem;display:none;align-items:center;justify-content:center;transition:all .3s}
+.dayArrow:hover{background:var(--pine);color:var(--cream)}
+#prevDay{left:.7rem}#nextDay{right:.7rem}
+body[data-view="day"] .dayArrow{display:flex}
+.day-footer-nav{max-width:1080px;margin:0 auto;padding:0 1.2rem 4rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.day-footer-nav button{background:var(--paper);border:1px solid rgba(27,58,45,.18);border-radius:14px;padding:.8rem 1.2rem;
+  text-align:left;font-size:.8rem;color:var(--ink-soft);flex:1;min-width:200px;transition:all .3s}
+.day-footer-nav button b{display:block;font-family:var(--serif);font-size:1rem;color:var(--pine)}
+.day-footer-nav button:hover{border-color:var(--turq);transform:translateY(-3px);box-shadow:var(--shadow)}
+
+/* lightbox */
+#lightbox{position:fixed;inset:0;z-index:90;background:rgba(18,43,32,.92);display:none;place-items:center;padding:2rem;cursor:zoom-out}
+#lightbox.open{display:grid}
+#lightbox img{max-width:min(92vw,1100px);max-height:84vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+#lightbox .lb-cap{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);color:var(--cream);
+  font-family:var(--serif);font-style:italic;font-size:.9rem;text-align:center;max-width:80vw}
+
+/* expand transition overlay */
+#zoomer{position:fixed;z-index:70;border-radius:18px;overflow:hidden;pointer-events:none;
+  transition:all .55s cubic-bezier(.6,.05,.3,1);background-size:cover;background-position:center;display:none}
+
+footer.site{background:var(--pine-deep);color:rgba(246,241,231,.8);text-align:center;padding:3.5rem 1.2rem;font-size:.82rem}
+footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--cream);display:block;margin-bottom:.6rem}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rev{opacity:1;transform:none}
+  .tl-fill{transform:scaleY(1)!important}
+}
+</style>
+</head>
+<body data-view="cover">
+<div id="progress" aria-hidden="true"></div>
+
+<header id="topbar">
+  <button id="homeBtn" aria-label="Back to cover">⌂ Cover</button>
+  <span class="brand">Banff · Sept 2026</span>
+  <nav id="dayDots" aria-label="Jump to a day"></nav>
+  <button id="shareBtn" aria-label="Copy link to share">Share ↗</button>
+</header>
+
+<main id="main">
+  <!-- ============ COVER ============ -->
+  <section id="cover" class="view" aria-label="Trip cover">
+    <div id="hero">
+      <div id="heroPhoto" aria-hidden="false"></div>
+      <div class="hero-copy">
+        <span class="kicker">A Family Field Guide · Eight Days</span>
+        <h1>Banff, September 2026<em>Our Rocky Mountain Story</em></h1>
+        <span class="dates">September 19 – 26 · Calgary → Cochrane → the Canadian Rockies</span>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"></div>
+    </div>
+
+    <section id="routeMap" aria-label="Interactive 3D route map">
+      <canvas id="hero3d" aria-hidden="true"></canvas>
+      <div id="heroFallback" aria-hidden="true"></div>
+      <div id="pinLabels" aria-hidden="true"></div>
+      <div class="route-head">
+        <h2>The Route, in Miniature</h2>
+        <p>Eight days scattered across the Rockies</p>
+      </div>
+      <div class="hero-hint" id="heroHint">✦ Tap a glowing pin to fly into that day</div>
+    </section>
+
+    <svg class="mtn-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" d="M0,60 L0,42 L90,18 L160,38 L260,6 L340,34 L430,14 L520,40 L610,10 L700,36 L790,18 L880,42 L970,12 L1060,34 L1140,20 L1200,44 L1200,60 Z"/>
+    </svg>
+
+    <div class="cover-intro wrap">
+      <span class="eyebrow">Editor's Welcome</span>
+      <p class="lead">"Eight days, three national parks, and more shades of turquoise than we have names for. This is the week we've been waiting for — printed here in light, pixels, and anticipation."</p>
+      <div class="weather" role="group" aria-label="Typical September weather in Banff">
+        <div class="wx-scene" aria-hidden="true">
+          <div class="wx-sun"></div><div class="wx-cloud"></div>
+          <span class="wx-flake" style="left:8px">❄</span><span class="wx-flake">❄</span>
+        </div>
+        <div class="wx-text">
+          <strong>Late September in the Rockies</strong>
+          Crisp mornings, golden larches, possible dustings of snow up high.
+          <div class="wx-temps"><span>High <b>~16°C</b></span><span>Low <b>~3°C</b></span><span>Layers <b>always</b></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapters wrap">
+      <h2>The Chapters</h2>
+      <p class="sub">One page per day. Tap any card to step inside.</p>
+      <div id="cards"></div>
+    </div>
+
+    <footer class="site">
+      <span class="serif">"The mountains are calling — and this time, we're all going."</span>
+      Made with love for the whole family · September 19–26, 2026 · Banff · Yoho · Kootenay · Kananaskis
+    </footer>
+  </section>
+
+  <!-- ============ DAY VIEW (rendered by JS) ============ -->
+  <section id="day" class="view" hidden></section>
+</main>
+
+<button id="prevDay" class="dayArrow" aria-label="Previous day">‹</button>
+<button id="nextDay" class="dayArrow" aria-label="Next day">›</button>
+<div id="zoomer" aria-hidden="true"></div>
+<div id="lightbox" role="dialog" aria-label="Photo lightbox"><img alt=""><div class="lb-cap"></div></div>
+<div id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script>
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MOBILE = matchMedia('(max-width:720px)').matches;
+
+/* ================= imagery =================
+   Public Unsplash photos of Rockies-style scenery; every frame
+   falls back to a styled gradient with the location name. */
+const U=(id)=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=70`;
+const IMGS={
+  moraine:[U('1503614472-8c93d56e92ce'),'Turquoise glacial lake beneath the Valley of the Ten Peaks'],
+  canoe:[U('1476514525535-07fb3b4ae5f1'),'Canoes resting on still emerald water beneath the peaks'],
+  range:[U('1464822759023-fed622ff2c3b'),'Sunlit rocky mountain range under a clear sky'],
+  peak:[U('1506905925346-21bda4d32df4'),'A snow-dusted summit rising above the valley'],
+  mist:[U('1454496522488-7a8e488e8606'),'Mist drifting through layered mountain ridgelines'],
+  stars:[U('1519681393784-d120267933ba'),'Stars over moonlit snowy peaks at dusk'],
+  lake:[U('1439066615861-d1af74d74000'),'A calm alpine lake ringed by evergreens'],
+  forest:[U('1441974231531-c6227db76b6e'),'Morning light falling through a pine forest'],
+  hills:[U('1470071459604-3b5ec3a7fe05'),'Soft fog rolling over forested foothills'],
+  road:[U('1469854523086-cc02fe5d8800'),'An open highway running toward the mountains'],
+  falls:[U('1433086966358-54859d0ed716'),'A waterfall pouring past a wooden footbridge'],
+  valley:[U('1458668383970-8ddd3927deed'),'A broad green valley walled by high peaks'],
+  snowforest:[U('1418065460487-3e41a6c84dc5'),'Fresh snow on an evergreen mountainside'],
+  goldfield:[U('1472214103451-9374bd1c798e'),'Golden morning light across open foothill country'],
+  lakeset:[U('1501785888041-af3ef285b470'),'Evening alpenglow over a mountain lake'],
+  plane:[U('1436491865332-7a61a109cc05'),'An airliner climbing into a soft morning sky'],
+};
+function ph(key,loc,cap,cls=''){
+  const [src,alt]=IMGS[key];
+  return `<figure class="ph ${cls}" data-loc="${loc}">
+    <img loading="lazy" src="${src}" alt="${alt} — ${loc}"
+     onerror="this.closest('.ph').classList.add('fail');this.remove()">
+    ${cap?`<figcaption>${cap}</figcaption>`:''}</figure>`;
+}
+
+/* ================= itinerary data ================= */
+const DAYS=[
+{n:1,date:'Saturday, September 19',title:'Arrival & the Foothills',sub:'Calgary → Cochrane',drive:'~45 min driving',
+ hero:'goldfield',polas:[['hills','First evening, first fog'],['forest','Foothill pines at dusk']],
+ ed:`Every story needs a threshold. Ours opens on the prairie's edge in Cochrane, where the foothills gather themselves before becoming mountains. Tonight we stock the cooler, walk the old ranche, and sleep early — the Rockies are waiting.`,
+ fn:{fact:'Cochrane sits on the Bow River — the same water we\'ll follow all week, from Bow Lake to Bow Falls.',
+     pack:'Comfy travel clothes, a light jacket for the evening, and the grocery list (below).',
+     food:'Cochrane is famous for MacKay\'s Ice Cream — a local institution since 1948. Dessert before dinner is allowed on arrival day.',
+     drive:'YYC → Cochrane: ~45 min. Easy day on purpose.'},
+ stops:[
+  {t:'12:00 PM',type:'ARRIVE',name:'Calgary International Airport (YYC)',desc:'Wheels down! Grab a quick bite at the airport or on the drive if anyone is hungry.',search:['Calgary International Airport, Calgary AB']},
+  {t:'~1:30 PM',type:'DEPART',name:'Drive to Cochrane',desc:'About 45 minutes west as the prairie starts to ripple into foothills. First one to spot a mountain silhouette wins.',
+   moment:'Somewhere on Highway 1A the horizon stops being flat. Make spotting the first peak a family contest.'},
+  {t:'~2:15 PM',type:'ARRIVE',name:'Cochrane — check in',desc:'Check in, or drop the luggage if the room isn\'t ready, and shake off the flight.'},
+  {t:'Afternoon',type:'START',name:'Grocery run for the week',desc:'One big stock-up so every day after this is picnic-ready:',
+   list:['Picnic supplies — sandwiches, wraps, cheese, crackers','Snacks — granola bars, trail mix, fruit','Water & drinks + electrolyte packets','Breakfast items for the week','Paper towels / napkins'],
+   search:['Walmart Cochrane','Sobeys Cochrane']},
+  {t:'Late afternoon',type:'START',name:'Explore Downtown Cochrane',desc:'Western storefronts, coffee, and small-town charm at the gateway to the Rockies.',search:['Downtown Cochrane, Cochrane AB']},
+  {t:'Golden hour',type:'ARRIVE',name:'Historic Cochrane Ranche',desc:'A scenic hilltop site with sweeping views of the Bow River valley and surrounding foothills — the perfect easy first stop to stretch travel-day legs.',
+   stats:['Easy walking','Sweeping valley views'],search:['Historic Cochrane Ranche, Cochrane AB']},
+  {t:'Evening',type:'START',name:'Dinner in Cochrane',desc:'Early night — big day tomorrow!'}
+ ]},
+
+{n:2,date:'Sunday, September 20',title:'Banff Highlights & Vermilion Dusk',sub:'Gondola · Minnewanka · sunset reflections',drive:'~2 hr 45 min driving',
+ hero:'range',polas:[['peak','Six ranges from the summit boardwalk'],['lakeset','Waiting on stillness at Vermilion']],
+ ed:`Banff introduces itself all at once — a waterfall, a castle in the trees, a gondola rising into thin blue air. By evening, if the wind holds its breath, Mount Rundle will lay itself down twice: once in stone, once in still water.`,
+ fn:{fact:'Bow Falls appeared in the 1953 Marilyn Monroe film “River of No Return.”',
+     pack:'Warm layer for the 2,281 m summit — it can be 10° colder up top. Camera charged for sunset.',
+     food:'Banff Avenue poutine or a BeaverTail pastry — the official taste of a Canadian mountain town.',
+     drive:'Cochrane → Banff via Bow Valley Parkway ~1 hr 15 min; Banff → Cochrane ~50 min at night.'},
+ stops:[
+  {t:'8:30 AM',type:'DEPART',name:'Bow Valley Parkway (Highway 1A)',desc:'The slow, beautiful way in — about 1 hr 15 min. Eyes out the windows: elk, deer, and bighorn sheep favour this quiet road.',search:['Bow Valley Parkway, Highway 1A, Banff National Park AB']},
+  {t:'9:45 AM',type:'ARRIVE',name:'Bow Falls Viewpoint + Surprise Corner',desc:'A classic 9 m waterfall on the Bow River with wide views of Mount Rundle downstream — then Surprise Corner\'s sudden reveal of the Fairmont Banff Springs, the “Castle in the Rockies,” framed by river and mountain. One of Banff\'s most iconic photo stops.',
+   stats:['0.7 km / 0.4 mi round trip','~15–20 min','Easy · flat · paved'],search:['Bow Falls Viewpoint, Banff AB','Surprise Corner Viewpoint, Banff AB']},
+  {t:'10:30 AM',type:'START',name:'Banff Gondola — Sulphur Mountain',desc:'A cable car rising to 2,281 m with 360° panoramas of six mountain ranges. Summit boardwalk, interpretive centre, and a rooftop observation deck. Plan ~1.5–2 hrs round trip.',
+   stats:['Boardwalk 1 km / 0.6 mi','~30–45 min at the top','Gondola ~8 min each way'],
+   ticket:'🎫 TICKET REQUIRED — book ahead at banffjaspercollection.com. ~CA$89.95/person at the gate, 5–10% cheaper online; can sell out in peak season. Free shuttle from Banff Ave with a pre-booked ticket.',
+   moment:'The moment the summit boardwalk opens onto six mountain ranges at once — count them together.',
+   search:['Banff Gondola, 100 Mountain Ave, Banff AB']},
+  {t:'12:30 PM',type:'START',name:'Lunch in Downtown Banff',desc:'Refuel on Banff Avenue.',search:['Downtown Banff, Banff Ave, Banff AB']},
+  {t:'1:30 PM',type:'ARRIVE',name:'Lake Minnewanka & Two Jack Lake loop',desc:'Minnewanka is the largest lake in Banff National Park, wrapped in dramatic scenery; Two Jack next door is just as stunning with fewer crowds. Easy, flat lakeside walking and endless photo angles.',
+   stats:['Easy · flat lakeside paths'],search:['Lake Minnewanka, Banff AB','Two Jack Lake, Banff AB']},
+  {t:'3:30–5:30 PM',type:'START',name:'Banff Avenue',desc:'Shops, coffee, and people-watching under Cascade Mountain. Earned downtime.',search:['Banff Avenue, Banff AB']},
+  {t:'5:30 PM',type:'START',name:'Dinner in Downtown Banff',desc:'Check the wind forecast over dinner — calm air means reflections at Vermilion.',search:['Downtown Banff, Banff AB']},
+  {t:'~7:15 PM',type:'ARRIVE',name:'Vermilion Lakes at sunset',desc:'Three shallow lakes just west of town; Second Lake is the prime spot, with Mount Rundle mirrored in still water as the sun sets behind the Vermilion Range. Watch for elk, beavers, bald eagles, and osprey. If it\'s windy or everyone\'s tired, skip guilt-free and head home.',
+   warn:'Weather & energy permitting — calm wind is essential for good reflections.',
+   moment:'Mountains twice: once in rock, once in water. The photo everyone will set as their wallpaper.',
+   search:['Vermilion Lakes, Vermilion Lakes Rd, Banff AB']},
+  {t:'~8:15 PM',type:'DEPART',name:'Back to Cochrane',desc:'~50 minutes home under the first stars.'}
+ ]},
+
+{n:3,date:'Monday, September 21',title:'Lakes of Turquoise',sub:'Moraine Lake · Lake Louise',drive:'~3 hrs driving',
+ hero:'moraine',polas:[['canoe','Emerald water, red canoes'],['mist','Victoria Glacier through morning haze']],
+ ed:`Some colors have to be seen to be believed. Today we stand on the Rockpile at Moraine Lake — the view once printed on the back of the twenty-dollar bill — then walk the quiet shoreline of Lake Louise beneath the hanging ice of the Victoria Glacier.`,
+ fn:{fact:'The impossible turquoise is “rock flour” — glacier-ground stone dust suspended in meltwater, scattering blue-green light.',
+     pack:'Early alarm, warm hat for the 8 AM lakeshore, and grippy shoes for the Rockpile scramble.',
+     food:'Afternoon tea or lunch at Deer Lodge — a 1920s log lodge steps from Lake Louise.',
+     drive:'Cochrane → Lake Louise ~1.5 hr each way, plus the 20-min shuttle to Moraine.'},
+ stops:[
+  {t:'6:30 AM',type:'DEPART',name:'Leave Cochrane',desc:'Dawn start — about 1.5 hrs to Lake Louise. Sunrise over the Bow Valley is the reward for early alarms.'},
+  {t:'8:00 AM',type:'ARRIVE',name:'Deer Lodge — park here',desc:'Our parking base for the whole day.',search:['Deer Lodge, 109 Lake Louise Dr, Lake Louise AB']},
+  {t:'Before shuttle',type:'START',name:'Coffee in Lake Louise Village',desc:'If time allows before boarding.',search:['Lake Louise Village, Lake Louise AB']},
+  {t:'10:00 AM',type:'START',name:'Shuttle to Moraine Lake',desc:'Pre-booked shuttle departs from the Deer Lodge parking lot; travel time ~20 min. Return buses run hourly — hop one back whenever we\'re ready.'},
+  {t:'10:20 AM–1:30 PM',type:'ARRIVE',name:'Moraine Lake — unhurried',desc:'One of the most photographed lakes in Canada, glacier-fed and ringed by the Valley of the Ten Peaks. The Rockpile viewpoint delivers the iconic panorama once featured on the old Canadian $20 bill.',
+   stats:['Rockpile Trail 0.8 km / 0.5 mi','~20–30 min','Easy-moderate · short steep rocky scramble'],
+   moment:'Scrambling up the Rockpile and turning around — that collective gasp is the whole trip in one second.',
+   search:['Moraine Lake, Improvement District No. 9, AB']},
+  {t:'1:30 PM',type:'DEPART',name:'Return shuttle to Deer Lodge'},
+  {t:'2:00–2:45 PM',type:'START',name:'Lunch at Deer Lodge or the village',search:['Deer Lodge Restaurant, 109 Lake Louise Dr, Lake Louise AB','Lake Louise Village, Lake Louise AB']},
+  {t:'2:45–4:30 PM',type:'ARRIVE',name:'Lake Louise Lakeshore',desc:'The iconic emerald lake backed by the Victoria Glacier and the Fairmont Chateau. An easy, flat lakeshore stroll with mountain reflections the whole way.',
+   stats:['Lakeshore Trail 4 km / 2.5 mi round trip','~1–1.5 hrs','Easy · flat · paved'],search:['Lake Louise Lakeshore, Lake Louise AB']},
+  {t:'5:00 PM',type:'DEPART',name:'Back to Cochrane',desc:'~1.5 hr drive; dinner in Cochrane around 6:30 PM.'}
+ ]},
+
+{n:4,date:'Tuesday, September 22',title:'Icefields Parkway — South Push',sub:'Peyto · Mistaya · toward the glacier',drive:'~3 hr 45 min · ~4 hr 45 min with glacier extension',
+ hero:'valley',polas:[['peak','Mt. Athabasca\'s first appearance'],['snowforest','Ice country begins']],
+ ed:`The Icefields Parkway may be the most beautiful road on Earth, and today we drive it slowly. Peyto's wolf-shaped turquoise, a canyon carved through limestone, and — if the skies allow — our first look at ten-thousand-year-old glacial ice.`,
+ fn:{fact:'The Columbia Icefield covers ~200 km² and feeds meltwater to three different oceans — Pacific, Arctic and Atlantic.',
+     pack:'Full picnic (made at breakfast), all the layers, and a FULL TANK — no fuel beyond Lake Louise.',
+     food:'Picnic at Mistaya Canyon: sandwiches with a limestone-canyon soundtrack.',
+     drive:'Standard loop ~3 hr 45 min; add ~1 hr if we push to the Columbia Icefield.'},
+ stops:[
+  {t:'Before leaving',type:'NOTE',name:'Breakfast + pack the picnic',desc:'Eat in Cochrane and load sandwiches, snacks, and water for the whole day.'},
+  {t:'7:00 AM',type:'DEPART',name:'Leave Cochrane',desc:'~1.75 hr drive. We\'ll pass Bow Lake — a brief stop only if it\'s irresistible; the full stop comes on Day 5.'},
+  {t:'En route',type:'NOTE',name:'⛽ Fuel up — last chance',desc:'Fill the tank at Petro-Canada in Banff or Lake Louise before heading north. There are no fuel stops beyond this point.',search:['Petro-Canada Banff','Petro-Canada Lake Louise']},
+  {t:'~9:15 AM',type:'ARRIVE',name:'Peyto Lake Viewpoint (Bow Summit)',desc:'One of the most stunning viewpoints on the entire parkway. The lake\'s vivid turquoise and its distinctive wolf-head shape spread out below the upper viewpoint — widely considered the single best stop on the road.',
+   moment:'Everyone tries to decide: wolf, dog, or fox? The shape of the lake is the day\'s first debate.',
+   search:['Peyto Lake Viewpoint, Bow Summit, Icefields Parkway AB']},
+  {t:'~10:00 AM',type:'ARRIVE',name:'Waterfowl Lakes',desc:'Two glacially-fed lakes in the shadow of towering peaks, named for the birds that frequent them. Easy roadside pullouts, easy photos.',search:['Waterfowl Lakes, Icefields Parkway AB']},
+  {t:'~10:45 AM',type:'ARRIVE',name:'Mistaya Canyon — picnic here',desc:'The Mistaya River has carved a dramatically narrow canyon through limestone, all swirling potholes and channels. A short walk leads to a bridge directly over the chasm.',
+   stats:['0.8 km / 0.5 mi round trip','~20–30 min','Easy · well-maintained path'],search:['Mistaya Canyon, Icefields Parkway AB']},
+  {t:'~11:30 AM',type:'START',name:'Saskatchewan River Crossing — DECISION POINT',desc:'Where the North Saskatchewan, Howse and Mistaya rivers meet, and the only services between Lake Louise and Jasper. Mountain goats sometimes appear on the cliffs across the highway. Picnic here if we haven\'t already.',
+   warn:'Tired or weather turning? Head back — home by ~5:30–6:00 PM. Energized under clear skies? Continue to the glacier viewpoints below.',
+   search:['Saskatchewan River Crossing, Icefields Parkway AB']},
+  {t:'+15 min',type:'OPTION',name:'Weeping Wall',desc:'A cliff face on Cirrus Mountain where water cascades 100 m+ in a series of falls — the main one is called Teardrop. Roadside pullout, zero hiking.',search:['Weeping Wall, Icefields Parkway AB']},
+  {t:'+10 min',type:'OPTION',name:'Big Bend Viewpoint',desc:'The parkway sweeps through a dramatic hairpin as it climbs toward the icefield, with Bridal Veil Falls threading down the mountainside in the distance.',search:['Big Bend Viewpoint, Icefields Parkway AB']},
+  {t:'+5 min',type:'OPTION',name:'North Saskatchewan River Viewpoint',desc:'A panorama of the river far below — then, just around the corner, the first glimpse of Mt. Athabasca\'s ice-clad peak. A genuinely dramatic moment of road.',search:['North Saskatchewan River Viewpoint, Icefields Parkway AB']},
+  {t:'+10 min',type:'OPTION',name:'Columbia Icefield Discovery Centre',desc:'Free roadside viewing of the Athabasca Glacier face right from the parking lot — no ticket needed to see the ice. The Columbia Icefield is the largest mass of glacial ice in the Canadian Rockies.',
+   ticket:'🎫 OPTIONAL: Columbia Icefield Adventure (Ice Explorer + Skywalk) ~US$126/person. Tours every 15–30 min — walk-up is viable, but book ahead for certainty. Adds 2–3 hrs.',
+   moment:'Standing in a parking lot, casually watching a 10,000-year-old glacier hang off a mountain.',
+   search:['Columbia Icefield Discovery Centre, Icefields Parkway, Jasper AB']},
+  {t:'~1:00 PM',type:'DEPART',name:'Turn around',desc:'Home to Cochrane ~6:30–7:00 PM, full of glaciers.'}
+ ]},
+
+{n:5,date:'Wednesday, September 23',title:'Three Parks in One Day',sub:'Kootenay · Bow Lake · Yoho',drive:'~5 hr 20 min driving',
+ hero:'falls',polas:[['lake','Bow Lake\'s morning mirror'],['forest','Yoho: “awe and wonder” in Cree']],
+ ed:`Three parks in one sweeping day: Kootenay's marble slot canyon at dawn, Bow Lake's mirror at mid-morning, and Yoho's emerald water and thundering Takakkaw — a name that means "it is magnificent." It is.`,
+ fn:{fact:'“Takakkaw” means “it is magnificent” in Cree; at 373 m it\'s one of Canada\'s tallest waterfalls.',
+     pack:'Park pass (valid in Kootenay & Yoho too), rain shell for waterfall spray, canoe-curiosity for Emerald Lake.',
+     food:'Lunch at Emerald Lake Lodge — a table with one of the best views in the Rockies.',
+     drive:'The biggest driving day (~5 hr 20 min) — queue up the road-trip playlist.'},
+ stops:[
+  {t:'Before trip',type:'NOTE',name:'Pre-trip checks',desc:'Verify Takakkaw Falls road status a few weeks out (backup: Natural Bridge, Wapta Falls, or a longer Emerald Lake loop). Verify Marble Canyon reopening with Parks Canada — closed since Feb 2026 until further notice. If still closed, depart 7:00 AM and go straight to Bow Lake.',
+   warn:'Weather note: if the forecast strongly favours one day, consider swapping Days 4 and 5 — the parkway is a different world under blue sky vs. low cloud.'},
+  {t:'6:30 AM',type:'DEPART',name:'Leave Cochrane',desc:'~1 hr 15 min to Castle Junction, then 20 min south on Highway 93S into Kootenay National Park.'},
+  {t:'~8:05 AM',type:'ARRIVE',name:'Marble Canyon, Kootenay NP (if reopened)',desc:'A slot canyon carved 40 m+ deep through limestone by Tokumm Creek over 10,000 years. Seven bridges criss-cross the chasm above swirling blue glacial water — Johnston Canyon\'s wow factor with a fraction of the crowd. Optional add-on: the Paint Pots\' iron-red mineral springs, 5 min up the road.',
+   stats:['1.4 km / 0.9 mi round trip','~30–45 min','Easy · some steep steps','Banff park pass valid here'],search:['Marble Canyon, Kootenay National Park BC']},
+  {t:'~8:55 AM',type:'ARRIVE',name:'Numa Falls',desc:'A roadside waterfall on the Vermilion River, two minutes from the car. A pedestrian bridge sits right over the falls — blue water churning over black rock, close enough to feel.',
+   stats:['600 m walk','~15–20 min','Easy · flat · picnic benches & restrooms'],search:['Numa Falls, Kootenay National Park BC']},
+  {t:'~9:15 AM',type:'DEPART',name:'North to the Parkway',desc:'Back past Castle Junction (~20 min), then 30 min north to Bow Lake.'},
+  {t:'~10:05 AM',type:'ARRIVE',name:'Bow Lake',desc:'A turquoise glacial lake beneath the Bow Glacier, with the historic Num-Ti-Jah Lodge at the water\'s edge — one of the most photogenic stops on the parkway. ~30 min for photos and a stretch.',
+   moment:'On a calm morning the lake doubles every peak around it. Stand still and count the mountains twice.',
+   search:['Bow Lake, Icefields Parkway, Banff National Park AB']},
+  {t:'~10:40 AM',type:'ARRIVE',name:'Crowfoot Glacier Viewpoint',desc:'Named a century ago for its three-toed resemblance to a crow\'s foot. The glacier has retreated since, but the view across the valley to the ice is still striking. ~10 min.',search:['Crowfoot Glacier Viewpoint, Icefields Parkway AB']},
+  {t:'~11:40 AM',type:'ARRIVE',name:'Emerald Lake, Yoho NP',desc:'Across the BC border, one of the most beautiful lakes in the Rockies — a stunning emerald green, far quieter than Moraine or Louise. Optional canoe rentals at the boathouse. ~1.5 hrs.',
+   stats:['Emerald Lake Loop 5.2 km / 3.2 mi','~1–1.5 hrs','Easy · relatively flat'],search:['Emerald Lake, Yoho National Park BC']},
+  {t:'~1:10 PM',type:'START',name:'Lunch at Emerald Lake Lodge',search:['Emerald Lake Lodge, Yoho National Park BC']},
+  {t:'~2:15 PM',type:'ARRIVE',name:'Takakkaw Falls',desc:'One of Canada\'s tallest waterfalls at 373 m, fed by the Daly Glacier. The sheer scale against the mountain wall is breathtaking, and the walk from the lot is easy and flat. ~45 min.',
+   stats:['0.8 km / 0.5 mi round trip','~20–30 min','Easy · flat · paved'],
+   moment:'Feeling the cold spray of a 373-metre waterfall on your face — mandatory family photo, slightly damp.',
+   search:['Takakkaw Falls, Yoho National Park BC']},
+  {t:'~3:00 PM',type:'DEPART',name:'Home to Cochrane',desc:'~2 hr 20 min; arrive ~5:20 PM with three parks stamped in memory.'}
+ ]},
+
+{n:6,date:'Thursday, September 24',title:'Grassi Lakes & Canmore',sub:'Kananaskis backroads · boardwalk evenings',drive:'~2 hr 30 min driving',
+ hero:'lake',polas:[['hills','Smith-Dorrien dust & views'],['forest','Boardwalk pace, mountain views']],
+ ed:`A slower rhythm today. We climb to the twin turquoise pools above Canmore, wander a reservoir most tourists never find, and let the afternoon drift along a creekside boardwalk. Mountain life, at walking pace.`,
+ fn:{fact:'Near Upper Grassi Lake are ancient Indigenous pictographs — rock paintings hundreds of years old.',
+     pack:'Proper shoes for rocky switchbacks, water bottles, and patience for photo stops on the Smith-Dorrien.',
+     food:'Downtown Canmore café culture — grab a bakery treat on Main Street after the hike.',
+     drive:'Cochrane → Canmore ~50 min; Spray Lakes detour ~25 min each way on gravel.'},
+ stops:[
+  {t:'8:30 AM',type:'DEPART',name:'Leave Cochrane for Canmore',desc:'~50 min drive with the Three Sisters growing in the windshield.'},
+  {t:'9:30 AM',type:'START',name:'Grassi Lakes Trail',desc:'Two turquoise lakes tucked into the cliffs above Canmore, with dramatic valley views and ancient rock paintings near the upper lake. One of the best effort-to-reward hikes in the entire Rockies. ~2 hrs.',
+   stats:['4 km / 2.5 mi round trip','~1.5–2 hrs','Moderate · rocky switchbacks · 160 m gain'],
+   moment:'Finding the centuries-old pictographs near the upper lake — a treasure hunt built into the hike.',
+   search:['Grassi Lakes Trail, Canmore AB']},
+  {t:'11:30 AM',type:'START',name:'Lunch in Downtown Canmore',search:['Downtown Canmore, Main St, Canmore AB']},
+  {t:'1:00 PM',type:'DEPART',name:'Smith-Dorrien Trail to Spray Lakes',desc:'~25 min up the gravel road into Kananaskis Country.'},
+  {t:'1:30–3:00 PM',type:'ARRIVE',name:'Spray Lakes Reservoir',desc:'A huge reservoir ringed by dramatic peaks, far quieter than Banff. Scenic pullouts invite spontaneous photo stops the whole way.',search:['Spray Lakes Reservoir, Kananaskis Country AB']},
+  {t:'3:15 PM',type:'ARRIVE',name:'Policeman\'s Creek Boardwalk',desc:'A peaceful, flat boardwalk along the creek through the heart of Canmore — wildlife, flowing water, and mountain views away from the tourist bustle.',
+   stats:['2 km / 1.2 mi one way','~30–45 min','Easy · flat'],search:['Policeman\'s Creek Boardwalk, Canmore AB']},
+  {t:'4:00 PM',type:'START',name:'Downtown Canmore',desc:'Shops, coffee, relax — we\'ve earned the slow hours.',search:['Downtown Canmore, 8th St, Canmore AB']},
+  {t:'6:30 PM',type:'START',name:'Dinner in Canmore',search:['Downtown Canmore, Canmore AB']},
+  {t:'8:30 PM',type:'DEPART',name:'Back to Cochrane',desc:'~50 min home.'}
+ ]},
+
+{n:7,date:'Friday, September 25',title:'The Choose-Your-Adventure Day',sub:'Weather & favorite-spot buffer',drive:'~1–3 hrs · depends on the pick',
+ hero:'mist',polas:[['snowforest','Whatever the sky decides'],['goldfield','Last golden hours']],
+ ed:`A blank page, on purpose. Today the weather writes the itinerary — a teahouse in the clouds, a canyon catwalk, or one more quiet lake. Whatever we choose over breakfast will be the right choice.`,
+ fn:{fact:'The Lake Agnes Tea House has been serving hikers since 1905 — supplies still arrive largely by helicopter and horseback.',
+     pack:'Decided at breakfast! Hiking shoes regardless; cash for the teahouse if that wins.',
+     food:'Tea and fresh-baked bread at 2,135 m — if the sky cooperates.',
+     drive:'Variable, ~1–3 hrs. Back to Cochrane by early evening: pack, early dinner, early bed — 4:45 AM comes fast.'},
+ stops:[
+  {t:'Morning-of',type:'NOTE',name:'Decide over breakfast',desc:'Pick by weather and energy, in this priority order:'},
+  {t:'Option 1',type:'OPTION',name:'Lake Agnes Tea House (good weather only)',desc:'A historic teahouse perched beside an alpine lake above Lake Louise. The trail climbs steadily through forest before opening to dramatic mountain views. Walk-in — no ticket; confirm hours before going.',
+   stats:['7 km / 4.3 mi round trip','~2.5–3.5 hrs','Moderate · 385 m gain'],search:['Lake Agnes Tea House Trail, Lake Louise AB']},
+  {t:'Option 2',type:'OPTION',name:'Johnston Canyon',desc:'Banff\'s famous canyon walk on a paved catwalk bolted to the canyon walls above the rushing river. Free, no ticket.',
+   stats:['Lower Falls 2.4 km / ~30–45 min · easy','Upper Falls 5.6 km / ~1.5–2 hrs · easy-moderate'],search:['Johnston Canyon, Bow Valley Pkwy, Banff AB']},
+  {t:'Option 3',type:'OPTION',name:'Upper Kananaskis Lake',desc:'A beautiful alpine lake in Kananaskis Country, far less crowded than Banff\'s famous ones. Easy flat lakeshore walking — a local favorite most tourists never see.',search:['Upper Kananaskis Lake, Kananaskis Country AB']},
+  {t:'Option 4',type:'OPTION',name:'Bow Lake (if Day 4 weather was poor)',desc:'A second chance at the parkway\'s mirror lake.',search:['Bow Lake, Icefields Parkway, Banff National Park AB']},
+  {t:'Option 5',type:'OPTION',name:'Tunnel Mountain',desc:'A moderate hike straight from Banff townsite with panoramic views of the Bow Valley and Mount Rundle.',
+   stats:['4.8 km / 3 mi round trip','~1.5–2 hrs','Moderate · 300 m gain'],search:['Tunnel Mountain Trail, Banff AB']},
+  {t:'Evening',type:'NOTE',name:'Back to Cochrane early',desc:'Plan lunch around the chosen spot. Then: pack, early dinner, early bed — very early flight tomorrow!',
+   moment:'The luxury of choosing the day\'s adventure over pancakes — everyone gets a vote.'}
+ ]},
+
+{n:8,date:'Saturday, September 26',title:'Homeward',sub:'YYC → Toronto → Washington',drive:'~40 min driving · then wings',
+ hero:'plane',polas:[['stars','Pre-dawn departure sky'],['range','One last look back']],
+ ed:`Every story earns its ending. We slip out before dawn, trade mountains for clouds, and carry home a week of turquoise water and golden light. Until next time, Rockies.`,
+ fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies is visible from the right side of the plane.',
+     pack:'Everything! Passports handy, snacks in carry-ons, and one last check of the room before leaving.',
+     food:'Airport breakfast at YYC — the trip\'s least scenic, most necessary meal.',
+     drive:'Cochrane → rental return → terminal: ~40 min, pre-dawn and traffic-free.'},
+ stops:[
+  {t:'4:45 AM',type:'DEPART',name:'Leave Cochrane',desc:'Pre-dawn quiet, mountains in the mirrors.'},
+  {t:'5:00–5:15 AM',type:'ARRIVE',name:'Rental car after-hours drop-off',desc:'Enterprise Rent-A-Car, Airport Rd NE, Calgary — keys in the after-hours drop.',search:['Enterprise Rent-A-Car, 2000 Airport Rd NE, Calgary AB']},
+  {t:'5:25 AM',type:'ARRIVE',name:'Calgary International Airport (YYC)',desc:'Check in, security, one last mountain-shaped souvenir.',
+   moment:'One last look at the Rockies from the departure lounge — say it quietly: we\'ll be back.'},
+  {t:'6:30 AM',type:'DEPART',name:'Fly YYC → Toronto (YYZ)',desc:'Air Canada, morning flight east.'},
+  {t:'12:19 PM',type:'ARRIVE',name:'Toronto Pearson (YYZ)',desc:'Layover 1 hr 36 min — stretch, snack, swap photos.'},
+  {t:'1:55 PM',type:'DEPART',name:'Fly YYZ → Washington Dulles (IAD)',desc:'Air Canada Express, the final leg.'},
+  {t:'3:25 PM',type:'ARRIVE',name:'Washington Dulles (IAD)',desc:'Welcome home! Eight days, three parks, a thousand photos.'}
+ ]}
+];
+
+/* ================= hero photo (real Banff, fallback chain) ================= */
+(function(){
+  const srcs=[
+    'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=2000&q=75', // Moraine Lake
+    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=2000&q=75', // canoes, alpine lake
+    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=75'  // rocky range
+  ];
+  const wrap=$('#heroPhoto'); let i=0;
+  const im=new Image();
+  im.alt='Moraine Lake, Banff National Park — turquoise glacial water beneath the Valley of the Ten Peaks';
+  im.onload=()=>wrap.appendChild(im);
+  im.onerror=()=>{ i++; if(i<srcs.length) im.src=srcs[i]; else $('#hero').classList.add('fail'); };
+  im.src=srcs[i];
+})();
+
+/* ================= cover cards ================= */
+$('#cards').innerHTML = DAYS.map((d,i)=>`
+  <button class="card rev" data-day="${d.n}" aria-label="Open Day ${d.n}: ${d.title}">
+    ${ph(d.hero,d.title,'')}
+    <span class="go" aria-hidden="true">→</span>
+    <span class="meta">
+      <span class="daynum">Day ${d.n}</span>
+      <h3>${d.title}</h3>
+      <span class="cdate">${d.date} · ${d.sub}</span>
+    </span>
+  </button>`).join('');
+
+/* day dots in topbar */
+$('#dayDots').innerHTML = DAYS.map(d=>`<button data-day="${d.n}" aria-label="Day ${d.n}">${d.n}</button>`).join('');
+
+/* ================= day renderer ================= */
+function renderDay(n){
+  const d = DAYS[n-1];
+  const stops = d.stops.map(s=>`
+    <article class="stop rev">
+      <div class="when"><span class="time">${s.t}</span><span class="chip ${s.type}">${s.type}</span></div>
+      <h3>${s.name}</h3>
+      ${s.desc?`<p class="desc">${s.desc}</p>`:''}
+      ${s.list?`<ul class="plain">${s.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+      ${s.stats?`<div class="stat-row">${s.stats.map(x=>`<span class="stat">${x}</span>`).join('')}</div>`:''}
+      ${s.ticket?`<div class="ticket">${s.ticket}</div>`:''}
+      ${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:''}
+      ${s.moment?`<div class="moment"><b>A moment to look forward to</b>${s.moment}</div>`:''}
+      ${s.search?`<div class="searchline">${s.search.map(x=>`<span>🔎 Search: ${x}</span>`).join('')}</div>`:''}
+    </article>`).join('');
+
+  $('#day').innerHTML = `
+    <div class="day-head">
+      ${ph(d.hero,d.title,'', 'bg')}
+      <div class="polas" aria-hidden="false">
+        ${d.polas.map(([k,cap])=>`<div class="pola tilt">${ph(k,cap,'')}<div class="pcap">${cap}</div></div>`).join('')}
+      </div>
+      <div class="head-copy">
+        <span class="daynum">Chapter ${d.n} of 8</span>
+        <h1>Day ${d.n} — ${d.title}</h1>
+        <div class="ddate">${d.date} · ${d.sub}</div>
+        <span class="drive-chip">🚗 ${d.drive}</span>
+      </div>
+    </div>
+    <svg class="mtn-divider flip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--pine-deep);margin-top:-1px">
+      <path fill="currentColor" d="M0,60 L0,42 L90,18 L160,38 L260,6 L340,34 L430,14 L520,40 L610,10 L700,36 L790,18 L880,42 L970,12 L1060,34 L1140,20 L1200,44 L1200,60 Z"/>
+    </svg>
+    <div class="day-body">
+      <div>
+        <div class="ed-note rev"><span class="eyebrow">Editor's Note</span>${d.ed}</div>
+        <div class="tl">
+          <div class="tl-track"><div class="tl-fill"></div></div>
+          ${stops}
+        </div>
+      </div>
+      <aside class="sidebar">
+        <div class="sticky">
+          <details class="fn-card rev" open>
+            <summary>Field Notes — Day ${d.n}</summary>
+            <div class="fn-body"><dl>
+              <dt>Fun fact</dt><dd>${d.fn.fact}</dd>
+              <dt>What to pack</dt><dd>${d.fn.pack}</dd>
+              <dt>Taste of the day</dt><dd>${d.fn.food}</dd>
+              <dt>Drive & walk times</dt><dd>${d.fn.drive}</dd>
+            </dl></div>
+          </details>
+          <div class="side-collage">
+            ${d.polas.map(([k,cap])=>ph(k,cap,cap,'tilt rev')).join('')}
+          </div>
+        </div>
+      </aside>
+    </div>
+    <div class="day-footer-nav">
+      <button id="fPrev">${d.n>1?`‹ <b>Day ${d.n-1} — ${DAYS[d.n-2].title}</b>`:`‹ <b>Back to Cover</b>`}</button>
+      <button id="fNext">${d.n<8?`Next → <b>Day ${d.n+1} — ${DAYS[d.n].title}</b>`:`<b>Back to Cover</b> ⌂`}</button>
+    </div>`;
+  $('#fPrev').onclick=()=>location.hash = d.n>1?`#day-${d.n-1}`:'#cover';
+  $('#fNext').onclick=()=>location.hash = d.n<8?`#day-${d.n+1}`:'#cover';
+  initReveals(); initTilt();
+}
+
+/* ================= router ================= */
+let currentDay = 0;
+function route(){
+  const m = location.hash.match(/^#day-([1-8])$/);
+  if(m){
+    currentDay = +m[1];
+    document.body.dataset.view='day';
+    $('#cover').hidden = true;
+    const dv=$('#day'); dv.hidden=false;
+    renderDay(currentDay);
+    dv.classList.remove('view'); void dv.offsetWidth; dv.classList.add('view');
+  }else{
+    currentDay = 0;
+    document.body.dataset.view='cover';
+    $('#day').hidden = true; $('#day').innerHTML='';
+    $('#cover').hidden = false;
+  }
+  $$('#dayDots button').forEach(b=>b.classList.toggle('on',+b.dataset.day===currentDay));
+  window.scrollTo({top:0,behavior:'instant' in window?'instant':'auto'});
+}
+addEventListener('hashchange',route);
+
+/* nav wiring */
+$('#homeBtn').onclick=()=>location.hash='#cover';
+$('#dayDots').onclick=e=>{const b=e.target.closest('button'); if(b) location.hash=`#day-${b.dataset.day}`;};
+$('#prevDay').onclick=()=>{ if(currentDay>1) location.hash=`#day-${currentDay-1}`; else location.hash='#cover'; };
+$('#nextDay').onclick=()=>{ if(currentDay&&currentDay<8) location.hash=`#day-${currentDay+1}`; };
+
+/* card click → cinematic expand */
+$('#cards').addEventListener('click',e=>{
+  const card=e.target.closest('.card'); if(!card) return;
+  const day=card.dataset.day;
+  if(RM){ location.hash=`#day-${day}`; return; }
+  const r=card.getBoundingClientRect(), z=$('#zoomer');
+  const img=card.querySelector('img');
+  z.style.cssText=`display:block;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;`+
+    (img?`background-image:url('${img.src}')`:`background:linear-gradient(150deg,var(--pine),var(--turq))`);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    z.style.left='0px';z.style.top='0px';z.style.width='100vw';z.style.height='100vh';z.style.borderRadius='0';
+  }));
+  setTimeout(()=>{ location.hash=`#day-${day}`;
+    z.style.opacity='0';
+    setTimeout(()=>{z.style.display='none';z.style.opacity='1';},450);
+  },580);
+});
+
+/* share */
+$('#shareBtn').onclick=async()=>{
+  const url=location.href;
+  try{ await navigator.clipboard.writeText(url); toast('Link copied — send it to the family! ✉️'); }
+  catch(e){ toast(url); }
+};
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2400); }
+
+/* ================= lightbox ================= */
+document.addEventListener('click',e=>{
+  const im=e.target.closest('.ph img');
+  if(im && !e.target.closest('.card') && !e.target.closest('.day-head .bg')){
+    const lb=$('#lightbox'); lb.querySelector('img').src=im.src;
+    lb.querySelector('img').alt=im.alt; lb.querySelector('.lb-cap').textContent=im.alt;
+    lb.classList.add('open');
+  }
+});
+$('#lightbox').onclick=()=>$('#lightbox').classList.remove('open');
+addEventListener('keydown',e=>{
+  if(e.key==='Escape')$('#lightbox').classList.remove('open');
+  if(document.body.dataset.view==='day'){
+    if(e.key==='ArrowRight'&&currentDay<8)location.hash=`#day-${currentDay+1}`;
+    if(e.key==='ArrowLeft')location.hash=currentDay>1?`#day-${currentDay-1}`:'#cover';
+  }
+});
+
+/* ================= scroll effects ================= */
+let io;
+function initReveals(){
+  if(io) io.disconnect();
+  if(RM){ $$('.rev').forEach(el=>el.classList.add('in')); return; }
+  io=new IntersectionObserver(es=>es.forEach(x=>{ if(x.isIntersecting){x.target.classList.add('in'); io.unobserve(x.target);} }),{threshold:.12});
+  $$('.rev').forEach(el=>io.observe(el));
+}
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  $('#progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+  $('#topbar').classList.toggle('show', h.scrollTop>140 || document.body.dataset.view==='day');
+  const tl=$('.tl'); if(tl && !RM){
+    const r=tl.getBoundingClientRect();
+    const p=Math.min(1,Math.max(0,(innerHeight*.72-r.top)/r.height));
+    const f=tl.querySelector('.tl-fill'); if(f) f.style.transform=`scaleY(${p})`;
+  }
+},{passive:true});
+
+/* ================= 3D tilt cards ================= */
+function initTilt(){
+  if(RM || MOBILE) return;
+  $$('.tilt').forEach(el=>{
+    el.onpointermove=e=>{
+      const r=el.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(600px) rotateY(${x*10}deg) rotateX(${-y*10}deg) scale(1.03)`;
+    };
+    el.onpointerleave=()=>{ el.style.transform=''; };
+  });
+}
+
+/* ================= Three.js hero ================= */
+(function initHero(){
+  const hero=$('#routeMap'), canvas=$('#hero3d');
+  if(typeof THREE==='undefined'){ hero.classList.add('no3d'); return; }
+  let renderer;
+  try{ renderer=new THREE.WebGLRenderer({canvas,antialias:!MOBILE}); }
+  catch(e){ hero.classList.add('no3d'); return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(55,1,0.1,400);
+  const CAM0=new THREE.Vector3(0,17,46); cam.position.copy(CAM0);
+  const LOOK=new THREE.Vector3(0,7,-24);
+
+  /* terrain: heights defined in plane coords (x, yo); world z = -yo */
+  function hgt(x,yo){
+    let y = Math.sin(x*.08)*Math.cos(yo*.06)*2.2
+          + Math.sin(x*.22+1.7)*Math.cos(yo*.19+2.3)*1.1
+          + Math.abs(Math.sin(x*.05-yo*.07))*2.6;
+    const back=Math.max(0,(yo-14)/40);
+    y+=back*back*11;
+    y+=back*Math.max(0,1-Math.abs(x)/70)*6*Math.abs(Math.sin(x*.11));
+    y+=back*3.4*Math.abs(Math.sin(x*.33+yo*.17));
+    y+=back*1.6*Math.abs(Math.sin(x*.71-yo*.23));
+    return y;
+  }
+  const seg=MOBILE?[70,44]:[110,70];
+  let g=new THREE.PlaneGeometry(180,120,seg[0],seg[1]);
+  const pa=g.attributes.position;
+  for(let i=0;i<pa.count;i++) pa.setZ(i,hgt(pa.getX(i),pa.getY(i)));
+  g=g.toNonIndexed(); g.rotateX(-Math.PI/2); g.computeVertexNormals();
+  const pos=g.attributes.position, colors=new Float32Array(pos.count*3);
+  const cPine=new THREE.Color('#24503a'), cPine2=new THREE.Color('#1b3a2d'),
+        cRock=new THREE.Color('#75857a'), cSnow=new THREE.Color('#f4f1ea'), tmp=new THREE.Color();
+  for(let f=0;f<pos.count;f+=3){
+    const ay=(pos.getY(f)+pos.getY(f+1)+pos.getY(f+2))/3, r=Math.random()*.06;
+    if(ay>17) tmp.copy(cSnow);
+    else if(ay>8) tmp.copy(cRock).lerp(cSnow,(ay-8)/9);
+    else tmp.copy(cPine).lerp(cPine2,Math.random()*.5);
+    tmp.offsetHSL(0,0,r-.03);
+    for(let k=0;k<3;k++){ colors[(f+k)*3]=tmp.r; colors[(f+k)*3+1]=tmp.g; colors[(f+k)*3+2]=tmp.b; }
+  }
+  g.setAttribute('color',new THREE.BufferAttribute(colors,3));
+  scene.add(new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:.95})));
+
+  /* turquoise lake */
+  const lake=new THREE.Mesh(new THREE.CircleGeometry(9,26),
+    new THREE.MeshStandardMaterial({color:'#3aa8a3',roughness:.25,metalness:.1}));
+  lake.rotation.x=-Math.PI/2; lake.position.set(-14,.32,10); lake.scale.set(1.6,1,1); scene.add(lake);
+
+  /* lights */
+  const hemi=new THREE.HemisphereLight('#f6f1e7','#1b3a2d',.75); scene.add(hemi);
+  const sun=new THREE.DirectionalLight('#fff4e0',1.1); sun.position.set(-30,40,20); scene.add(sun);
+
+  /* clouds */
+  const clouds=new THREE.Group();
+  const cm=new THREE.MeshStandardMaterial({color:'#ffffff',transparent:true,opacity:.8,flatShading:true,roughness:1});
+  for(let i=0;i<(MOBILE?4:7);i++){
+    const c=new THREE.Group();
+    for(let j=0;j<3;j++){
+      const b=new THREE.Mesh(new THREE.IcosahedronGeometry(1.6+Math.random()*1.6,0),cm);
+      b.position.set(j*2.2-2,Math.random()*.7,Math.random()*1.4); b.scale.y=.45; c.add(b);
+    }
+    c.position.set((Math.random()-.5)*140,16+Math.random()*8,-30-Math.random()*40);
+    c.userData.v=.008+Math.random()*.014; clouds.add(c);
+  }
+  scene.add(clouds);
+
+  /* particles */
+  const pn=MOBILE?120:340, pp=new Float32Array(pn*3);
+  for(let i=0;i<pn;i++){ pp[i*3]=(Math.random()-.5)*90; pp[i*3+1]=Math.random()*22; pp[i*3+2]=(Math.random()-.5)*60; }
+  const pgeo=new THREE.BufferGeometry(); pgeo.setAttribute('position',new THREE.BufferAttribute(pp,3));
+  const pts=new THREE.Points(pgeo,new THREE.PointsMaterial({color:'#f6e9c9',size:.28,transparent:true,opacity:.55,depthWrite:false}));
+  scene.add(pts);
+
+  /* route pins */
+  const pinDefs=[[-30,26],[-18,14],[-6,20],[4,8],[16,16],[26,6],[10,-2],[34,18]]; // world x,z per day
+  const pins=[], labelWrap=$('#pinLabels');
+  const pinGroup=new THREE.Group(); scene.add(pinGroup);
+  pinDefs.forEach((p,i)=>{
+    const [x,z]=p, y=hgt(x,-z);
+    const grp=new THREE.Group();
+    const stem=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,3,6),
+      new THREE.MeshStandardMaterial({color:'#f6f1e7',roughness:.6}));
+    stem.position.y=1.5;
+    const head=new THREE.Mesh(new THREE.SphereGeometry(.62,14,12),
+      new THREE.MeshStandardMaterial({color:i%2?'#d9a441':'#3fc1bb',emissive:i%2?'#d9a441':'#2ea6a0',emissiveIntensity:.55,roughness:.35}));
+    head.position.y=3.15; head.userData.day=i+1;
+    grp.add(stem,head); grp.position.set(x,y,z); pinGroup.add(grp);
+    const lab=document.createElement('span'); lab.className='pin-label'; lab.textContent=`Day ${i+1}`;
+    labelWrap.appendChild(lab);
+    pins.push({grp,head,lab,base:y});
+  });
+
+  /* sky palette (day ↔ dusk) */
+  const skyDay=new THREE.Color('#cfe4e0'), skyDusk=new THREE.Color('#8f7a8d'),
+        sunDay=new THREE.Color('#fff4e0'), sunDusk=new THREE.Color('#ff9d5c'), sky=new THREE.Color();
+  scene.fog=new THREE.Fog('#cfe4e0',70,220);
+
+  /* interaction */
+  const ray=new THREE.Raycaster(), ptr=new THREE.Vector2(); let hover=null, mouseX=0,mouseY=0;
+  function pick(e){
+    const r=canvas.getBoundingClientRect();
+    ptr.x=((e.clientX-r.left)/r.width)*2-1; ptr.y=-((e.clientY-r.top)/r.height)*2+1;
+    ray.setFromCamera(ptr,cam);
+    const hit=ray.intersectObjects(pins.map(p=>p.head))[0];
+    return hit?hit.object:null;
+  }
+  canvas.addEventListener('pointermove',e=>{
+    mouseX=(e.clientX/innerWidth-.5); mouseY=(e.clientY/innerHeight-.5);
+    const h=pick(e);
+    if(h!==hover){
+      if(hover){hover.material.emissiveIntensity=.55; hover.scale.setScalar(1);}
+      hover=h;
+      if(hover){hover.material.emissiveIntensity=1.4; hover.scale.setScalar(1.35);}
+      canvas.style.cursor=hover?'pointer':'default';
+    }
+  });
+  let flying=false;
+  canvas.addEventListener('click',e=>{
+    const h=pick(e)||hover; if(!h||flying) return;
+    const day=h.userData.day;
+    if(RM){ location.hash=`#day-${day}`; return; }
+    flying=true;
+    const from=cam.position.clone(), pin=pins[day-1].grp.position;
+    const to=pin.clone().add(new THREE.Vector3(0,4.5,8)), t0=performance.now();
+    let done=false;
+    const finish=()=>{ if(done) return; done=true;
+      location.hash=`#day-${day}`; cam.position.copy(CAM0); flying=false; };
+    (function fly(){
+      const k=Math.min(1,(performance.now()-t0)/950), e2=1-Math.pow(1-k,3);
+      cam.position.lerpVectors(from,to,e2);
+      cam.lookAt(pin.x,pin.y+2,pin.z);
+      if(k<1) requestAnimationFrame(fly);
+      else setTimeout(finish,120);
+    })();
+    setTimeout(finish,1600); /* safety: navigate even if rAF is throttled */
+  });
+
+  function resize(){
+    const w=hero.clientWidth,h=hero.clientHeight;
+    renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix();
+  }
+  addEventListener('resize',resize); resize();
+
+  const v3=new THREE.Vector3();
+  let t=0;
+  function frame(){
+    if(!RM) t+=0.016;
+    /* day-dusk cycle */
+    const k=(Math.sin(t*.055)+1)/2;
+    sky.lerpColors(skyDay,skyDusk,k);
+    scene.background=sky; scene.fog.color.copy(sky);
+    sun.color.lerpColors(sunDay,sunDusk,k); sun.intensity=1.15-.6*k; hemi.intensity=.8-.35*k;
+    /* drift */
+    if(!flying){
+      cam.position.x=CAM0.x+Math.sin(t*.07)*3+mouseX*3;
+      cam.position.y=CAM0.y+Math.sin(t*.05)*.8-mouseY*2;
+      cam.lookAt(LOOK);
+    }
+    clouds.children.forEach(c=>{ c.position.x+=c.userData.v; if(c.position.x>80)c.position.x=-80; });
+    pts.rotation.y=t*.008;
+    pins.forEach((p,i)=>{ p.head.position.y=3.15+Math.sin(t*1.6+i)*.14; });
+    renderer.render(scene,cam);
+    /* project labels AFTER render so camera/world matrices are current */
+    const hr=hero.getBoundingClientRect();
+    const onScreen=hr.bottom>0 && hr.top<innerHeight;
+    pins.forEach(p=>{
+      if(document.body.dataset.view==='cover'){
+        v3.setFromMatrixPosition(p.head.matrixWorld); v3.project(cam);
+        const vis=v3.z<1 && Math.abs(v3.x)<1.05;
+        p.lab.classList.toggle('vis',vis && onScreen);
+        if(vis){ p.lab.style.left=((v3.x+1)/2*hero.clientWidth)+'px';
+                 p.lab.style.top=((-v3.y+1)/2*hero.clientHeight)+'px'; }
+      } else p.lab.classList.remove('vis');
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* boot */
+route(); initReveals(); initTilt();
+if(document.body.dataset.view==='cover') $('#topbar').classList.remove('show');
+</script>
+</body>
+</html>
