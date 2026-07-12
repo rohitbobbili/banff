@@ -132,6 +132,15 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .wx-temps{display:flex;gap:1rem;margin-top:.2rem}
 .wx-temps span b{color:var(--turq);font-size:1.05rem}
 .wx-temps span:last-child b{color:var(--rust)}
+/* trip in numbers */
+.stats-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2.4rem}
+.stat-card{background:var(--paper);border:1px solid rgba(27,58,45,.12);border-radius:16px;padding:.9rem 1.3rem;
+  min-width:118px;box-shadow:var(--shadow);transition:transform .3s}
+.stat-card:hover{transform:translateY(-4px)}
+.stat-card b{font-family:var(--serif);font-size:1.7rem;display:block;line-height:1.15}
+.stat-card:nth-child(odd) b{color:var(--turq)}
+.stat-card:nth-child(even) b{color:var(--larch)}
+.stat-card span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
 
 /* chapter cards */
 .chapters{padding:2.5rem 0 5rem}
@@ -179,6 +188,12 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .day-head .ddate{font-size:.95rem;opacity:.9}
 .day-head .drive-chip{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;font-size:.78rem;
   background:rgba(251,248,241,.16);border:1px solid rgba(251,248,241,.35);padding:.3rem .9rem;border-radius:999px;backdrop-filter:blur(4px)}
+.stamp{position:absolute;top:5.4rem;left:1.4rem;z-index:3;width:96px;height:96px;border:2.5px dashed rgba(246,241,231,.75);
+  border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--serif);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.95);
+  transform:rotate(-12deg);background:rgba(18,43,32,.25);backdrop-filter:blur(2px)}
+.stamp b{font-size:1.7rem;line-height:1.1;letter-spacing:0}
+@media (max-width:720px){.stamp{width:78px;height:78px;top:4.6rem;left:1rem}.stamp b{font-size:1.3rem}}
 .polas{position:absolute;right:3%;top:12%;z-index:2;display:flex;gap:1rem}
 .pola{width:clamp(120px,16vw,210px);background:var(--paper);padding:.5rem .5rem 2rem;border-radius:6px;
   box-shadow:0 16px 40px rgba(0,0,0,.35);transform:rotate(4deg);transition:transform .5s;will-change:transform}
@@ -223,6 +238,9 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .warn{background:#faeae2;border:1px dashed var(--rust);color:#7c3a1c}
 .moment{background:#e8f4f2;border:1px solid rgba(46,166,160,.35);color:#175a56;font-style:italic;font-family:var(--serif)}
 .moment b{font-family:var(--sans);font-style:normal;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:.2rem;color:var(--turq)}
+.funfact{margin-top:.7rem;border-radius:12px;padding:.7rem .9rem;font-size:.8rem;max-width:38rem;
+  background:#fdf8ec;border:1px solid rgba(217,164,65,.5);color:#6a5420}
+.funfact b{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#b07f1f;margin-bottom:.2rem}
 .searchline{margin-top:.5rem;font-size:.72rem}
 .searchline a{display:block;color:#177a74;text-decoration:none;margin-top:.15rem;width:fit-content}
 .searchline a:hover{color:var(--turq);text-decoration:underline}
@@ -335,6 +353,14 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
           <div class="wx-temps"><span>High <b>~16°C</b></span><span>Low <b>~3°C</b></span><span>Layers <b>always</b></span></div>
         </div>
       </div>
+      <div class="stats-strip" role="group" aria-label="The trip in numbers">
+        <div class="stat-card"><b>8</b><span>days</span></div>
+        <div class="stat-card"><b>3+1</b><span>parks to roam</span></div>
+        <div class="stat-card"><b>~1,600</b><span>km of road</span></div>
+        <div class="stat-card"><b>2,281 m</b><span>highest point</span></div>
+        <div class="stat-card"><b>373 m</b><span>tallest waterfall</span></div>
+        <div class="stat-card"><b>∞</b><span>photos</span></div>
+      </div>
     </div>
 
     <div class="chapters wrap">
@@ -406,7 +432,9 @@ const DAYS=[
      food:'Cochrane is famous for MacKay\'s Ice Cream — a local institution since 1948. Dessert before dinner is allowed on arrival day.',
      drive:'YYC → Cochrane: ~45 min. Easy day on purpose.'},
  stops:[
-  {t:'12:00 PM',type:'ARRIVE',name:'Calgary International Airport (YYC)',desc:'Wheels down! Grab a quick bite at the airport or on the drive if anyone is hungry.',search:['Calgary International Airport, Calgary AB']},
+  {t:'12:00 PM',type:'ARRIVE',name:'Calgary International Airport (YYC)',desc:'Wheels down! Grab a quick bite at the airport or on the drive if anyone is hungry.',
+   fact:'Calgary has greeted arriving VIPs with white cowboy hats since the 1950s — the "White Hat" is the city\'s official symbol of hospitality. Keep an eye out for the volunteer greeters in the arrivals hall.',
+   search:['Calgary International Airport, Calgary AB']},
   {t:'~1:30 PM',type:'DEPART',name:'Drive to Cochrane',desc:'About 45 minutes west as the prairie starts to ripple into foothills. First one to spot a mountain silhouette wins.',
    moment:'Somewhere on Highway 1A the horizon stops being flat. Make spotting the first peak a family contest.'},
   {t:'~2:15 PM',type:'ARRIVE',name:'Cochrane — check in',desc:'Check in, or drop the luggage if the room isn\'t ready, and shake off the flight.'},
@@ -415,6 +443,7 @@ const DAYS=[
    search:['Walmart Cochrane','Sobeys Cochrane']},
   {t:'Late afternoon',type:'START',name:'Explore Downtown Cochrane',desc:'Western storefronts, coffee, and small-town charm at the gateway to the Rockies.',search:['Downtown Cochrane, Cochrane AB']},
   {t:'Golden hour',type:'ARRIVE',name:'Historic Cochrane Ranche',desc:'A scenic hilltop site with sweeping views of the Bow River valley and surrounding foothills — the perfect easy first stop to stretch travel-day legs.',
+   fact:'This hillside was Alberta\'s very first large-scale cattle ranch, founded in 1881 — the birthplace of the province\'s whole cowboy story. The "Men of Vision" statue at the top makes a great first family photo.',
    stats:['Easy walking','Sweeping valley views'],search:['Historic Cochrane Ranche, Cochrane AB']},
   {t:'Evening',type:'START',name:'Dinner in Cochrane',desc:'Early night — big day tomorrow!'}
  ]},
@@ -427,21 +456,27 @@ const DAYS=[
      food:'Banff Avenue poutine or a BeaverTail pastry — the official taste of a Canadian mountain town.',
      drive:'Cochrane → Banff via Bow Valley Parkway ~1 hr 15 min; Banff → Cochrane ~50 min at night.'},
  stops:[
-  {t:'8:30 AM',type:'DEPART',name:'Bow Valley Parkway (Highway 1A)',desc:'The slow, beautiful way in — about 1 hr 15 min. Eyes out the windows: elk, deer, and bighorn sheep favour this quiet road.',search:['Bow Valley Parkway, Highway 1A, Banff National Park AB']},
+  {t:'8:30 AM',type:'DEPART',name:'Bow Valley Parkway (Highway 1A)',desc:'The slow, beautiful way in — about 1 hr 15 min. Eyes out the windows: elk, deer, and bighorn sheep favour this quiet road.',
+   fact:'The Bow River is named for the river-bank reeds that Indigenous peoples used to make hunting bows. You\'ll follow this one river all week — from Bow Lake to Bow Falls.',
+   search:['Bow Valley Parkway, Highway 1A, Banff National Park AB']},
   {t:'9:45 AM',type:'ARRIVE',name:'Bow Falls Viewpoint + Surprise Corner',desc:'A classic 9 m waterfall on the Bow River with wide views of Mount Rundle downstream — then Surprise Corner\'s sudden reveal of the Fairmont Banff Springs, the “Castle in the Rockies,” framed by river and mountain. One of Banff\'s most iconic photo stops.',
+   fact:'Legend says the Banff Springs Hotel was accidentally built backwards in 1888 — the original plans got turned around, giving the kitchen the million-dollar river view. The "mistake" was fixed in later rebuilds.',
    stats:['0.7 km / 0.4 mi round trip','~15–20 min','Easy · flat · paved'],search:['Bow Falls Viewpoint, Banff AB','Surprise Corner Viewpoint, Banff AB']},
   {t:'10:30 AM',type:'START',name:'Banff Gondola — Sulphur Mountain',desc:'A cable car rising to 2,281 m with 360° panoramas of six mountain ranges. Summit boardwalk, interpretive centre, and a rooftop observation deck. Plan ~1.5–2 hrs round trip.',
    stats:['Boardwalk 1 km / 0.6 mi','~30–45 min at the top','Gondola ~8 min each way'],
+   fact:'The stone hut at the summit was a cosmic ray research station — scientists lived up here through the 1950s–70s measuring particles from outer space. It\'s now a National Historic Site you can walk to on the boardwalk.',
    ticket:'🎫 TICKET REQUIRED — book ahead at banffjaspercollection.com. ~CA$89.95/person at the gate, 5–10% cheaper online; can sell out in peak season. Free shuttle from Banff Ave with a pre-booked ticket.',
    moment:'The moment the summit boardwalk opens onto six mountain ranges at once — count them together.',
    search:['Banff Gondola, 100 Mountain Ave, Banff AB']},
   {t:'12:30 PM',type:'START',name:'Lunch in Downtown Banff',desc:'Refuel on Banff Avenue.',search:['Downtown Banff, Banff Ave, Banff AB']},
   {t:'1:30 PM',type:'ARRIVE',name:'Lake Minnewanka & Two Jack Lake loop',desc:'Minnewanka is the largest lake in Banff National Park, wrapped in dramatic scenery; Two Jack next door is just as stunning with fewer crowds. Easy, flat lakeside walking and endless photo angles.',
+   fact:'There\'s a ghost town under the lake! When a dam raised the water in 1941, it drowned the resort village of Minnewanka Landing — scuba divers still visit its streets today. The Stoney Nakoda name means "Water of the Spirits." And Two Jack? Named for two friends who worked here — both, naturally, named Jack.',
    stats:['Easy · flat lakeside paths'],search:['Lake Minnewanka, Banff AB','Two Jack Lake, Banff AB']},
   {t:'3:30–5:30 PM',type:'START',name:'Banff Avenue',desc:'Shops, coffee, and people-watching under Cascade Mountain. Earned downtime.',search:['Banff Avenue, Banff AB']},
   {t:'5:30 PM',type:'START',name:'Dinner in Downtown Banff',desc:'Check the wind forecast over dinner — calm air means reflections at Vermilion.',search:['Downtown Banff, Banff AB']},
   {t:'~7:15 PM',type:'ARRIVE',name:'Vermilion Lakes at sunset',desc:'Three shallow lakes just west of town; Second Lake is the prime spot, with Mount Rundle mirrored in still water as the sun sets behind the Vermilion Range. Watch for elk, beavers, bald eagles, and osprey. If it\'s windy or everyone\'s tired, skip guilt-free and head home.',
    warn:'Weather & energy permitting — calm wind is essential for good reflections.',
+   fact:'People have been camping at Vermilion Lakes for over 10,000 years — it\'s one of the oldest known archaeological sites in Canada. You\'ll be watching the same sunset the first Albertans did.',
    moment:'Mountains twice: once in rock, once in water. The photo everyone will set as their wallpaper.',
    search:['Vermilion Lakes, Vermilion Lakes Rd, Banff AB']},
   {t:'~8:15 PM',type:'DEPART',name:'Back to Cochrane',desc:'~50 minutes home under the first stars.'}
@@ -461,11 +496,13 @@ const DAYS=[
   {t:'10:00 AM',type:'START',name:'Shuttle to Moraine Lake',desc:'Pre-booked shuttle departs from the Deer Lodge parking lot; travel time ~20 min. Return buses run hourly — hop one back whenever we\'re ready.'},
   {t:'10:20 AM–1:30 PM',type:'ARRIVE',name:'Moraine Lake — unhurried',desc:'One of the most photographed lakes in Canada, glacier-fed and ringed by the Valley of the Ten Peaks. The Rockpile viewpoint delivers the iconic panorama once featured on the old Canadian $20 bill.',
    stats:['Rockpile Trail 0.8 km / 0.5 mi','~20–30 min','Easy-moderate · short steep rocky scramble'],
+   fact:'The Valley of the Ten Peaks was first mapped using Stoney Nakoda numbers — the peaks were literally named One, Two, Three… ("Heejee" through "Wenkchemna"). One still keeps its number-name: Wenkchemna means "ten."',
    moment:'Scrambling up the Rockpile and turning around — that collective gasp is the whole trip in one second.',
    search:['Moraine Lake, Improvement District No. 9, AB']},
   {t:'1:30 PM',type:'DEPART',name:'Return shuttle to Deer Lodge'},
   {t:'2:00–2:45 PM',type:'START',name:'Lunch at Deer Lodge or the village',search:['Deer Lodge Restaurant, 109 Lake Louise Dr, Lake Louise AB','Lake Louise Village, Lake Louise AB']},
   {t:'2:45–4:30 PM',type:'ARRIVE',name:'Lake Louise Lakeshore',desc:'The iconic emerald lake backed by the Victoria Glacier and the Fairmont Chateau. An easy, flat lakeshore stroll with mountain reflections the whole way.',
+   fact:'The lake is named for Princess Louise Caroline Alberta, Queen Victoria\'s daughter — and yes, the entire province of Alberta is named after the same princess. One royal, two namesakes on your map today.',
    stats:['Lakeshore Trail 4 km / 2.5 mi round trip','~1–1.5 hrs','Easy · flat · paved'],search:['Lake Louise Lakeshore, Lake Louise AB']},
   {t:'5:00 PM',type:'DEPART',name:'Back to Cochrane',desc:'~1.5 hr drive; dinner in Cochrane around 6:30 PM.'}
  ]},
@@ -483,9 +520,11 @@ const DAYS=[
   {t:'En route',type:'NOTE',name:'⛽ Fuel up — last chance',desc:'Fill the tank at Petro-Canada in Banff or Lake Louise before heading north. There are no fuel stops beyond this point.',search:['Petro-Canada Banff','Petro-Canada Lake Louise']},
   {t:'~9:15 AM',type:'ARRIVE',name:'Peyto Lake Viewpoint (Bow Summit)',desc:'One of the most stunning viewpoints on the entire parkway. The lake\'s vivid turquoise and its distinctive wolf-head shape spread out below the upper viewpoint — widely considered the single best stop on the road.',
    moment:'Everyone tries to decide: wolf, dog, or fox? The shape of the lake is the day\'s first debate.',
+   fact:'"Wild" Bill Peyto was a legendary mountain guide famous for once releasing a live lynx in a Banff saloon to clear it out at closing time. His portrait welcomed visitors on the Banff town sign for decades.',
    search:['Peyto Lake Viewpoint, Bow Summit, Icefields Parkway AB']},
   {t:'~10:00 AM',type:'ARRIVE',name:'Waterfowl Lakes',desc:'Two glacially-fed lakes in the shadow of towering peaks, named for the birds that frequent them. Easy roadside pullouts, easy photos.',search:['Waterfowl Lakes, Icefields Parkway AB']},
   {t:'~10:45 AM',type:'ARRIVE',name:'Mistaya Canyon — picnic here',desc:'The Mistaya River has carved a dramatically narrow canyon through limestone, all swirling potholes and channels. A short walk leads to a bridge directly over the chasm.',
+   fact:'"Mistaya" is Cree for grizzly bear. Look down at the curved potholes in the canyon walls — they were drilled by stones spinning in the current for thousands of years, like nature\'s slowest power tools.',
    stats:['0.8 km / 0.5 mi round trip','~20–30 min','Easy · well-maintained path'],search:['Mistaya Canyon, Icefields Parkway AB']},
   {t:'~11:30 AM',type:'START',name:'Saskatchewan River Crossing — DECISION POINT',desc:'Where the North Saskatchewan, Howse and Mistaya rivers meet, and the only services between Lake Louise and Jasper. Mountain goats sometimes appear on the cliffs across the highway. Picnic here if we haven\'t already.',
    warn:'Tired or weather turning? Head back — home by ~5:30–6:00 PM. Energized under clear skies? Continue to the glacier viewpoints below.',
@@ -495,6 +534,7 @@ const DAYS=[
   {t:'+5 min',type:'OPTION',name:'North Saskatchewan River Viewpoint',desc:'A panorama of the river far below — then, just around the corner, the first glimpse of Mt. Athabasca\'s ice-clad peak. A genuinely dramatic moment of road.',search:['North Saskatchewan River Viewpoint, Icefields Parkway AB']},
   {t:'+10 min',type:'OPTION',name:'Columbia Icefield Discovery Centre',desc:'Free roadside viewing of the Athabasca Glacier face right from the parking lot — no ticket needed to see the ice. The Columbia Icefield is the largest mass of glacial ice in the Canadian Rockies.',
    ticket:'🎫 OPTIONAL: Columbia Icefield Adventure (Ice Explorer + Skywalk) ~US$126/person. Tours every 15–30 min — walk-up is viable, but book ahead for certainty. Adds 2–3 hrs.',
+   fact:'The ice here is up to 365 metres thick — deeper than the Eiffel Tower is tall. A snowflake landing on the icefield today could eventually melt into the Pacific, the Arctic, or the Atlantic Ocean, depending on where it lands.',
    moment:'Standing in a parking lot, casually watching a 10,000-year-old glacier hang off a mountain.',
    search:['Columbia Icefield Discovery Centre, Icefields Parkway, Jasper AB']},
   {t:'~1:00 PM',type:'DEPART',name:'Turn around',desc:'Home to Cochrane ~6:30–7:00 PM, full of glaciers.'}
@@ -512,19 +552,26 @@ const DAYS=[
    warn:'Weather note: if the forecast strongly favours one day, consider swapping Days 4 and 5 — the parkway is a different world under blue sky vs. low cloud.'},
   {t:'6:30 AM',type:'DEPART',name:'Leave Cochrane',desc:'~1 hr 15 min to Castle Junction, then 20 min south on Highway 93S into Kootenay National Park.'},
   {t:'~8:05 AM',type:'ARRIVE',name:'Marble Canyon, Kootenay NP (if reopened)',desc:'A slot canyon carved 40 m+ deep through limestone by Tokumm Creek over 10,000 years. Seven bridges criss-cross the chasm above swirling blue glacial water — Johnston Canyon\'s wow factor with a fraction of the crowd. Optional add-on: the Paint Pots\' iron-red mineral springs, 5 min up the road.',
+   fact:'Surprise: there\'s no marble in Marble Canyon — early visitors mistook the water-polished white dolomite for it, and the name stuck. After a 2003 wildfire, the slopes here exploded with magenta fireweed; you can still see the forest regrowing.',
    stats:['1.4 km / 0.9 mi round trip','~30–45 min','Easy · some steep steps','Banff park pass valid here'],search:['Marble Canyon, Kootenay National Park BC']},
   {t:'~8:55 AM',type:'ARRIVE',name:'Numa Falls',desc:'A roadside waterfall on the Vermilion River, two minutes from the car. A pedestrian bridge sits right over the falls — blue water churning over black rock, close enough to feel.',
+   fact:'"Numa" is Cree for thunder — stand on the bridge and you\'ll hear exactly why the name needed no explanation.',
    stats:['600 m walk','~15–20 min','Easy · flat · picnic benches & restrooms'],search:['Numa Falls, Kootenay National Park BC']},
   {t:'~9:15 AM',type:'DEPART',name:'North to the Parkway',desc:'Back past Castle Junction (~20 min), then 30 min north to Bow Lake.'},
   {t:'~10:05 AM',type:'ARRIVE',name:'Bow Lake',desc:'A turquoise glacial lake beneath the Bow Glacier, with the historic Num-Ti-Jah Lodge at the water\'s edge — one of the most photogenic stops on the parkway. ~30 min for photos and a stretch.',
    moment:'On a calm morning the lake doubles every peak around it. Stand still and count the mountains twice.',
+   fact:'The red-roofed Num-Ti-Jah Lodge was built by pioneer guide Jimmy Simpson, who picked this spot by dogsled decades before a road existed. The name is Stoney for "pine marten" — a small forest weasel he admired.',
    search:['Bow Lake, Icefields Parkway, Banff National Park AB']},
-  {t:'~10:40 AM',type:'ARRIVE',name:'Crowfoot Glacier Viewpoint',desc:'Named a century ago for its three-toed resemblance to a crow\'s foot. The glacier has retreated since, but the view across the valley to the ice is still striking. ~10 min.',search:['Crowfoot Glacier Viewpoint, Icefields Parkway AB']},
+  {t:'~10:40 AM',type:'ARRIVE',name:'Crowfoot Glacier Viewpoint',desc:'Named a century ago for its three-toed resemblance to a crow\'s foot. The glacier has retreated since, but the view across the valley to the ice is still striking. ~10 min.',
+   fact:'The crow\'s foot is missing a toe — the glacier had three when it was named, but the lowest one melted away by the 1940s. See if the kids can spot where the third toe used to hang.',
+   search:['Crowfoot Glacier Viewpoint, Icefields Parkway AB']},
   {t:'~11:40 AM',type:'ARRIVE',name:'Emerald Lake, Yoho NP',desc:'Across the BC border, one of the most beautiful lakes in the Rockies — a stunning emerald green, far quieter than Moraine or Louise. Optional canoe rentals at the boathouse. ~1.5 hrs.',
+   fact:'High on the ridge above this lake lies the Burgess Shale — one of the most important fossil beds on Earth, preserving bizarre soft-bodied sea creatures from 505 million years ago, when this valley was a tropical ocean floor.',
    stats:['Emerald Lake Loop 5.2 km / 3.2 mi','~1–1.5 hrs','Easy · relatively flat'],search:['Emerald Lake, Yoho National Park BC']},
   {t:'~1:10 PM',type:'START',name:'Lunch at Emerald Lake Lodge',search:['Emerald Lake Lodge, Yoho National Park BC']},
   {t:'~2:15 PM',type:'ARRIVE',name:'Takakkaw Falls',desc:'One of Canada\'s tallest waterfalls at 373 m, fed by the Daly Glacier. The sheer scale against the mountain wall is breathtaking, and the walk from the lot is easy and flat. ~45 min.',
    stats:['0.8 km / 0.5 mi round trip','~20–30 min','Easy · flat · paved'],
+   fact:'Takakkaw runs on solar power, in a way: it\'s fed by glacier melt, so the falls actually roar loudest on warm, sunny afternoons — you\'re arriving at exactly the right time of day.',
    moment:'Feeling the cold spray of a 373-metre waterfall on your face — mandatory family photo, slightly damp.',
    search:['Takakkaw Falls, Yoho National Park BC']},
   {t:'~3:00 PM',type:'DEPART',name:'Home to Cochrane',desc:'~2 hr 20 min; arrive ~5:20 PM with three parks stamped in memory.'}
@@ -541,11 +588,14 @@ const DAYS=[
   {t:'8:30 AM',type:'DEPART',name:'Leave Cochrane for Canmore',desc:'~50 min drive with the Three Sisters growing in the windshield.'},
   {t:'9:30 AM',type:'START',name:'Grassi Lakes Trail',desc:'Two turquoise lakes tucked into the cliffs above Canmore, with dramatic valley views and ancient rock paintings near the upper lake. One of the best effort-to-reward hikes in the entire Rockies. ~2 hrs.',
    stats:['4 km / 2.5 mi round trip','~1.5–2 hrs','Moderate · rocky switchbacks · 160 m gain'],
+   fact:'The lakes honour Lawrence Grassi, an Italian coal miner who spent his free time single-handedly building trails around Canmore with hand tools — including the very path you\'re climbing. Mountains and trails across the Rockies bear his name.',
    moment:'Finding the centuries-old pictographs near the upper lake — a treasure hunt built into the hike.',
    search:['Grassi Lakes Trail, Canmore AB']},
   {t:'11:30 AM',type:'START',name:'Lunch in Downtown Canmore',search:['Downtown Canmore, Main St, Canmore AB']},
   {t:'1:00 PM',type:'DEPART',name:'Smith-Dorrien Trail to Spray Lakes',desc:'~25 min up the gravel road into Kananaskis Country.'},
-  {t:'1:30–3:00 PM',type:'ARRIVE',name:'Spray Lakes Reservoir',desc:'A huge reservoir ringed by dramatic peaks, far quieter than Banff. Scenic pullouts invite spontaneous photo stops the whole way.',search:['Spray Lakes Reservoir, Kananaskis Country AB']},
+  {t:'1:30–3:00 PM',type:'ARRIVE',name:'Spray Lakes Reservoir',desc:'A huge reservoir ringed by dramatic peaks, far quieter than Banff. Scenic pullouts invite spontaneous photo stops the whole way.',
+   fact:'This quiet mountain water moonlights as a power plant — the Spray system\'s falling water has been generating electricity for Calgary since 1951.',
+   search:['Spray Lakes Reservoir, Kananaskis Country AB']},
   {t:'3:15 PM',type:'ARRIVE',name:'Policeman\'s Creek Boardwalk',desc:'A peaceful, flat boardwalk along the creek through the heart of Canmore — wildlife, flowing water, and mountain views away from the tourist bustle.',
    stats:['2 km / 1.2 mi one way','~30–45 min','Easy · flat'],search:['Policeman\'s Creek Boardwalk, Canmore AB']},
   {t:'4:00 PM',type:'START',name:'Downtown Canmore',desc:'Shops, coffee, relax — we\'ve earned the slow hours.',search:['Downtown Canmore, 8th St, Canmore AB']},
@@ -563,12 +613,17 @@ const DAYS=[
  stops:[
   {t:'Morning-of',type:'NOTE',name:'Decide over breakfast',desc:'Pick by weather and energy, in this priority order:'},
   {t:'Option 1',type:'OPTION',name:'Lake Agnes Tea House (good weather only)',desc:'A historic teahouse perched beside an alpine lake above Lake Louise. The trail climbs steadily through forest before opening to dramatic mountain views. Walk-in — no ticket; confirm hours before going.',
+   fact:'The lake is named for Lady Agnes Macdonald, wife of Canada\'s first prime minister — who in 1886 rode nearly 1,000 km through the Rockies sitting on the train\'s cowcatcher, the little grill on the front of the locomotive, because she wanted a better view. The tea house has served hikers since 1905; supplies still arrive by horseback and helicopter.',
    stats:['7 km / 4.3 mi round trip','~2.5–3.5 hrs','Moderate · 385 m gain'],search:['Lake Agnes Tea House Trail, Lake Louise AB']},
   {t:'Option 2',type:'OPTION',name:'Johnston Canyon',desc:'Banff\'s famous canyon walk on a paved catwalk bolted to the canyon walls above the rushing river. Free, no ticket.',
+   fact:'The canyon is one of the only known nesting sites in Alberta for the black swift — a rare bird that spends almost its entire life in the air and glues its nest to the wet canyon walls.',
    stats:['Lower Falls 2.4 km / ~30–45 min · easy','Upper Falls 5.6 km / ~1.5–2 hrs · easy-moderate'],search:['Johnston Canyon, Bow Valley Pkwy, Banff AB']},
-  {t:'Option 3',type:'OPTION',name:'Upper Kananaskis Lake',desc:'A beautiful alpine lake in Kananaskis Country, far less crowded than Banff\'s famous ones. Easy flat lakeshore walking — a local favorite most tourists never see.',search:['Upper Kananaskis Lake, Kananaskis Country AB']},
+  {t:'Option 3',type:'OPTION',name:'Upper Kananaskis Lake',desc:'A beautiful alpine lake in Kananaskis Country, far less crowded than Banff\'s famous ones. Easy flat lakeshore walking — a local favorite most tourists never see.',
+   fact:'"Kananaskis" comes from the name of a Cree man who, according to the explorer John Palliser, made a legendary recovery from a battle wound — the name roughly honours his toughness. Locals just call the whole area "K-Country."',
+   search:['Upper Kananaskis Lake, Kananaskis Country AB']},
   {t:'Option 4',type:'OPTION',name:'Bow Lake (if Day 4 weather was poor)',desc:'A second chance at the parkway\'s mirror lake.',search:['Bow Lake, Icefields Parkway, Banff National Park AB']},
   {t:'Option 5',type:'OPTION',name:'Tunnel Mountain',desc:'A moderate hike straight from Banff townsite with panoramic views of the Bow Valley and Mount Rundle.',
+   fact:'There is no tunnel in Tunnel Mountain — engineers planned to blast a railway tunnel through it in 1882, then found a way around instead. The name outlived the plan by 140+ years. The Stoney Nakoda call it Sleeping Buffalo, which fits its shape far better.',
    stats:['4.8 km / 3 mi round trip','~1.5–2 hrs','Moderate · 300 m gain'],search:['Tunnel Mountain Trail, Banff AB']},
   {t:'Evening',type:'NOTE',name:'Back to Cochrane early',desc:'Plan lunch around the chosen spot. Then: pack, early dinner, early bed — very early flight tomorrow!',
    moment:'The luxury of choosing the day\'s adventure over pancakes — everyone gets a vote.'}
@@ -635,6 +690,7 @@ function renderDay(n){
       ${s.stats?`<div class="stat-row">${s.stats.map(x=>`<span class="stat">${x}</span>`).join('')}</div>`:''}
       ${s.ticket?`<div class="ticket">${s.ticket}</div>`:''}
       ${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:''}
+      ${s.fact?`<div class="funfact"><b>✦ Did you know?</b>${s.fact}</div>`:''}
       ${s.moment?`<div class="moment"><b>A moment to look forward to</b>${s.moment}</div>`:''}
       ${s.search?`<div class="searchline">${s.search.map(x=>`<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x)}" target="_blank" rel="noopener" aria-label="Open ${x} in Google Maps">📍 ${x}</a>`).join('')}</div>`:''}
     </article>`).join('');
@@ -645,6 +701,7 @@ function renderDay(n){
       <div class="polas" aria-hidden="false">
         ${d.polas.map(([k,cap])=>`<div class="pola tilt">${ph(k,cap,'')}<div class="pcap">${cap}</div></div>`).join('')}
       </div>
+      <div class="stamp" aria-hidden="true">Banff<b>${d.n}</b>of eight</div>
       <div class="head-copy">
         <span class="daynum">Chapter ${d.n} of 8</span>
         <h1>Day ${d.n} — ${d.title}</h1>
