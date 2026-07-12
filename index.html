@@ -9,7 +9,6 @@
 <meta property="og:description" content="A family travel catalog: eight days across Banff, Yoho, Kootenay and Kananaskis — turquoise lakes, glaciers, and golden larches.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://rohitbobbili.github.io/banff/img/moraine-lake.jpg">
-<meta property="og:url" content="https://rohitbobbili.github.io/banff/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231b3a2d'/%3E%3Cpath d='M15 78 L40 34 L52 54 L62 40 L85 78 Z' fill='%23f6f1e7'/%3E%3Ccircle cx='72' cy='26' r='9' fill='%23d9a441'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -389,7 +388,7 @@ footer.site .disclaimer{max-width:44rem;margin:1.2rem auto 0;font-size:.74rem;co
     <div class="borrow wrap" id="borrow">
       <span class="eyebrow">Borrow This Itinerary</span>
       <h2>Traveling this route yourself? Take it — it's yours.</h2>
-      <p>This is a real, field-planned eight-day loop that uses <strong>Cochrane</strong> as a single base camp — cheaper and calmer than staying in Banff, with every day trip under two hours' drive. The chapters below work as a template: same order, same timing, swap the buffer day for whatever the sky gives you. Three practical things to sort out before you go:</p>
+      <p>This is a real, field-planned eight-day loop that uses <strong>Cochrane</strong> as a single base camp — cheaper and calmer than staying in Banff, with every day trip under two hours' drive. Fly into Calgary (YYC) and rent a car — you'll want it every single day. The chapters below work as a template: same order, same timing, swap the buffer day for whatever the sky gives you. Three practical things to sort out before you go:</p>
       <div class="practical">
         <details class="fn-card" open>
           <summary>🎟️ Park passes (two different ones!)</summary>
@@ -725,22 +724,19 @@ const DAYS=[
    moment:'The luxury of choosing the day\'s adventure over pancakes — everyone gets a vote.'}
  ]},
 
-{n:8,title:'Homeward',sub:'YYC → Toronto → Washington',drive:'~40 min driving · then wings',
+{n:8,title:'Homeward',sub:'Cochrane → YYC → wherever home is',drive:'~40 min driving · then wings',
  hero:'yyc',polas:[['cochraneAir','Cochrane from the climb-out'],['moraineClassic','One last look back']],
  ed:`Every story earns its ending. We slip out before dawn, trade mountains for clouds, and carry home a week of turquoise water and golden light. Until next time, Rockies.`,
- fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies is visible from the right side of the plane.',
+ fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies stays in view for several minutes — grab a window seat on the mountain side.',
      pack:'Everything! Passports handy, snacks in carry-ons, and one last check of the room before leaving.',
      food:'Airport breakfast at YYC — the trip\'s least scenic, most necessary meal.',
      drive:'Cochrane → rental return → terminal: ~40 min, pre-dawn and traffic-free.'},
  stops:[
-  {t:'4:45 AM',type:'DEPART',name:'Leave Cochrane',desc:'Pre-dawn quiet, mountains in the mirrors.'},
-  {t:'5:00–5:15 AM',type:'ARRIVE',name:'Rental car after-hours drop-off',desc:'Enterprise Rent-A-Car, Airport Rd NE, Calgary — keys in the after-hours drop.',search:['Enterprise Rent-A-Car, 2000 Airport Rd NE, Calgary AB']},
+  {t:'4:45 AM',type:'DEPART',name:'Leave Cochrane',desc:'Pre-dawn quiet, mountains in the mirrors. Rule of thumb: leave Cochrane about two hours before an early-morning boarding time.'},
+  {t:'5:00–5:15 AM',type:'ARRIVE',name:'Rental car after-hours drop-off',desc:'Most rental agencies along Airport Rd NE have after-hours key drops — confirm yours does when you book.',search:['Car rental return, Calgary International Airport AB']},
   {t:'5:25 AM',type:'ARRIVE',name:'Calgary International Airport (YYC)',desc:'Check in, security, one last mountain-shaped souvenir.',
    moment:'One last look at the Rockies from the departure lounge — say it quietly: we\'ll be back.'},
-  {t:'6:30 AM',type:'DEPART',name:'Fly YYC → Toronto (YYZ)',desc:'Air Canada, morning flight east.'},
-  {t:'12:19 PM',type:'ARRIVE',name:'Toronto Pearson (YYZ)',desc:'Layover 1 hr 36 min — stretch, snack, swap photos.'},
-  {t:'1:55 PM',type:'DEPART',name:'Fly YYZ → Washington Dulles (IAD)',desc:'Air Canada Express, the final leg.'},
-  {t:'3:25 PM',type:'ARRIVE',name:'Washington Dulles (IAD)',desc:'Welcome home! Eight days, three parks, a thousand photos.'}
+  {t:'Morning',type:'DEPART',name:'Fly home — wherever home is',desc:'Eight days, three national parks and a provincial playground, a thousand photos. On a clear morning the Rockies stay in the window long after takeoff.'}
  ]}
 ];
 
