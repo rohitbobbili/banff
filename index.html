@@ -70,20 +70,6 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 #hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(18,43,32,.32),rgba(18,43,32,.12) 42%,rgba(18,43,32,.62))}
 #hero.fail #heroPhoto{display:none}
-/* ---------- 3D route map ---------- */
-#routeMap{position:relative;height:74svh;min-height:460px;overflow:hidden;background:linear-gradient(#cfe4e0,#eef4ef)}
-#hero3d{position:absolute;inset:0;width:100%;height:100%}
-#heroFallback{position:absolute;inset:0;display:none;
-  background:linear-gradient(180deg,#9fc6c2 0%,#5c8f83 45%,#1b3a2d 46%,#122b20 70%,#d9a441 71%,#1b3a2d 72%,#122b20 100%)}
-#routeMap.no3d #heroFallback{display:block}
-.route-head{position:absolute;top:1.6rem;left:0;right:0;z-index:3;text-align:center;pointer-events:none}
-.route-head h2{font-size:clamp(1.4rem,3vw,2rem);color:var(--pine-deep)}
-.route-head p{font-size:.8rem;color:var(--ink-soft)}
-#pinLabels{position:absolute;inset:0;pointer-events:none;z-index:2}
-.pin-label{position:absolute;transform:translate(-50%,-130%);background:rgba(251,248,241,.9);color:var(--pine);
-  font-size:.68rem;font-weight:600;padding:.15rem .55rem;border-radius:999px;border:1px solid rgba(27,58,45,.2);
-  white-space:nowrap;opacity:0;transition:opacity .3s}
-.pin-label.vis{opacity:1}
 .hero-copy{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:1.2rem;pointer-events:none}
 .hero-copy .kicker{letter-spacing:.35em;text-transform:uppercase;font-size:.72rem;color:var(--cream);
@@ -94,8 +80,6 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .hero-copy h1 em{font-style:italic;color:var(--larch-soft);display:block;font-size:.55em;font-weight:400;margin-top:.4rem}
 .hero-copy .dates{margin-top:1.1rem;font-size:.9rem;color:var(--cream);background:rgba(18,43,32,.42);
   border:1px solid rgba(246,241,231,.3);backdrop-filter:blur(4px);padding:.35rem 1rem;border-radius:999px}
-.hero-hint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:3;font-size:.75rem;color:var(--pine);
-  background:rgba(251,248,241,.85);padding:.3rem .9rem;border-radius:999px;pointer-events:none}
 .scroll-cue{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;
   border:2px solid var(--cream);border-radius:14px;pointer-events:none}
 .scroll-cue::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;
@@ -324,17 +308,6 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
       <div class="scroll-cue" aria-hidden="true"></div>
     </div>
 
-    <section id="routeMap" aria-label="Interactive 3D route map">
-      <canvas id="hero3d" aria-hidden="true"></canvas>
-      <div id="heroFallback" aria-hidden="true"></div>
-      <div id="pinLabels" aria-hidden="true"></div>
-      <div class="route-head">
-        <h2>The Route, in Miniature</h2>
-        <p>Eight days scattered across the Rockies</p>
-      </div>
-      <div class="hero-hint" id="heroHint">✦ Tap a glowing pin to fly into that day</div>
-    </section>
-
     <svg class="mtn-divider" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
       <path fill="currentColor" d="M0,60 L0,42 L90,18 L160,38 L260,6 L340,34 L430,14 L520,40 L610,10 L700,36 L790,18 L880,42 L970,12 L1060,34 L1140,20 L1200,44 L1200,60 Z"/>
     </svg>
@@ -385,7 +358,6 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
 <div id="lightbox" role="dialog" aria-label="Photo lightbox"><img alt=""><div class="lb-cap"></div></div>
 <div id="toast" role="status"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
 <script>
 /* ================= helpers ================= */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -850,196 +822,6 @@ function initTilt(){
     el.onpointerleave=()=>{ el.style.transform=''; };
   });
 }
-
-/* ================= Three.js hero ================= */
-(function initHero(){
-  const hero=$('#routeMap'), canvas=$('#hero3d');
-  if(typeof THREE==='undefined'){ hero.classList.add('no3d'); return; }
-  let renderer;
-  try{ renderer=new THREE.WebGLRenderer({canvas,antialias:!MOBILE}); }
-  catch(e){ hero.classList.add('no3d'); return; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  const scene=new THREE.Scene();
-  const cam=new THREE.PerspectiveCamera(55,1,0.1,400);
-  const CAM0=new THREE.Vector3(0,17,46); cam.position.copy(CAM0);
-  const LOOK=new THREE.Vector3(0,7,-24);
-
-  /* terrain: heights defined in plane coords (x, yo); world z = -yo */
-  function hgt(x,yo){
-    let y = Math.sin(x*.08)*Math.cos(yo*.06)*2.2
-          + Math.sin(x*.22+1.7)*Math.cos(yo*.19+2.3)*1.1
-          + Math.abs(Math.sin(x*.05-yo*.07))*2.6;
-    const back=Math.max(0,(yo-14)/40);
-    y+=back*back*11;
-    y+=back*Math.max(0,1-Math.abs(x)/70)*6*Math.abs(Math.sin(x*.11));
-    y+=back*3.4*Math.abs(Math.sin(x*.33+yo*.17));
-    y+=back*1.6*Math.abs(Math.sin(x*.71-yo*.23));
-    return y;
-  }
-  const seg=MOBILE?[70,44]:[110,70];
-  let g=new THREE.PlaneGeometry(180,120,seg[0],seg[1]);
-  const pa=g.attributes.position;
-  for(let i=0;i<pa.count;i++) pa.setZ(i,hgt(pa.getX(i),pa.getY(i)));
-  g=g.toNonIndexed(); g.rotateX(-Math.PI/2); g.computeVertexNormals();
-  const pos=g.attributes.position, colors=new Float32Array(pos.count*3);
-  const cPine=new THREE.Color('#24503a'), cPine2=new THREE.Color('#1b3a2d'),
-        cRock=new THREE.Color('#75857a'), cSnow=new THREE.Color('#f4f1ea'), tmp=new THREE.Color();
-  for(let f=0;f<pos.count;f+=3){
-    const ay=(pos.getY(f)+pos.getY(f+1)+pos.getY(f+2))/3, r=Math.random()*.06;
-    if(ay>17) tmp.copy(cSnow);
-    else if(ay>8) tmp.copy(cRock).lerp(cSnow,(ay-8)/9);
-    else tmp.copy(cPine).lerp(cPine2,Math.random()*.5);
-    tmp.offsetHSL(0,0,r-.03);
-    for(let k=0;k<3;k++){ colors[(f+k)*3]=tmp.r; colors[(f+k)*3+1]=tmp.g; colors[(f+k)*3+2]=tmp.b; }
-  }
-  g.setAttribute('color',new THREE.BufferAttribute(colors,3));
-  scene.add(new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:.95})));
-
-  /* turquoise lake */
-  const lake=new THREE.Mesh(new THREE.CircleGeometry(9,26),
-    new THREE.MeshStandardMaterial({color:'#3aa8a3',roughness:.25,metalness:.1}));
-  lake.rotation.x=-Math.PI/2; lake.position.set(-14,.32,10); lake.scale.set(1.6,1,1); scene.add(lake);
-
-  /* lights */
-  const hemi=new THREE.HemisphereLight('#f6f1e7','#1b3a2d',.75); scene.add(hemi);
-  const sun=new THREE.DirectionalLight('#fff4e0',1.1); sun.position.set(-30,40,20); scene.add(sun);
-
-  /* clouds */
-  const clouds=new THREE.Group();
-  const cm=new THREE.MeshStandardMaterial({color:'#ffffff',transparent:true,opacity:.8,flatShading:true,roughness:1});
-  for(let i=0;i<(MOBILE?4:7);i++){
-    const c=new THREE.Group();
-    for(let j=0;j<3;j++){
-      const b=new THREE.Mesh(new THREE.IcosahedronGeometry(1.6+Math.random()*1.6,0),cm);
-      b.position.set(j*2.2-2,Math.random()*.7,Math.random()*1.4); b.scale.y=.45; c.add(b);
-    }
-    c.position.set((Math.random()-.5)*140,16+Math.random()*8,-30-Math.random()*40);
-    c.userData.v=.008+Math.random()*.014; clouds.add(c);
-  }
-  scene.add(clouds);
-
-  /* particles */
-  const pn=MOBILE?120:340, pp=new Float32Array(pn*3);
-  for(let i=0;i<pn;i++){ pp[i*3]=(Math.random()-.5)*90; pp[i*3+1]=Math.random()*22; pp[i*3+2]=(Math.random()-.5)*60; }
-  const pgeo=new THREE.BufferGeometry(); pgeo.setAttribute('position',new THREE.BufferAttribute(pp,3));
-  const pts=new THREE.Points(pgeo,new THREE.PointsMaterial({color:'#f6e9c9',size:.28,transparent:true,opacity:.55,depthWrite:false}));
-  scene.add(pts);
-
-  /* route pins */
-  const pinDefs=[[-30,26],[-18,14],[-6,20],[4,8],[16,16],[26,6],[10,-2],[34,18]]; // world x,z per day
-  const pins=[], labelWrap=$('#pinLabels');
-  const pinGroup=new THREE.Group(); scene.add(pinGroup);
-  pinDefs.forEach((p,i)=>{
-    const [x,z]=p, y=hgt(x,-z);
-    const grp=new THREE.Group();
-    const stem=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,3,6),
-      new THREE.MeshStandardMaterial({color:'#f6f1e7',roughness:.6}));
-    stem.position.y=1.5;
-    const head=new THREE.Mesh(new THREE.SphereGeometry(.62,14,12),
-      new THREE.MeshStandardMaterial({color:i%2?'#d9a441':'#3fc1bb',emissive:i%2?'#d9a441':'#2ea6a0',emissiveIntensity:.55,roughness:.35}));
-    head.position.y=3.15; head.userData.day=i+1;
-    grp.add(stem,head); grp.position.set(x,y,z); pinGroup.add(grp);
-    const lab=document.createElement('span'); lab.className='pin-label'; lab.textContent=`Day ${i+1}`;
-    labelWrap.appendChild(lab);
-    pins.push({grp,head,lab,base:y});
-  });
-  /* portrait viewports get their own hand-placed layout so all 8 pins stay in frame */
-  const pinDefsPortrait=[[-4,26],[-8,8],[-2,17],[3,2],[7,12],[0,-8],[-4,-14],[6,21]];
-  function placePins(){
-    const defs=cam.aspect<1.2?pinDefsPortrait:pinDefs;
-    pins.forEach((p,i)=>{
-      const [x,z]=defs[i];
-      p.grp.position.set(x,hgt(x,-z),z);
-    });
-  }
-
-  /* sky palette (day ↔ dusk) */
-  const skyDay=new THREE.Color('#cfe4e0'), skyDusk=new THREE.Color('#8f7a8d'),
-        sunDay=new THREE.Color('#fff4e0'), sunDusk=new THREE.Color('#ff9d5c'), sky=new THREE.Color();
-  scene.fog=new THREE.Fog('#cfe4e0',70,220);
-
-  /* interaction */
-  const ray=new THREE.Raycaster(), ptr=new THREE.Vector2(); let hover=null, mouseX=0,mouseY=0;
-  function pick(e){
-    const r=canvas.getBoundingClientRect();
-    ptr.x=((e.clientX-r.left)/r.width)*2-1; ptr.y=-((e.clientY-r.top)/r.height)*2+1;
-    ray.setFromCamera(ptr,cam);
-    const hit=ray.intersectObjects(pins.map(p=>p.head))[0];
-    return hit?hit.object:null;
-  }
-  canvas.addEventListener('pointermove',e=>{
-    mouseX=(e.clientX/innerWidth-.5); mouseY=(e.clientY/innerHeight-.5);
-    const h=pick(e);
-    if(h!==hover){
-      if(hover){hover.material.emissiveIntensity=.55; hover.scale.setScalar(1);}
-      hover=h;
-      if(hover){hover.material.emissiveIntensity=1.4; hover.scale.setScalar(1.35);}
-      canvas.style.cursor=hover?'pointer':'default';
-    }
-  });
-  let flying=false;
-  canvas.addEventListener('click',e=>{
-    const h=pick(e)||hover; if(!h||flying) return;
-    const day=h.userData.day;
-    if(RM){ location.hash=`#day-${day}`; return; }
-    flying=true;
-    const from=cam.position.clone(), pin=pins[day-1].grp.position;
-    const to=pin.clone().add(new THREE.Vector3(0,4.5,8)), t0=performance.now();
-    let done=false;
-    const finish=()=>{ if(done) return; done=true;
-      location.hash=`#day-${day}`; cam.position.copy(CAM0); flying=false; };
-    (function fly(){
-      const k=Math.min(1,(performance.now()-t0)/950), e2=1-Math.pow(1-k,3);
-      cam.position.lerpVectors(from,to,e2);
-      cam.lookAt(pin.x,pin.y+2,pin.z);
-      if(k<1) requestAnimationFrame(fly);
-      else setTimeout(finish,120);
-    })();
-    setTimeout(finish,1600); /* safety: navigate even if rAF is throttled */
-  });
-
-  function resize(){
-    const w=hero.clientWidth,h=hero.clientHeight;
-    renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix();
-    placePins();
-  }
-  addEventListener('resize',resize); resize();
-
-  const v3=new THREE.Vector3();
-  let t=0;
-  function frame(){
-    if(!RM) t+=0.016;
-    /* day-dusk cycle */
-    const k=(Math.sin(t*.055)+1)/2;
-    sky.lerpColors(skyDay,skyDusk,k);
-    scene.background=sky; scene.fog.color.copy(sky);
-    sun.color.lerpColors(sunDay,sunDusk,k); sun.intensity=1.15-.6*k; hemi.intensity=.8-.35*k;
-    /* drift */
-    if(!flying){
-      cam.position.x=CAM0.x+Math.sin(t*.07)*3+mouseX*3;
-      cam.position.y=CAM0.y+Math.sin(t*.05)*.8-mouseY*2;
-      cam.lookAt(LOOK);
-    }
-    clouds.children.forEach(c=>{ c.position.x+=c.userData.v; if(c.position.x>80)c.position.x=-80; });
-    pts.rotation.y=t*.008;
-    pins.forEach((p,i)=>{ p.head.position.y=3.15+Math.sin(t*1.6+i)*.14; });
-    renderer.render(scene,cam);
-    /* project labels AFTER render so camera/world matrices are current */
-    const hr=hero.getBoundingClientRect();
-    const onScreen=hr.bottom>0 && hr.top<innerHeight;
-    pins.forEach(p=>{
-      if(document.body.dataset.view==='cover'){
-        v3.setFromMatrixPosition(p.head.matrixWorld); v3.project(cam);
-        const vis=v3.z<1 && Math.abs(v3.x)<1.05;
-        p.lab.classList.toggle('vis',vis && onScreen);
-        if(vis){ p.lab.style.left=((v3.x+1)/2*hero.clientWidth)+'px';
-                 p.lab.style.top=((-v3.y+1)/2*hero.clientHeight)+'px'; }
-      } else p.lab.classList.remove('vis');
-    });
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
 
 /* boot */
 route(); initReveals(); initTilt();
