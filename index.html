@@ -3,8 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banff, September 2026 — Our Rocky Mountain Story</title>
+<title>Banff in September — Our Rocky Mountain Story</title>
 <meta name="description" content="A family travel catalog for eight days in the Canadian Rockies — Banff, Lake Louise, the Icefields Parkway, Yoho, Kootenay and Kananaskis.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Banff in September — Our Rocky Mountain Story">
+<meta property="og:description" content="A family travel catalog: eight days across Banff, Yoho, Kootenay and Kananaskis — turquoise lakes, glaciers, and golden larches.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=1200&q=70">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231b3a2d'/%3E%3Cpath d='M15 78 L40 34 L52 54 L62 40 L85 78 Z' fill='%23f6f1e7'/%3E%3Ccircle cx='72' cy='26' r='9' fill='%23d9a441'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -204,8 +211,9 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .warn{background:#faeae2;border:1px dashed var(--rust);color:#7c3a1c}
 .moment{background:#e8f4f2;border:1px solid rgba(46,166,160,.35);color:#175a56;font-style:italic;font-family:var(--serif)}
 .moment b{font-family:var(--sans);font-style:normal;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:.2rem;color:var(--turq)}
-.searchline{margin-top:.5rem;font-size:.72rem;color:#7d8a7b}
-.searchline span{display:block}
+.searchline{margin-top:.5rem;font-size:.72rem}
+.searchline a{display:block;color:#177a74;text-decoration:none;margin-top:.15rem;width:fit-content}
+.searchline a:hover{color:var(--turq);text-decoration:underline}
 .stop ul.plain{margin:.5rem 0 0 1.1rem;font-size:.85rem;color:var(--ink-soft)}
 
 /* reveal */
@@ -267,7 +275,7 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
 
 <header id="topbar">
   <button id="homeBtn" aria-label="Back to cover">⌂ Cover</button>
-  <span class="brand">Banff · Sept 2026</span>
+  <span class="brand">Banff · September</span>
   <nav id="dayDots" aria-label="Jump to a day"></nav>
   <button id="shareBtn" aria-label="Copy link to share">Share ↗</button>
 </header>
@@ -279,8 +287,8 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
       <div id="heroPhoto" aria-hidden="false"></div>
       <div class="hero-copy">
         <span class="kicker">A Family Field Guide · Eight Days</span>
-        <h1>Banff, September 2026<em>Our Rocky Mountain Story</em></h1>
-        <span class="dates">September 19 – 26 · Calgary → Cochrane → the Canadian Rockies</span>
+        <h1>Banff in September<em>Our Rocky Mountain Story</em></h1>
+        <span class="dates">Eight days · Calgary → Cochrane → the Canadian Rockies</span>
       </div>
       <div class="scroll-cue" aria-hidden="true"></div>
     </div>
@@ -324,7 +332,7 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
 
     <footer class="site">
       <span class="serif">"The mountains are calling — and this time, we're all going."</span>
-      Made with love for the whole family · September 19–26, 2026 · Banff · Yoho · Kootenay · Kananaskis
+      Made with love for the whole family · Banff · Yoho · Kootenay · Kananaskis
     </footer>
   </section>
 
@@ -377,7 +385,7 @@ function ph(key,loc,cap,cls=''){
 
 /* ================= itinerary data ================= */
 const DAYS=[
-{n:1,date:'Saturday, September 19',title:'Arrival & the Foothills',sub:'Calgary → Cochrane',drive:'~45 min driving',
+{n:1,title:'Arrival & the Foothills',sub:'Calgary → Cochrane',drive:'~45 min driving',
  hero:'goldfield',polas:[['hills','First evening, first fog'],['forest','Foothill pines at dusk']],
  ed:`Every story needs a threshold. Ours opens on the prairie's edge in Cochrane, where the foothills gather themselves before becoming mountains. Tonight we stock the cooler, walk the old ranche, and sleep early — the Rockies are waiting.`,
  fn:{fact:'Cochrane sits on the Bow River — the same water we\'ll follow all week, from Bow Lake to Bow Falls.',
@@ -398,7 +406,7 @@ const DAYS=[
   {t:'Evening',type:'START',name:'Dinner in Cochrane',desc:'Early night — big day tomorrow!'}
  ]},
 
-{n:2,date:'Sunday, September 20',title:'Banff Highlights & Vermilion Dusk',sub:'Gondola · Minnewanka · sunset reflections',drive:'~2 hr 45 min driving',
+{n:2,title:'Banff Highlights & Vermilion Dusk',sub:'Gondola · Minnewanka · sunset reflections',drive:'~2 hr 45 min driving',
  hero:'range',polas:[['peak','Six ranges from the summit boardwalk'],['lakeset','Waiting on stillness at Vermilion']],
  ed:`Banff introduces itself all at once — a waterfall, a castle in the trees, a gondola rising into thin blue air. By evening, if the wind holds its breath, Mount Rundle will lay itself down twice: once in stone, once in still water.`,
  fn:{fact:'Bow Falls appeared in the 1953 Marilyn Monroe film “River of No Return.”',
@@ -426,7 +434,7 @@ const DAYS=[
   {t:'~8:15 PM',type:'DEPART',name:'Back to Cochrane',desc:'~50 minutes home under the first stars.'}
  ]},
 
-{n:3,date:'Monday, September 21',title:'Lakes of Turquoise',sub:'Moraine Lake · Lake Louise',drive:'~3 hrs driving',
+{n:3,title:'Lakes of Turquoise',sub:'Moraine Lake · Lake Louise',drive:'~3 hrs driving',
  hero:'moraine',polas:[['canoe','Emerald water, red canoes'],['mist','Victoria Glacier through morning haze']],
  ed:`Some colors have to be seen to be believed. Today we stand on the Rockpile at Moraine Lake — the view once printed on the back of the twenty-dollar bill — then walk the quiet shoreline of Lake Louise beneath the hanging ice of the Victoria Glacier.`,
  fn:{fact:'The impossible turquoise is “rock flour” — glacier-ground stone dust suspended in meltwater, scattering blue-green light.',
@@ -449,7 +457,7 @@ const DAYS=[
   {t:'5:00 PM',type:'DEPART',name:'Back to Cochrane',desc:'~1.5 hr drive; dinner in Cochrane around 6:30 PM.'}
  ]},
 
-{n:4,date:'Tuesday, September 22',title:'Icefields Parkway — South Push',sub:'Peyto · Mistaya · toward the glacier',drive:'~3 hr 45 min · ~4 hr 45 min with glacier extension',
+{n:4,title:'Icefields Parkway — South Push',sub:'Peyto · Mistaya · toward the glacier',drive:'~3 hr 45 min · ~4 hr 45 min with glacier extension',
  hero:'valley',polas:[['peak','Mt. Athabasca\'s first appearance'],['snowforest','Ice country begins']],
  ed:`The Icefields Parkway may be the most beautiful road on Earth, and today we drive it slowly. Peyto's wolf-shaped turquoise, a canyon carved through limestone, and — if the skies allow — our first look at ten-thousand-year-old glacial ice.`,
  fn:{fact:'The Columbia Icefield covers ~200 km² and feeds meltwater to three different oceans — Pacific, Arctic and Atlantic.',
@@ -479,7 +487,7 @@ const DAYS=[
   {t:'~1:00 PM',type:'DEPART',name:'Turn around',desc:'Home to Cochrane ~6:30–7:00 PM, full of glaciers.'}
  ]},
 
-{n:5,date:'Wednesday, September 23',title:'Three Parks in One Day',sub:'Kootenay · Bow Lake · Yoho',drive:'~5 hr 20 min driving',
+{n:5,title:'Three Parks in One Day',sub:'Kootenay · Bow Lake · Yoho',drive:'~5 hr 20 min driving',
  hero:'falls',polas:[['lake','Bow Lake\'s morning mirror'],['forest','Yoho: “awe and wonder” in Cree']],
  ed:`Three parks in one sweeping day: Kootenay's marble slot canyon at dawn, Bow Lake's mirror at mid-morning, and Yoho's emerald water and thundering Takakkaw — a name that means "it is magnificent." It is.`,
  fn:{fact:'“Takakkaw” means “it is magnificent” in Cree; at 373 m it\'s one of Canada\'s tallest waterfalls.',
@@ -509,7 +517,7 @@ const DAYS=[
   {t:'~3:00 PM',type:'DEPART',name:'Home to Cochrane',desc:'~2 hr 20 min; arrive ~5:20 PM with three parks stamped in memory.'}
  ]},
 
-{n:6,date:'Thursday, September 24',title:'Grassi Lakes & Canmore',sub:'Kananaskis backroads · boardwalk evenings',drive:'~2 hr 30 min driving',
+{n:6,title:'Grassi Lakes & Canmore',sub:'Kananaskis backroads · boardwalk evenings',drive:'~2 hr 30 min driving',
  hero:'lake',polas:[['hills','Smith-Dorrien dust & views'],['forest','Boardwalk pace, mountain views']],
  ed:`A slower rhythm today. We climb to the twin turquoise pools above Canmore, wander a reservoir most tourists never find, and let the afternoon drift along a creekside boardwalk. Mountain life, at walking pace.`,
  fn:{fact:'Near Upper Grassi Lake are ancient Indigenous pictographs — rock paintings hundreds of years old.',
@@ -532,7 +540,7 @@ const DAYS=[
   {t:'8:30 PM',type:'DEPART',name:'Back to Cochrane',desc:'~50 min home.'}
  ]},
 
-{n:7,date:'Friday, September 25',title:'The Choose-Your-Adventure Day',sub:'Weather & favorite-spot buffer',drive:'~1–3 hrs · depends on the pick',
+{n:7,title:'The Choose-Your-Adventure Day',sub:'Weather & favorite-spot buffer',drive:'~1–3 hrs · depends on the pick',
  hero:'mist',polas:[['snowforest','Whatever the sky decides'],['goldfield','Last golden hours']],
  ed:`A blank page, on purpose. Today the weather writes the itinerary — a teahouse in the clouds, a canyon catwalk, or one more quiet lake. Whatever we choose over breakfast will be the right choice.`,
  fn:{fact:'The Lake Agnes Tea House has been serving hikers since 1905 — supplies still arrive largely by helicopter and horseback.',
@@ -553,7 +561,7 @@ const DAYS=[
    moment:'The luxury of choosing the day\'s adventure over pancakes — everyone gets a vote.'}
  ]},
 
-{n:8,date:'Saturday, September 26',title:'Homeward',sub:'YYC → Toronto → Washington',drive:'~40 min driving · then wings',
+{n:8,title:'Homeward',sub:'YYC → Toronto → Washington',drive:'~40 min driving · then wings',
  hero:'plane',polas:[['stars','Pre-dawn departure sky'],['range','One last look back']],
  ed:`Every story earns its ending. We slip out before dawn, trade mountains for clouds, and carry home a week of turquoise water and golden light. Until next time, Rockies.`,
  fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies is visible from the right side of the plane.',
@@ -595,7 +603,7 @@ $('#cards').innerHTML = DAYS.map((d,i)=>`
     <span class="meta">
       <span class="daynum">Day ${d.n}</span>
       <h3>${d.title}</h3>
-      <span class="cdate">${d.date} · ${d.sub}</span>
+      <span class="cdate">${d.sub}</span>
     </span>
   </button>`).join('');
 
@@ -615,7 +623,7 @@ function renderDay(n){
       ${s.ticket?`<div class="ticket">${s.ticket}</div>`:''}
       ${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:''}
       ${s.moment?`<div class="moment"><b>A moment to look forward to</b>${s.moment}</div>`:''}
-      ${s.search?`<div class="searchline">${s.search.map(x=>`<span>🔎 Search: ${x}</span>`).join('')}</div>`:''}
+      ${s.search?`<div class="searchline">${s.search.map(x=>`<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x)}" target="_blank" rel="noopener" aria-label="Open ${x} in Google Maps">📍 ${x}</a>`).join('')}</div>`:''}
     </article>`).join('');
 
   $('#day').innerHTML = `
@@ -627,7 +635,7 @@ function renderDay(n){
       <div class="head-copy">
         <span class="daynum">Chapter ${d.n} of 8</span>
         <h1>Day ${d.n} — ${d.title}</h1>
-        <div class="ddate">${d.date} · ${d.sub}</div>
+        <div class="ddate">${d.sub}</div>
         <span class="drive-chip">🚗 ${d.drive}</span>
       </div>
     </div>
