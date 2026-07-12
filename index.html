@@ -378,6 +378,11 @@ footer.site{padding:var(--s6) 1.2rem}
   .side-collage{gap:1rem}
 }
 
+/* planning zone rhythm: 48px between groups, 24px stats→weather */
+.borrow .stats-strip{margin:3rem 0 1.5rem}
+.borrow .weather{margin-top:1.5rem}
+.borrow .practical{margin-top:3rem}
+.stat-card{min-width:130px;padding:1rem 1.4rem}
 /* day at-a-glance chips */
 .glance{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;max-width:640px}
 .glance span{display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:var(--cream);
@@ -744,6 +749,7 @@ const DAYS=[
  hero:'takakkaw',polas:[['bowlake','Crowfoot country, above Bow Lake'],['emerald','Emerald Lake Lodge, across the water']],
  ed:`Three parks in one sweeping day: Kootenay's marble slot canyon at dawn, Bow Lake's mirror at mid-morning, and Yoho's emerald water and thundering Takakkaw — a name that means "it is magnificent." It is.`,
  plan:'Three parks in one sweep: a slot canyon at dawn in Kootenay, Bow Lake\'s morning mirror, an emerald lake with canoes for rent in Yoho, and one of Canada\'s tallest waterfalls before supper.',
+ glance:{drive:'~5 hr 20 min',walk:'~8 km, easy',star:'Takakkaw Falls',book:'none needed',wx:'swap with Day 4 if forecast favors one'},
  fn:{fact:'“Takakkaw” means “it is magnificent” in Cree; at 373 m it\'s one of Canada\'s tallest waterfalls.',
      pack:'Park pass (valid in Kootenay & Yoho too), rain shell for waterfall spray, canoe-curiosity for Emerald Lake.',
      food:'Lunch at Emerald Lake Lodge — a table with one of the best views in the Rockies.',
@@ -783,7 +789,6 @@ const DAYS=[
  ed:`A slower rhythm today. We climb to the twin turquoise pools above Canmore, wander a reservoir most tourists never find, and let the afternoon drift along a creekside boardwalk. Mountain life, at walking pace.`,
  plan:'A slow day done right: earn the twin turquoise pools above Canmore, lunch in town, wander a gravel road to Spray Lakes, and let the evening drift down a creekside boardwalk.',
  glance:{drive:'~2 hr 30 min',walk:'~7 km, moderate',star:'pictographs at Grassi Lakes',book:'Kananaskis pass',wx:'trail works even in light rain'},
- glance:{drive:'~5 hr 20 min',walk:'~8 km, easy',star:'Takakkaw Falls',book:'none needed',wx:'swap with Day 4 if forecast favors one'},
  fn:{fact:'Near Upper Grassi Lake are ancient Indigenous pictographs — rock paintings hundreds of years old.',
      pack:'Proper shoes for rocky switchbacks, water bottles, and patience for photo stops on the Smith-Dorrien.',
      food:'Downtown Canmore café culture — grab a bakery treat on Main Street after the hike.',
