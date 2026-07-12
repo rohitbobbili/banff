@@ -268,8 +268,7 @@ body[data-view="day"] .dayArrow{display:flex}
 #zoomer{position:fixed;z-index:70;border-radius:18px;overflow:hidden;pointer-events:none;
   transition:all .55s cubic-bezier(.6,.05,.3,1);background-size:cover;background-position:center;display:none}
 
-footer.site{background:var(--pine-deep);color:rgba(246,241,231,.8);text-align:center;padding:3.5rem 1.2rem;font-size:.82rem}
-footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--cream);display:block;margin-bottom:.6rem}
+footer.site{position:relative;z-index:2;color:rgba(246,241,231,.8);text-align:center;padding:0 1.2rem 1.8rem;font-size:.82rem}
 
 
 /* borrow panel & practical cards */
@@ -287,7 +286,7 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
 .ed-note p::first-letter{font-family:var(--serif);font-size:3.1em;float:left;line-height:.82;
   padding:.06em .14em 0 0;color:var(--larch);font-weight:700}
 /* footer credits */
-footer.site .disclaimer{max-width:44rem;margin:1.2rem auto 0;font-size:.74rem;color:rgba(246,241,231,.55)}
+footer.site .disclaimer{max-width:44rem;margin:0 auto;font-size:.74rem;color:rgba(246,241,231,.7)}
 .credits{max-width:760px;margin:1.6rem auto 0;font-size:.72rem;color:rgba(246,241,231,.55);text-align:left}
 .credits summary{cursor:pointer;text-align:center;color:rgba(246,241,231,.75);font-size:.78rem;list-style:none}
 .credits summary::-webkit-details-marker{display:none}
@@ -324,7 +323,7 @@ footer.site .disclaimer{max-width:44rem;margin:1.2rem auto 0;font-size:.74rem;co
 .stop{padding-bottom:var(--s4)}
 .side-collage{gap:var(--s2)}
 .day-footer-nav{padding-bottom:var(--s6)}
-footer.site{padding:var(--s6) 1.2rem}
+footer.site{padding:0 1.2rem var(--s3)}
 /* back-to-cover button (mobile day pages) */
 #homeFab{position:fixed;right:1rem;bottom:1rem;z-index:46;width:50px;height:50px;border-radius:50%;border:none;
   background:var(--alpine);color:#fff;font-size:1.3rem;display:none;place-items:center;cursor:pointer;
@@ -393,10 +392,14 @@ footer.site{padding:var(--s6) 1.2rem}
   background:rgba(18,43,32,.38);border:1px solid rgba(246,241,231,.3);backdrop-filter:blur(4px);
   padding:.28rem .7rem;border-radius:999px}
 /* closing */
-.closing{position:relative;height:72svh;min-height:420px;overflow:hidden;background:var(--pine-deep)}
-.closing img{width:100%;height:100%;object-fit:cover;filter:saturate(.95)}
+.closing{position:relative;min-height:72svh;overflow:hidden;background:var(--pine-deep);display:flex;flex-direction:column}
+.closing img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.95)}
+/* bottom scrim: a legible bed for the fine print, center stays clean */
+.closing::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,18,14,0) 45%,rgba(10,18,14,.88))}
+.closing:has(.credits[open])::after{background:linear-gradient(180deg,rgba(10,18,14,0) 12%,rgba(10,18,14,.92) 48%)}
 .closing::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,43,32,.25),rgba(18,43,32,.65))}
-.closing-copy{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem}
+.closing-copy{position:relative;z-index:2;flex:1;min-height:46svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem}
 .closing-copy h2{font-size:clamp(2.2rem,6vw,4.2rem);color:var(--cream);text-shadow:0 4px 30px rgba(18,43,32,.8)}
 .closing-copy p{font-family:var(--serif);font-style:italic;color:var(--larch-soft);font-size:clamp(.95rem,2vw,1.2rem);margin-top:.6rem}
 
@@ -590,13 +593,10 @@ footer.site{padding:var(--s6) 1.2rem}
         <h2>See you in the Rockies.</h2>
         <p>The mountains are calling — and this time, we're all going.</p>
       </div>
-    </section>
-
     <footer class="site">
-      Made with love for the whole family · Banff · Yoho · Kootenay · Kananaskis
       <p class="disclaimer">This is an unofficial, personal travel guide. Hours, prices, road access and trail conditions change — always verify with <a href="https://parks.canada.ca/pn-np/ab/banff" target="_blank" rel="noopener" style="color:rgba(246,241,231,.8)">Parks Canada</a> and <a href="https://www.alberta.ca/kananaskis-country" target="_blank" rel="noopener" style="color:rgba(246,241,231,.8)">Alberta Parks</a> before you go.</p>
       <details class="credits">
-        <summary>📷 Photo credits — Wikimedia Commons</summary>
+        <summary>📷 Photo credits</summary>
         <ul>
           <li>Moraine Lake — <a href="https://commons.wikimedia.org/wiki/File:Lake_Moraine-Banff_National_Park.jpg" target="_blank" rel="noopener">Florian Fuchs</a>, CC BY 3.0</li>
           <li>Moraine Lake (classic view) — <a href="https://commons.wikimedia.org/wiki/File:Moraine_Lake_17092005.jpg" target="_blank" rel="noopener">Gorgo</a>, Public domain</li>
@@ -624,6 +624,7 @@ footer.site{padding:var(--s6) 1.2rem}
         </ul>
       </details>
     </footer>
+    </section>
   </section>
 
   <!-- ============ DAY VIEW (rendered by JS) ============ -->
