@@ -396,6 +396,23 @@ footer.site{padding:var(--s6) 1.2rem}
 .closing-copy h2{font-size:clamp(2.2rem,6vw,4.2rem);color:var(--cream);text-shadow:0 4px 30px rgba(18,43,32,.8)}
 .closing-copy p{font-family:var(--serif);font-style:italic;color:var(--larch-soft);font-size:clamp(.95rem,2vw,1.2rem);margin-top:.6rem}
 
+/* photo unification: all framed photos 4:5 with cream frame (hero stays full-bleed) */
+.side-collage .ph{aspect-ratio:4/5;border:10px solid var(--paper);border-radius:8px;box-shadow:var(--shadow)}
+/* hierarchy nudges */
+.stop h3{font-size:1.45rem}
+/* alpine hairline separators */
+.hairline{width:64px;height:3px;border-radius:2px;background:var(--alpine);margin:3rem auto;opacity:.75}
+.day-body .hairline{margin:0 0 2rem}
+/* mobile premium pass */
+@media (max-width:720px){
+  .day-head{min-height:64svh;padding-top:4.5rem}
+  .day-head h1{font-size:clamp(2.2rem,9vw,2.9rem)}
+  .side-collage .ph{aspect-ratio:16/10;max-height:220px;border-width:8px}
+  .stop p.desc{font-size:1rem;line-height:1.7}
+  .plan{font-size:1rem;line-height:1.65}
+  .glance span{font-size:.78rem;padding:.4rem .8rem}
+}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .rev{opacity:1;transform:none}
@@ -463,6 +480,8 @@ footer.site{padding:var(--s6) 1.2rem}
       <p class="sub">One page per day. Tap any card to step inside.</p>
       <div id="cards"></div>
     </div>
+
+    <div class="hairline" aria-hidden="true"></div>
 
     <div class="borrow wrap" id="borrow">
       <span class="eyebrow">Borrow This Itinerary</span>
@@ -649,7 +668,7 @@ const DAYS=[
 
 {n:2,title:'Banff Highlights & Vermilion Dusk',sub:'Gondola · Minnewanka · sunset reflections',drive:'~2 hr 45 min driving',
  hero:'sulphur',polas:[['minnewanka','Minnewanka\'s spirit-water'],['vermilion','The Vermilion Lakes, rehearsing for dusk']],
- ed:`Banff introduces itself all at once — a waterfall, a castle in the trees, a gondola rising into thin blue air. By evening, if the wind holds its breath, Mount Rundle will lay itself down twice: once in stone, once in still water.`,
+ ed:`Banff doesn't do quiet introductions. By evening — if the wind holds its breath — Mount Rundle will lay itself down twice, once in stone and once in still water, and the day will feel like a week in the best possible way.`,
  plan:'Waterfalls and castle views before ten, a gondola to a 360° summit by noon, Minnewanka\'s blue in the afternoon, dinner on Banff Avenue — and, wind willing, mirror-still reflections at dusk.',
  glance:{drive:'~2 hr 45 min',walk:'~3 km, easy',star:'Sulphur Mountain summit',book:'gondola tickets',wx:'calm evening = Vermilion reflections'},
  fn:{fact:'Bow Falls appeared in the 1953 Marilyn Monroe film “River of No Return.”',
@@ -712,7 +731,7 @@ const DAYS=[
 
 {n:4,title:'Icefields Parkway — South Push',sub:'Peyto · Mistaya · toward the glacier',drive:'~3 hr 45 min · ~4 hr 45 min with glacier extension',
  hero:'peyto',polas:[['mistaya','Mistaya\'s carved corridors'],['athabasca','Walking on the Athabasca ice']],
- ed:`The Icefields Parkway may be the most beautiful road on Earth, and today we drive it slowly. Peyto's wolf-shaped turquoise, a canyon carved through limestone, and — if the skies allow — our first look at ten-thousand-year-old glacial ice.`,
+ ed:`There are drives you take to get somewhere, and there are drives that are the somewhere. Today the road itself is the destination — and it ends, sky permitting, face to face with ice older than any story we know.`,
  plan:'North up the most beautiful road on Earth: Peyto\'s wolf-shaped lake, a picnic above Mistaya Canyon, and a decision at the Crossing — turn back easy, or push on to a 10,000-year-old glacier.',
  glance:{drive:'3¾–4¾ hrs',walk:'~2 km, easy',star:'Peyto Lake viewpoint',book:'Ice Explorer (optional)',wx:'blue skies? push to the glacier'},
  fn:{fact:'The Columbia Icefield covers ~200 km² and feeds meltwater to three different oceans — Pacific, Arctic and Atlantic.',
@@ -747,7 +766,7 @@ const DAYS=[
 
 {n:5,title:'Three Parks in One Day',sub:'Kootenay · Bow Lake · Yoho',drive:'~5 hr 20 min driving',
  hero:'takakkaw',polas:[['bowlake','Crowfoot country, above Bow Lake'],['emerald','Emerald Lake Lodge, across the water']],
- ed:`Three parks in one sweeping day: Kootenay's marble slot canyon at dawn, Bow Lake's mirror at mid-morning, and Yoho's emerald water and thundering Takakkaw — a name that means "it is magnificent." It is.`,
+ ed:`Some days you collect places the way other people collect postcards. Today crosses a provincial border twice before dinner and comes home soaked in waterfall spray — Takakkaw means "it is magnificent," and it does not exaggerate.`,
  plan:'Three parks in one sweep: a slot canyon at dawn in Kootenay, Bow Lake\'s morning mirror, an emerald lake with canoes for rent in Yoho, and one of Canada\'s tallest waterfalls before supper.',
  glance:{drive:'~5 hr 20 min',walk:'~8 km, easy',star:'Takakkaw Falls',book:'none needed',wx:'swap with Day 4 if forecast favors one'},
  fn:{fact:'“Takakkaw” means “it is magnificent” in Cree; at 373 m it\'s one of Canada\'s tallest waterfalls.',
@@ -924,6 +943,7 @@ function renderDay(n){
       <div>
         <div class="ed-note rev"><span class="eyebrow">Editor's Note</span><p>${d.ed}</p></div>
         ${d.plan?`<div class="plan rev"><b>The plan, in one breath</b>${d.plan}</div>`:''}
+        <div class="hairline" aria-hidden="true"></div>
         <span class="section-label rev">The Day, Hour by Hour</span>
         <div class="tl">
           <div class="tl-track"><div class="tl-fill"></div></div>
@@ -932,6 +952,7 @@ function renderDay(n){
       </div>
       <aside class="sidebar">
         <div class="sticky">
+          <span class="section-label rev">The Practical Bits</span>
           <details class="fn-card rev" open>
             <summary>Field Notes — Day ${d.n}</summary>
             <div class="fn-body"><dl>
