@@ -349,6 +349,35 @@ footer.site{padding:var(--s6) 1.2rem}
   .stats-strip{gap:.7rem}
 }
 
+/* ---------- consistency pass v2: strict 16px element / 48px section rhythm ---------- */
+.day-head .daynum{font-size:.68rem}
+.day-head .ddate{font-size:.9rem;opacity:.85}
+.day-head h1{font-size:clamp(2.7rem,7vw,5rem);letter-spacing:-.01em}
+.section-label{display:block;letter-spacing:.3em;text-transform:uppercase;font-size:.7rem;color:var(--alpine);margin-bottom:1.5rem}
+.plan{font-size:.95rem;color:var(--ink-soft);background:var(--paper);border:1px solid rgba(91,141,184,.3);
+  border-left:3px solid var(--alpine);border-radius:12px;padding:1rem 1.2rem;margin:0 0 3rem}
+.plan b{color:var(--alpine);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;display:block;margin-bottom:.3rem}
+/* uniform 16px between elements inside a stop */
+.stat-row,.ticket,.warn,.moment,.funfact,.searchline,.stop ul.plain{margin-top:1rem}
+/* uniform 48px between stops and sections */
+.stop{padding-bottom:3rem}
+.day-body{gap:3rem;padding:3rem 1.2rem 4.5rem}
+.ed-note{margin-bottom:1.5rem}
+/* accent hover states */
+#dayDots button:hover{border-color:var(--alpine);color:var(--alpine)}
+.day-footer-nav button:hover{border-color:var(--alpine)}
+.day-footer-nav button:hover b{color:var(--alpine)}
+.fn-card summary:hover{color:var(--alpine)}
+.card:hover .go{background:var(--alpine);color:#fff}
+.searchline a:hover{color:var(--alpine)}
+/* mobile photo layout: uniform two-column grid, 16px gaps, no scatter */
+@media (max-width:720px){
+  .polas{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:0 0 1.5rem}
+  .pola{width:100%;transform:none}
+  .pola:first-child{transform:none}
+  .side-collage{gap:1rem}
+}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .rev{opacity:1;transform:none}
@@ -568,6 +597,7 @@ const DAYS=[
 {n:1,title:'Arrival & the Foothills',sub:'Calgary → Cochrane',drive:'~45 min driving',
  hero:'calgary',polas:[['cochrane','The Bow Valley, from Cochrane Ranche'],['banffmist','Mist on tomorrow\'s mountains']],
  ed:`Every story needs a threshold. Ours opens on the prairie's edge in Cochrane, where the foothills gather themselves before becoming mountains. Tonight we stock the cooler, walk the old ranche, and sleep early — the Rockies are waiting.`,
+ plan:'Land in Calgary, drive forty-five easy minutes to Cochrane, stock the cooler for the week, stretch your legs at the old ranche — and get to bed early, because the mountains start tomorrow.',
  fn:{fact:'Cochrane sits on the Bow River — the same water we\'ll follow all week, from Bow Lake to Bow Falls.',
      pack:'Comfy travel clothes, a light jacket for the evening, and the grocery list (below).',
      food:'Cochrane is famous for MacKay\'s Ice Cream — a local institution since 1948. Dessert before dinner is allowed on arrival day.',
@@ -592,6 +622,7 @@ const DAYS=[
 {n:2,title:'Banff Highlights & Vermilion Dusk',sub:'Gondola · Minnewanka · sunset reflections',drive:'~2 hr 45 min driving',
  hero:'sulphur',polas:[['minnewanka','Minnewanka\'s spirit-water'],['vermilion','The Vermilion Lakes, rehearsing for dusk']],
  ed:`Banff introduces itself all at once — a waterfall, a castle in the trees, a gondola rising into thin blue air. By evening, if the wind holds its breath, Mount Rundle will lay itself down twice: once in stone, once in still water.`,
+ plan:'Waterfalls and castle views before ten, a gondola to a 360° summit by noon, Minnewanka\'s blue in the afternoon, dinner on Banff Avenue — and, wind willing, mirror-still reflections at dusk.',
  fn:{fact:'Bow Falls appeared in the 1953 Marilyn Monroe film “River of No Return.”',
      pack:'Warm layer for the 2,281 m summit — it can be 10° colder up top. Camera charged for sunset.',
      food:'Banff Avenue poutine or a BeaverTail pastry — the official taste of a Canadian mountain town.',
@@ -626,6 +657,7 @@ const DAYS=[
 {n:3,title:'Lakes of Turquoise',sub:'Moraine Lake · Lake Louise',drive:'~3 hrs driving',
  hero:'moraine',polas:[['louise','Red canoes, Lake Louise'],['moraineClassic','The twenty-dollar view']],
  ed:`Some colors have to be seen to be believed. Today we stand on the Rockpile at Moraine Lake — the view once printed on the back of the twenty-dollar bill — then walk the quiet shoreline of Lake Louise beneath the hanging ice of the Victoria Glacier.`,
+ plan:'A dawn drive to Lake Louise, the shuttle to Moraine for an unhurried morning on the Rockpile, lunch at a 1920s log lodge, then a flat lakeshore stroll beneath the Victoria Glacier.',
  fn:{fact:'The impossible turquoise is “rock flour” — glacier-ground stone dust suspended in meltwater, scattering blue-green light.',
      pack:'Early alarm, warm hat for the 8 AM lakeshore, and grippy shoes for the Rockpile scramble.',
      food:'Afternoon tea or lunch at Deer Lodge — a 1920s log lodge steps from Lake Louise.',
@@ -651,6 +683,7 @@ const DAYS=[
 {n:4,title:'Icefields Parkway — South Push',sub:'Peyto · Mistaya · toward the glacier',drive:'~3 hr 45 min · ~4 hr 45 min with glacier extension',
  hero:'peyto',polas:[['mistaya','Mistaya\'s carved corridors'],['athabasca','Walking on the Athabasca ice']],
  ed:`The Icefields Parkway may be the most beautiful road on Earth, and today we drive it slowly. Peyto's wolf-shaped turquoise, a canyon carved through limestone, and — if the skies allow — our first look at ten-thousand-year-old glacial ice.`,
+ plan:'North up the most beautiful road on Earth: Peyto\'s wolf-shaped lake, a picnic above Mistaya Canyon, and a decision at the Crossing — turn back easy, or push on to a 10,000-year-old glacier.',
  fn:{fact:'The Columbia Icefield covers ~200 km² and feeds meltwater to three different oceans — Pacific, Arctic and Atlantic.',
      pack:'Full picnic (made at breakfast), all the layers, and a FULL TANK — no fuel beyond Lake Louise.',
      food:'Picnic at Mistaya Canyon: sandwiches with a limestone-canyon soundtrack.',
@@ -684,6 +717,7 @@ const DAYS=[
 {n:5,title:'Three Parks in One Day',sub:'Kootenay · Bow Lake · Yoho',drive:'~5 hr 20 min driving',
  hero:'takakkaw',polas:[['bowlake','Crowfoot country, above Bow Lake'],['emerald','Emerald Lake Lodge, across the water']],
  ed:`Three parks in one sweeping day: Kootenay's marble slot canyon at dawn, Bow Lake's mirror at mid-morning, and Yoho's emerald water and thundering Takakkaw — a name that means "it is magnificent." It is.`,
+ plan:'Three parks in one sweep: a slot canyon at dawn in Kootenay, Bow Lake\'s morning mirror, an emerald lake with canoes for rent in Yoho, and one of Canada\'s tallest waterfalls before supper.',
  fn:{fact:'“Takakkaw” means “it is magnificent” in Cree; at 373 m it\'s one of Canada\'s tallest waterfalls.',
      pack:'Park pass (valid in Kootenay & Yoho too), rain shell for waterfall spray, canoe-curiosity for Emerald Lake.',
      food:'Lunch at Emerald Lake Lodge — a table with one of the best views in the Rockies.',
@@ -721,6 +755,7 @@ const DAYS=[
 {n:6,title:'Grassi Lakes & Canmore',sub:'Kananaskis backroads · boardwalk evenings',drive:'~2 hr 30 min driving',
  hero:'grassiTrail',polas:[['grassiFalls','The waterfall below Grassi Lakes'],['spray','Spray Lakes, from the eagle\'s view']],
  ed:`A slower rhythm today. We climb to the twin turquoise pools above Canmore, wander a reservoir most tourists never find, and let the afternoon drift along a creekside boardwalk. Mountain life, at walking pace.`,
+ plan:'A slow day done right: earn the twin turquoise pools above Canmore, lunch in town, wander a gravel road to Spray Lakes, and let the evening drift down a creekside boardwalk.',
  fn:{fact:'Near Upper Grassi Lake are ancient Indigenous pictographs — rock paintings hundreds of years old.',
      pack:'Proper shoes for rocky switchbacks, water bottles, and patience for photo stops on the Smith-Dorrien.',
      food:'Downtown Canmore café culture — grab a bakery treat on Main Street after the hike.',
@@ -747,6 +782,7 @@ const DAYS=[
 {n:7,title:'The Choose-Your-Adventure Day',sub:'Weather & favorite-spot buffer',drive:'~1–3 hrs · depends on the pick',
  hero:'johnston',polas:[['agnes','The tea house at Lake Agnes'],['herbert','One more quiet lake']],
  ed:`A blank page, on purpose. Today the weather writes the itinerary — a teahouse in the clouds, a canyon catwalk, or one more quiet lake. Whatever we choose over breakfast will be the right choice.`,
+ plan:'No plan — that\'s the plan. Check the sky over breakfast, pick a teahouse hike, a canyon catwalk, or one more quiet lake. Be packed by dark; tomorrow starts at 4:45.',
  fn:{fact:'The Lake Agnes Tea House has been serving hikers since 1905 — supplies still arrive largely by helicopter and horseback.',
      pack:'Decided at breakfast! Hiking shoes regardless; cash for the teahouse if that wins.',
      food:'Tea and fresh-baked bread at 2,135 m — if the sky cooperates.',
@@ -773,6 +809,7 @@ const DAYS=[
 {n:8,title:'Homeward',sub:'Cochrane → YYC → wherever home is',drive:'~40 min driving · then wings',
  hero:'yyc',polas:[['cochraneAir','Cochrane from the climb-out'],['moraineClassic','One last look back']],
  ed:`Every story earns its ending. We slip out before dawn, trade mountains for clouds, and carry home a week of turquoise water and golden light. Until next time, Rockies.`,
+ plan:'Out before dawn, keys in the rental drop box, one last long look at the Rockies from the departure lounge — and home with a week of turquoise in your pocket.',
  fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies stays in view for several minutes — grab a window seat on the mountain side.',
      pack:'Everything! Passports handy, snacks in carry-ons, and one last check of the room before leaving.',
      food:'Airport breakfast at YYC — the trip\'s least scenic, most necessary meal.',
@@ -849,6 +886,8 @@ function renderDay(n){
     <div class="day-body">
       <div>
         <div class="ed-note rev"><span class="eyebrow">Editor's Note</span><p>${d.ed}</p></div>
+        ${d.plan?`<div class="plan rev"><b>The plan, in one breath</b>${d.plan}</div>`:''}
+        <span class="section-label rev">The Day, Hour by Hour</span>
         <div class="tl">
           <div class="tl-track"><div class="tl-fill"></div></div>
           ${stops}
