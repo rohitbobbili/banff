@@ -412,6 +412,9 @@ footer.site{padding:var(--s6) 1.2rem}
   .glance span{font-size:.78rem;padding:.4rem .8rem}
 }
 
+/* photo bottoms cut into the mountain silhouette — the image itself is the divider */
+#hero,.day-head{clip-path:polygon(0 0,100% 0,100% calc(100% - 44px),95% calc(100% - 20px),88.33% calc(100% - 34px),80.83% calc(100% - 12px),73.33% calc(100% - 42px),65.83% calc(100% - 18px),58.33% calc(100% - 36px),50.83% calc(100% - 10px),43.33% calc(100% - 40px),35.83% calc(100% - 14px),28.33% calc(100% - 34px),21.67% calc(100% - 6px),13.33% calc(100% - 38px),7.5% calc(100% - 18px),0 calc(100% - 42px))}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .rev{opacity:1;transform:none}
@@ -464,10 +467,6 @@ footer.site{padding:var(--s6) 1.2rem}
       </div>
       <div class="scroll-cue" aria-hidden="true"></div>
     </div>
-
-    <svg class="mtn-divider flip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--pine-deep);margin-top:-1px">
-      <path fill="currentColor" d="M0,60 L0,42 L90,18 L160,38 L260,6 L340,34 L430,14 L520,40 L610,10 L700,36 L790,18 L880,42 L970,12 L1060,34 L1140,20 L1200,44 L1200,60 Z"/>
-    </svg>
 
     <div class="cover-intro wrap">
       <span class="eyebrow">Editor's Welcome</span>
@@ -935,9 +934,6 @@ function renderDay(n){
         </div>
       </div>
     </div>
-    <svg class="mtn-divider flip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--pine-deep);margin-top:-1px">
-      <path fill="currentColor" d="M0,60 L0,42 L90,18 L160,38 L260,6 L340,34 L430,14 L520,40 L610,10 L700,36 L790,18 L880,42 L970,12 L1060,34 L1140,20 L1200,44 L1200,60 Z"/>
-    </svg>
     <div class="day-body">
       <div>
         <div class="ed-note rev"><span class="eyebrow">Editor's Note</span><p>${d.ed}</p></div>
