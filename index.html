@@ -304,6 +304,51 @@ footer.site .disclaimer{max-width:44rem;margin:1.2rem auto 0;font-size:.74rem;co
 .credits a{color:rgba(246,241,231,.8);text-decoration:none}
 .credits a:hover{text-decoration:underline;color:var(--larch-soft)}
 
+/* ---------- design system: type scale, spacing rhythm, alpine accent ---------- */
+:root{--alpine:#5b8db8; --s2:1rem; --s3:1.5rem; --s4:2rem; --s5:3rem; --s6:4.5rem}
+/* type scale: H1 hero > H1 day > H2 section > H3 stop > body */
+.hero-copy h1{font-size:clamp(2.7rem,7.5vw,5.8rem)}
+.day-head h1{font-size:clamp(2.5rem,6.5vw,4.6rem)}
+.chapters h2,.borrow h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;position:relative;padding-bottom:.4em;margin-bottom:.6rem}
+.chapters h2::after,.borrow h2::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:64px;height:3px;border-radius:2px;background:var(--alpine)}
+.stop h3{font-size:1.35rem;font-weight:700;margin-bottom:.35rem}
+.stop .time{color:var(--alpine);font-size:.95rem;font-weight:700}
+.stop p.desc{font-size:.94rem;line-height:1.65}
+.fn-card summary{font-size:1.05rem}
+.eyebrow{color:var(--alpine)}
+.stop::before{border-color:var(--alpine)}
+/* spacing rhythm: 48-72px between sections, 24px card gaps, 16px image gaps, 32px between stops */
+.cover-intro{padding:var(--s6) 0 var(--s4)}
+.chapters{padding:var(--s5) 0 var(--s6)}
+#cards{gap:var(--s3)}
+.borrow{padding:var(--s5) 0 0}
+.practical{gap:var(--s2);margin-top:var(--s4)}
+.stats-strip{margin-top:var(--s4)}
+.day-body{padding:var(--s5) 1.2rem var(--s6);gap:var(--s5)}
+.ed-note{margin-bottom:var(--s5)}
+.stop{padding-bottom:var(--s4)}
+.side-collage{gap:var(--s2)}
+.day-footer-nav{padding-bottom:var(--s6)}
+footer.site{padding:var(--s6) 1.2rem}
+/* back-to-cover button (mobile day pages) */
+#homeFab{position:fixed;right:1rem;bottom:1rem;z-index:46;width:50px;height:50px;border-radius:50%;border:none;
+  background:var(--alpine);color:#fff;font-size:1.3rem;display:none;place-items:center;cursor:pointer;
+  box-shadow:0 10px 26px rgba(18,43,32,.35);transition:background .3s}
+#homeFab:hover{background:var(--pine)}
+@media (max-width:900px){body[data-view="day"] #homeFab{display:grid}}
+/* mobile: smaller images, more vertical air */
+@media (max-width:720px){
+  .day-body{padding:var(--s4) 1rem var(--s5);gap:var(--s4)}
+  .pola{width:clamp(96px,30vw,140px)}
+  .polas{gap:.7rem;margin-bottom:var(--s3)}
+  .stop{padding-bottom:2.4rem}
+  .side-collage .ph{aspect-ratio:16/10}
+  .cover-intro{padding:var(--s5) 0 var(--s3)}
+  .chapters{padding:var(--s4) 0 var(--s5)}
+  .stats-strip{gap:.7rem}
+}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .rev{opacity:1;transform:none}
@@ -469,6 +514,7 @@ footer.site .disclaimer{max-width:44rem;margin:1.2rem auto 0;font-size:.74rem;co
 
 <button id="prevDay" class="dayArrow" aria-label="Previous day">‹</button>
 <button id="nextDay" class="dayArrow" aria-label="Next day">›</button>
+<button id="homeFab" aria-label="Back to cover">⌂</button>
 <div id="zoomer" aria-hidden="true"></div>
 <div id="lightbox" role="dialog" aria-label="Photo lightbox"><img alt=""><div class="lb-cap"></div></div>
 <div id="toast" role="status"></div>
@@ -858,6 +904,7 @@ addEventListener('hashchange',route);
 
 /* nav wiring */
 $('#homeBtn').onclick=()=>location.hash='#cover';
+$('#homeFab').onclick=()=>location.hash='#cover';
 $('#dayDots').onclick=e=>{const b=e.target.closest('button'); if(b) location.hash=`#day-${b.dataset.day}`;};
 $('#prevDay').onclick=()=>{ if(currentDay>1) location.hash=`#day-${currentDay-1}`; else location.hash='#cover'; };
 $('#nextDay').onclick=()=>{ if(currentDay&&currentDay<8) location.hash=`#day-${currentDay+1}`; };
