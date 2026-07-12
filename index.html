@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Banff in September — Our Rocky Mountain Story</title>
 <meta name="description" content="A family travel catalog for eight days in the Canadian Rockies — Banff, Lake Louise, the Icefields Parkway, Yoho, Kootenay and Kananaskis.">
-<meta name="robots" content="noindex">
 <meta property="og:title" content="Banff in September — Our Rocky Mountain Story">
 <meta property="og:description" content="A family travel catalog: eight days across Banff, Yoho, Kootenay and Kananaskis — turquoise lakes, glaciers, and golden larches.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=1200&q=70">
+<meta property="og:image" content="https://rohitbobbili.github.io/banff/img/moraine-lake.jpg">
+<meta property="og:url" content="https://rohitbobbili.github.io/banff/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231b3a2d'/%3E%3Cpath d='M15 78 L40 34 L52 54 L62 40 L85 78 Z' fill='%23f6f1e7'/%3E%3Ccircle cx='72' cy='26' r='9' fill='%23d9a441'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -278,12 +278,62 @@ body[data-view="day"] .dayArrow{display:flex}
 footer.site{background:var(--pine-deep);color:rgba(246,241,231,.8);text-align:center;padding:3.5rem 1.2rem;font-size:.82rem}
 footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--cream);display:block;margin-bottom:.6rem}
 
+
+/* borrow panel & practical cards */
+.borrow{padding:1.5rem 0 0;text-align:center}
+.borrow h2{font-size:clamp(1.5rem,3.4vw,2.2rem);color:var(--pine);margin-bottom:.7rem}
+.borrow>p{max-width:46rem;margin:0 auto;font-size:.95rem;color:var(--ink-soft)}
+.practical{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.1rem;text-align:left;margin-top:1.8rem}
+.practical .fn-card{margin-bottom:0}
+.practical .fn-body a{color:#177a74;font-weight:600;text-decoration:none}
+.practical .fn-body a:hover{text-decoration:underline}
+.practical .fn-body ul{margin:.4rem 0 0 1.1rem}
+.practical .fn-body li{margin-bottom:.35rem}
+/* drop caps on editor's notes */
+.ed-note p{display:block}
+.ed-note p::first-letter{font-family:var(--serif);font-size:3.1em;float:left;line-height:.82;
+  padding:.06em .14em 0 0;color:var(--larch);font-weight:700}
+/* footer credits */
+footer.site .disclaimer{max-width:44rem;margin:1.2rem auto 0;font-size:.74rem;color:rgba(246,241,231,.55)}
+.credits{max-width:760px;margin:1.6rem auto 0;font-size:.72rem;color:rgba(246,241,231,.55);text-align:left}
+.credits summary{cursor:pointer;text-align:center;color:rgba(246,241,231,.75);font-size:.78rem;list-style:none}
+.credits summary::-webkit-details-marker{display:none}
+.credits summary:hover{color:var(--larch-soft)}
+.credits ul{margin:.9rem 0 0;padding:0;list-style:none;columns:2;column-gap:2rem}
+@media (max-width:640px){.credits ul{columns:1}}
+.credits li{margin-bottom:.3rem;break-inside:avoid}
+.credits a{color:rgba(246,241,231,.8);text-decoration:none}
+.credits a:hover{text-decoration:underline;color:var(--larch-soft)}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .rev{opacity:1;transform:none}
   .tl-fill{transform:scaleY(1)!important}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "Banff in September — an eight-day Canadian Rockies itinerary",
+  "description": "A field-tested eight-day family itinerary based in Cochrane, Alberta: Banff, Lake Louise, Moraine Lake, the Icefields Parkway, Yoho, Kootenay and Kananaskis.",
+  "touristType": "Family",
+  "itinerary": {
+    "@type": "ItemList",
+    "numberOfItems": 8,
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Day 1 — Arrival & the Foothills","item":{"@type":"TouristAttraction","name":"Cochrane, Alberta"}},
+      {"@type":"ListItem","position":2,"name":"Day 2 — Banff Highlights & Vermilion Dusk","item":{"@type":"TouristAttraction","name":"Banff Gondola, Lake Minnewanka & Vermilion Lakes"}},
+      {"@type":"ListItem","position":3,"name":"Day 3 — Lakes of Turquoise","item":{"@type":"TouristAttraction","name":"Moraine Lake & Lake Louise"}},
+      {"@type":"ListItem","position":4,"name":"Day 4 — Icefields Parkway South","item":{"@type":"TouristAttraction","name":"Peyto Lake, Mistaya Canyon & Columbia Icefield"}},
+      {"@type":"ListItem","position":5,"name":"Day 5 — Kootenay, Bow Lake & Yoho","item":{"@type":"TouristAttraction","name":"Marble Canyon, Emerald Lake & Takakkaw Falls"}},
+      {"@type":"ListItem","position":6,"name":"Day 6 — Grassi Lakes & Canmore","item":{"@type":"TouristAttraction","name":"Grassi Lakes, Spray Lakes & Canmore"}},
+      {"@type":"ListItem","position":7,"name":"Day 7 — Choose-Your-Adventure Buffer Day","item":{"@type":"TouristAttraction","name":"Lake Agnes Tea House or Johnston Canyon"}},
+      {"@type":"ListItem","position":8,"name":"Day 8 — Departure","item":{"@type":"TouristAttraction","name":"Calgary International Airport"}}
+    ]
+  }
+}
+</script>
 </head>
 <body data-view="cover">
 <div id="progress" aria-hidden="true"></div>
@@ -336,6 +386,43 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
       </div>
     </div>
 
+    <div class="borrow wrap" id="borrow">
+      <span class="eyebrow">Borrow This Itinerary</span>
+      <h2>Traveling this route yourself? Take it — it's yours.</h2>
+      <p>This is a real, field-planned eight-day loop that uses <strong>Cochrane</strong> as a single base camp — cheaper and calmer than staying in Banff, with every day trip under two hours' drive. The chapters below work as a template: same order, same timing, swap the buffer day for whatever the sky gives you. Three practical things to sort out before you go:</p>
+      <div class="practical">
+        <details class="fn-card" open>
+          <summary>🎟️ Park passes (two different ones!)</summary>
+          <div class="fn-body">
+            <ul>
+              <li><strong>Banff, Yoho & Kootenay</strong> need a <a href="https://parks.canada.ca/voyage-travel/admission" target="_blank" rel="noopener">Parks Canada pass</a> — for 7+ days the annual Discovery Pass usually beats daily fees.</li>
+              <li><strong>Kananaskis & Spray Valley</strong> (Grassi Lakes, Spray Lakes, Upper Kananaskis Lake) need a separate <a href="https://www.alberta.ca/kananaskis-conservation-pass" target="_blank" rel="noopener">Kananaskis Conservation Pass</a> — the federal pass does not cover them.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="fn-card" open>
+          <summary>📅 Book these before you fly</summary>
+          <div class="fn-body">
+            <ul>
+              <li><strong>Moraine Lake shuttle</strong> — private cars are banned on the road; reserve a <a href="https://reservation.pc.gc.ca/" target="_blank" rel="noopener">Parks Canada shuttle</a> or a commercial bus seat well ahead.</li>
+              <li><strong>Banff Gondola</strong> — sells out in peak season; <a href="https://www.banffjaspercollection.com/attractions/banff-gondola/" target="_blank" rel="noopener">book online</a> for 5–10% off.</li>
+              <li><strong>Lodging</strong> — Cochrane and Canmore book out months ahead for September weekends.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="fn-card" open>
+          <summary>🐻 Wildlife & bear sense</summary>
+          <div class="fn-body">
+            <ul>
+              <li>Carry <strong>bear spray</strong> on any real trail (Grassi, Lake Agnes, Johnston Upper Falls) and know how to use it — sold in Banff & Canmore.</li>
+              <li>Make noise on the trail, hike as a group, and keep <strong>100 m from bears, 30 m from elk</strong> — that telephoto crop is worth more than a close-up.</li>
+              <li>Never feed wildlife; dawn and dusk are prime sighting (and caution) hours. Full guidance: <a href="https://parks.canada.ca/pn-np/ab/banff/visit/ours-bears" target="_blank" rel="noopener">Parks Canada bear safety</a>.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+
     <div class="chapters wrap">
       <h2>The Chapters</h2>
       <p class="sub">One page per day. Tap any card to step inside.</p>
@@ -345,6 +432,35 @@ footer.site .serif{font-family:var(--serif);font-style:italic;font-size:1.2rem;c
     <footer class="site">
       <span class="serif">"The mountains are calling — and this time, we're all going."</span>
       Made with love for the whole family · Banff · Yoho · Kootenay · Kananaskis
+      <p class="disclaimer">This is an unofficial, personal travel guide. Hours, prices, road access and trail conditions change — always verify with <a href="https://parks.canada.ca/pn-np/ab/banff" target="_blank" rel="noopener" style="color:rgba(246,241,231,.8)">Parks Canada</a> and <a href="https://www.alberta.ca/kananaskis-country" target="_blank" rel="noopener" style="color:rgba(246,241,231,.8)">Alberta Parks</a> before you go.</p>
+      <details class="credits">
+        <summary>📷 Photo credits — Wikimedia Commons</summary>
+        <ul>
+          <li>Moraine Lake — <a href="https://commons.wikimedia.org/wiki/File:Lake_Moraine-Banff_National_Park.jpg" target="_blank" rel="noopener">Florian Fuchs</a>, CC BY 3.0</li>
+          <li>Moraine Lake (classic view) — <a href="https://commons.wikimedia.org/wiki/File:Moraine_Lake_17092005.jpg" target="_blank" rel="noopener">Gorgo</a>, Public domain</li>
+          <li>Lake Louise — <a href="https://commons.wikimedia.org/wiki/File:Banff_National_Park_(AB,_Canada),_Lake_Louise_--_2022_--_2197.jpg" target="_blank" rel="noopener">Dietmar Rabich</a>, CC BY-SA 4.0</li>
+          <li>Cochrane & Bow Valley — <a href="https://commons.wikimedia.org/wiki/File:Cochrane-Szmurlo.jpg" target="_blank" rel="noopener">Chuck Szmurlo</a>, CC BY 2.5</li>
+          <li>Cochrane from the air — <a href="https://commons.wikimedia.org/wiki/File:Cochrane,_Alberta_(3460510301).jpg" target="_blank" rel="noopener">Shawn (Airdrie, Canada)</a>, CC BY-SA 2.0</li>
+          <li>Three Sisters, Canmore — <a href="https://commons.wikimedia.org/wiki/File:Three_Sister_Mountains,_Canmore,_Alberta.jpg" target="_blank" rel="noopener">Janusz Sobolewski</a>, CC BY 4.0</li>
+          <li>Mist over Banff — <a href="https://commons.wikimedia.org/wiki/File:Mist_Over_Banff_Avenue_(Unsplash).jpg" target="_blank" rel="noopener">Tj Holowaychuk</a>, CC0</li>
+          <li>Sulphur Mountain summit — <a href="https://commons.wikimedia.org/wiki/File:Massive_Mountain_and_Bow_Valley_from_Sulphur_Mountain_(16137721924).jpg" target="_blank" rel="noopener">Wilson Hui</a>, CC BY 2.0</li>
+          <li>Lake Minnewanka — <a href="https://commons.wikimedia.org/wiki/File:Banff_National_Park_(AB,_Canada),_Lake_Minnewanka_--_2022_--_2277.jpg" target="_blank" rel="noopener">Dietmar Rabich</a>, CC BY-SA 4.0</li>
+          <li>Vermilion Lakes — <a href="https://commons.wikimedia.org/wiki/File:Vermilion_Lakes,_Banff,_Alberta,_2025-07-11.jpg" target="_blank" rel="noopener">Chris Woodrich</a>, CC BY-SA 4.0</li>
+          <li>Peyto Lake — <a href="https://commons.wikimedia.org/wiki/File:Peyto_Lake-Banff_NP-Canada.jpg" target="_blank" rel="noopener">Tobias Alt</a>, CC BY-SA 4.0</li>
+          <li>Mistaya Canyon — <a href="https://commons.wikimedia.org/wiki/File:Mistaya_Canyon_(181167705).jpeg" target="_blank" rel="noopener">Ethan Conley</a>, CC0</li>
+          <li>Athabasca Glacier — <a href="https://commons.wikimedia.org/wiki/File:Mount_Andromeda_from_the_Athabasca_Glacier.jpg" target="_blank" rel="noopener">Ethan Sahagun</a>, CC BY-SA 4.0</li>
+          <li>Takakkaw Falls — <a href="https://commons.wikimedia.org/wiki/File:Takakkaw_Falls,_west_view_20240825_3.jpg" target="_blank" rel="noopener">DXR</a>, CC BY-SA 4.0</li>
+          <li>Bow Lake — <a href="https://commons.wikimedia.org/wiki/File:Bow_Lake_beim_Icefields_Parkway.jpg" target="_blank" rel="noopener">Florian Fuchs</a>, CC BY 3.0</li>
+          <li>Emerald Lake — <a href="https://commons.wikimedia.org/wiki/File:Emerald_lake_Yoho_national_park.jpg" target="_blank" rel="noopener">Soumya.deo</a>, CC BY-SA 4.0</li>
+          <li>Grassi Lakes trail — <a href="https://commons.wikimedia.org/wiki/File:Canmore_Grassi_Lakes_Trail.jpg" target="_blank" rel="noopener">McKay Savage</a>, CC BY 2.0</li>
+          <li>Grassi Lakes waterfall — <a href="https://commons.wikimedia.org/wiki/File:Grassi_Lakes_Waterfall,_Canmore.jpg" target="_blank" rel="noopener">KaleighAlysse</a>, CC BY-SA 4.0</li>
+          <li>Spray Lakes Reservoir — <a href="https://commons.wikimedia.org/wiki/File:Spray_Lakes_Reservoir_06.jpg" target="_blank" rel="noopener">Khoshhat</a>, CC BY-SA 4.0</li>
+          <li>Johnston Canyon — <a href="https://commons.wikimedia.org/wiki/File:Johnston_Canyon-Lower_Falls.jpg" target="_blank" rel="noopener">Florian Fuchs</a>, CC BY 3.0</li>
+          <li>Lake Agnes Tea House — <a href="https://commons.wikimedia.org/wiki/File:Lake_Agnes_Tea_House_(15464773570).jpg" target="_blank" rel="noopener">Wilson Hui</a>, CC BY 2.0</li>
+          <li>Herbert Lake — <a href="https://commons.wikimedia.org/wiki/File:Herbert_Lake_beim_Icefields_Parkway.jpg" target="_blank" rel="noopener">Florian Fuchs</a>, CC BY 3.0</li>
+          <li>Calgary International Airport — <a href="https://commons.wikimedia.org/wiki/File:Calgary_AB_Airport_Calgary-International-Airport_2022-09-29_(57).jpg" target="_blank" rel="noopener">Milan Suvajac</a>, CC BY-SA 4.0</li>
+        </ul>
+      </details>
     </footer>
   </section>
 
@@ -367,24 +483,32 @@ const MOBILE = matchMedia('(max-width:720px)').matches;
 /* ================= imagery =================
    Public Unsplash photos of Rockies-style scenery; every frame
    falls back to a styled gradient with the location name. */
-const U=(id)=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=70`;
+/* Local photos (Wikimedia Commons, see Photo Credits in footer) — served
+   from this site so they never break, with a styled gradient fallback. */
 const IMGS={
-  moraine:[U('1503614472-8c93d56e92ce'),'Turquoise glacial lake beneath the Valley of the Ten Peaks'],
-  canoe:[U('1476514525535-07fb3b4ae5f1'),'Canoes resting on still emerald water beneath the peaks'],
-  range:[U('1464822759023-fed622ff2c3b'),'Sunlit rocky mountain range under a clear sky'],
-  peak:[U('1506905925346-21bda4d32df4'),'A snow-dusted summit rising above the valley'],
-  mist:[U('1454496522488-7a8e488e8606'),'Mist drifting through layered mountain ridgelines'],
-  stars:[U('1519681393784-d120267933ba'),'Stars over moonlit snowy peaks at dusk'],
-  lake:[U('1439066615861-d1af74d74000'),'A calm alpine lake ringed by evergreens'],
-  forest:[U('1441974231531-c6227db76b6e'),'Morning light falling through a pine forest'],
-  hills:[U('1470071459604-3b5ec3a7fe05'),'Soft fog rolling over forested foothills'],
-  road:[U('1469854523086-cc02fe5d8800'),'An open highway running toward the mountains'],
-  falls:[U('1433086966358-54859d0ed716'),'A waterfall pouring past a wooden footbridge'],
-  valley:[U('1458668383970-8ddd3927deed'),'A broad green valley walled by high peaks'],
-  snowforest:[U('1418065460487-3e41a6c84dc5'),'Fresh snow on an evergreen mountainside'],
-  goldfield:[U('1472214103451-9374bd1c798e'),'Golden morning light across open foothill country'],
-  lakeset:[U('1501785888041-af3ef285b470'),'Evening alpenglow over a mountain lake'],
-  plane:[U('1436491865332-7a61a109cc05'),'An airliner climbing into a soft morning sky'],
+  moraine:['img/moraine-lake.jpg','Moraine Lake, turquoise beneath the Valley of the Ten Peaks'],
+  moraineClassic:['img/moraine-lake-classic.jpg','Moraine Lake and the Ten Peaks, the classic panorama'],
+  louise:['img/lake-louise.jpg','Red canoes at the Lake Louise boathouse below the Victoria Glacier'],
+  cochrane:['img/cochrane-ranche-view.jpg','Cochrane and the Bow Valley with the Rockies on the horizon'],
+  cochraneAir:['img/cochrane-aerial.jpg','Cochrane and the Bow River from an airplane window'],
+  threesisters:['img/three-sisters.jpg','The Three Sisters peaks above Canmore'],
+  banffmist:['img/banff-mist.jpg','Mist and fresh snow on the peaks above Banff'],
+  sulphur:['img/sulphur-summit.jpg','The Sulphur Mountain summit boardwalk above the Bow Valley'],
+  minnewanka:['img/lake-minnewanka.jpg','A stony island in Lake Minnewanka'],
+  vermilion:['img/vermilion-lakes.jpg','The Vermilion Lakes wetlands under Sulphur Mountain'],
+  peyto:['img/peyto-lake.jpg','Peyto Lake, the wolf-shaped turquoise lake on the Icefields Parkway'],
+  mistaya:['img/mistaya-canyon.jpg','Mistaya Canyon, a narrow slot carved through limestone'],
+  athabasca:['img/athabasca-glacier.jpg','Climbers on the Athabasca Glacier below Mount Andromeda'],
+  takakkaw:['img/takakkaw-falls.jpg','Takakkaw Falls plunging 373 metres in Yoho National Park'],
+  bowlake:['img/bow-lake.jpg','Crowfoot Mountain rising above Bow Lake'],
+  emerald:['img/emerald-lake.jpg','Emerald Lake and its lakeside lodge in Yoho National Park'],
+  grassiTrail:['img/grassi-lakes-trail.jpg','The view over Canmore from the Grassi Lakes trail'],
+  grassiFalls:['img/grassi-waterfall.jpg','The waterfall cascading below Grassi Lakes'],
+  spray:['img/spray-lakes.jpg','Spray Lakes Reservoir threading through Kananaskis peaks'],
+  johnston:['img/johnston-canyon.jpg','The blue plunge pool at Johnston Canyon\'s Lower Falls'],
+  agnes:['img/lake-agnes-teahouse.jpg','The log tea house at Lake Agnes above Lake Louise'],
+  herbert:['img/herbert-lake.jpg','Morning mist and reflections on Herbert Lake'],
+  yyc:['img/yyc-airport.jpg','Aircraft on the apron at Calgary International Airport'],
 };
 function ph(key,loc,cap,cls=''){
   const [src,alt]=IMGS[key];
@@ -397,7 +521,7 @@ function ph(key,loc,cap,cls=''){
 /* ================= itinerary data ================= */
 const DAYS=[
 {n:1,title:'Arrival & the Foothills',sub:'Calgary → Cochrane',drive:'~45 min driving',
- hero:'goldfield',polas:[['hills','First evening, first fog'],['forest','Foothill pines at dusk']],
+ hero:'cochrane',polas:[['threesisters','The Three Sisters, brooding'],['banffmist','Mist on tomorrow\'s mountains']],
  ed:`Every story needs a threshold. Ours opens on the prairie's edge in Cochrane, where the foothills gather themselves before becoming mountains. Tonight we stock the cooler, walk the old ranche, and sleep early — the Rockies are waiting.`,
  fn:{fact:'Cochrane sits on the Bow River — the same water we\'ll follow all week, from Bow Lake to Bow Falls.',
      pack:'Comfy travel clothes, a light jacket for the evening, and the grocery list (below).',
@@ -421,7 +545,7 @@ const DAYS=[
  ]},
 
 {n:2,title:'Banff Highlights & Vermilion Dusk',sub:'Gondola · Minnewanka · sunset reflections',drive:'~2 hr 45 min driving',
- hero:'range',polas:[['peak','Six ranges from the summit boardwalk'],['lakeset','Waiting on stillness at Vermilion']],
+ hero:'sulphur',polas:[['minnewanka','Minnewanka\'s spirit-water'],['vermilion','The Vermilion Lakes, rehearsing for dusk']],
  ed:`Banff introduces itself all at once — a waterfall, a castle in the trees, a gondola rising into thin blue air. By evening, if the wind holds its breath, Mount Rundle will lay itself down twice: once in stone, once in still water.`,
  fn:{fact:'Bow Falls appeared in the 1953 Marilyn Monroe film “River of No Return.”',
      pack:'Warm layer for the 2,281 m summit — it can be 10° colder up top. Camera charged for sunset.',
@@ -455,7 +579,7 @@ const DAYS=[
  ]},
 
 {n:3,title:'Lakes of Turquoise',sub:'Moraine Lake · Lake Louise',drive:'~3 hrs driving',
- hero:'moraine',polas:[['canoe','Emerald water, red canoes'],['mist','Victoria Glacier through morning haze']],
+ hero:'moraine',polas:[['louise','Red canoes, Lake Louise'],['moraineClassic','The twenty-dollar view']],
  ed:`Some colors have to be seen to be believed. Today we stand on the Rockpile at Moraine Lake — the view once printed on the back of the twenty-dollar bill — then walk the quiet shoreline of Lake Louise beneath the hanging ice of the Victoria Glacier.`,
  fn:{fact:'The impossible turquoise is “rock flour” — glacier-ground stone dust suspended in meltwater, scattering blue-green light.',
      pack:'Early alarm, warm hat for the 8 AM lakeshore, and grippy shoes for the Rockpile scramble.',
@@ -480,7 +604,7 @@ const DAYS=[
  ]},
 
 {n:4,title:'Icefields Parkway — South Push',sub:'Peyto · Mistaya · toward the glacier',drive:'~3 hr 45 min · ~4 hr 45 min with glacier extension',
- hero:'valley',polas:[['peak','Mt. Athabasca\'s first appearance'],['snowforest','Ice country begins']],
+ hero:'peyto',polas:[['mistaya','Mistaya\'s carved corridors'],['athabasca','Walking on the Athabasca ice']],
  ed:`The Icefields Parkway may be the most beautiful road on Earth, and today we drive it slowly. Peyto's wolf-shaped turquoise, a canyon carved through limestone, and — if the skies allow — our first look at ten-thousand-year-old glacial ice.`,
  fn:{fact:'The Columbia Icefield covers ~200 km² and feeds meltwater to three different oceans — Pacific, Arctic and Atlantic.',
      pack:'Full picnic (made at breakfast), all the layers, and a FULL TANK — no fuel beyond Lake Louise.',
@@ -505,7 +629,7 @@ const DAYS=[
   {t:'+10 min',type:'OPTION',name:'Big Bend Viewpoint',desc:'The parkway sweeps through a dramatic hairpin as it climbs toward the icefield, with Bridal Veil Falls threading down the mountainside in the distance.',search:['Big Bend Viewpoint, Icefields Parkway AB']},
   {t:'+5 min',type:'OPTION',name:'North Saskatchewan River Viewpoint',desc:'A panorama of the river far below — then, just around the corner, the first glimpse of Mt. Athabasca\'s ice-clad peak. A genuinely dramatic moment of road.',search:['North Saskatchewan River Viewpoint, Icefields Parkway AB']},
   {t:'+10 min',type:'OPTION',name:'Columbia Icefield Discovery Centre',desc:'Free roadside viewing of the Athabasca Glacier face right from the parking lot — no ticket needed to see the ice. The Columbia Icefield is the largest mass of glacial ice in the Canadian Rockies.',
-   ticket:'🎫 OPTIONAL: Columbia Icefield Adventure (Ice Explorer + Skywalk) ~US$126/person. Tours every 15–30 min — walk-up is viable, but book ahead for certainty. Adds 2–3 hrs.',
+   ticket:'🎫 OPTIONAL: Columbia Icefield Adventure (Ice Explorer + Skywalk) roughly CA$170 (≈US$126) per person — check current pricing when booking. Tours every 15–30 min — walk-up is viable, but book ahead for certainty. Adds 2–3 hrs.',
    fact:'The ice here is up to 365 metres thick — deeper than the Eiffel Tower is tall. A snowflake landing on the icefield today could eventually melt into the Pacific, the Arctic, or the Atlantic Ocean, depending on where it lands.',
    moment:'Standing in a parking lot, casually watching a 10,000-year-old glacier hang off a mountain.',
    search:['Columbia Icefield Discovery Centre, Icefields Parkway, Jasper AB']},
@@ -513,7 +637,7 @@ const DAYS=[
  ]},
 
 {n:5,title:'Three Parks in One Day',sub:'Kootenay · Bow Lake · Yoho',drive:'~5 hr 20 min driving',
- hero:'falls',polas:[['lake','Bow Lake\'s morning mirror'],['forest','Yoho: “awe and wonder” in Cree']],
+ hero:'takakkaw',polas:[['bowlake','Crowfoot country, above Bow Lake'],['emerald','Emerald Lake Lodge, across the water']],
  ed:`Three parks in one sweeping day: Kootenay's marble slot canyon at dawn, Bow Lake's mirror at mid-morning, and Yoho's emerald water and thundering Takakkaw — a name that means "it is magnificent." It is.`,
  fn:{fact:'“Takakkaw” means “it is magnificent” in Cree; at 373 m it\'s one of Canada\'s tallest waterfalls.',
      pack:'Park pass (valid in Kootenay & Yoho too), rain shell for waterfall spray, canoe-curiosity for Emerald Lake.',
@@ -550,7 +674,7 @@ const DAYS=[
  ]},
 
 {n:6,title:'Grassi Lakes & Canmore',sub:'Kananaskis backroads · boardwalk evenings',drive:'~2 hr 30 min driving',
- hero:'lake',polas:[['hills','Smith-Dorrien dust & views'],['forest','Boardwalk pace, mountain views']],
+ hero:'grassiTrail',polas:[['grassiFalls','The waterfall below Grassi Lakes'],['spray','Spray Lakes, from the eagle\'s view']],
  ed:`A slower rhythm today. We climb to the twin turquoise pools above Canmore, wander a reservoir most tourists never find, and let the afternoon drift along a creekside boardwalk. Mountain life, at walking pace.`,
  fn:{fact:'Near Upper Grassi Lake are ancient Indigenous pictographs — rock paintings hundreds of years old.',
      pack:'Proper shoes for rocky switchbacks, water bottles, and patience for photo stops on the Smith-Dorrien.',
@@ -576,7 +700,7 @@ const DAYS=[
  ]},
 
 {n:7,title:'The Choose-Your-Adventure Day',sub:'Weather & favorite-spot buffer',drive:'~1–3 hrs · depends on the pick',
- hero:'mist',polas:[['snowforest','Whatever the sky decides'],['goldfield','Last golden hours']],
+ hero:'johnston',polas:[['agnes','The tea house at Lake Agnes'],['herbert','One more quiet lake']],
  ed:`A blank page, on purpose. Today the weather writes the itinerary — a teahouse in the clouds, a canyon catwalk, or one more quiet lake. Whatever we choose over breakfast will be the right choice.`,
  fn:{fact:'The Lake Agnes Tea House has been serving hikers since 1905 — supplies still arrive largely by helicopter and horseback.',
      pack:'Decided at breakfast! Hiking shoes regardless; cash for the teahouse if that wins.',
@@ -602,7 +726,7 @@ const DAYS=[
  ]},
 
 {n:8,title:'Homeward',sub:'YYC → Toronto → Washington',drive:'~40 min driving · then wings',
- hero:'plane',polas:[['stars','Pre-dawn departure sky'],['range','One last look back']],
+ hero:'yyc',polas:[['cochraneAir','Cochrane from the climb-out'],['moraineClassic','One last look back']],
  ed:`Every story earns its ending. We slip out before dawn, trade mountains for clouds, and carry home a week of turquoise water and golden light. Until next time, Rockies.`,
  fn:{fact:'From takeoff on a clear morning, the entire front range of the Rockies is visible from the right side of the plane.',
      pack:'Everything! Passports handy, snacks in carry-ons, and one last check of the room before leaving.',
@@ -622,11 +746,7 @@ const DAYS=[
 
 /* ================= hero photo (real Banff, fallback chain) ================= */
 (function(){
-  const srcs=[
-    'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=2000&q=75', // Moraine Lake
-    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=2000&q=75', // canoes, alpine lake
-    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=75'  // rocky range
-  ];
+  const srcs=['img/moraine-lake.jpg','img/peyto-lake.jpg','img/lake-louise.jpg'];
   const wrap=$('#heroPhoto'); let i=0;
   const im=new Image();
   im.alt='Moraine Lake, Banff National Park — turquoise glacial water beneath the Valley of the Ten Peaks';
@@ -686,7 +806,7 @@ function renderDay(n){
     </svg>
     <div class="day-body">
       <div>
-        <div class="ed-note rev"><span class="eyebrow">Editor's Note</span>${d.ed}</div>
+        <div class="ed-note rev"><span class="eyebrow">Editor's Note</span><p>${d.ed}</p></div>
         <div class="tl">
           <div class="tl-track"><div class="tl-fill"></div></div>
           ${stops}
