@@ -47,6 +47,14 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 #dayDots button:hover{border-color:var(--turq);color:var(--turq)}
 #dayDots button.on{background:var(--pine);color:var(--cream);border-color:var(--pine)}
 #shareBtn{border:none;background:var(--larch);color:#3d2c0d;border-radius:999px;padding:.35rem .9rem;font-size:.78rem;font-weight:600}
+@media (max-width:560px){
+  #topbar{gap:.45rem;padding:.5rem .6rem}
+  #topbar .brand{display:none}
+  #dayDots{gap:.25rem}
+  #dayDots button{width:26px;height:26px;font-size:.66rem}
+  #homeBtn{padding:.25rem .55rem}
+  #shareBtn{padding:.3rem .6rem}
+}
 #shareBtn:hover{background:var(--larch-soft)}
 #toast{position:fixed;bottom:1.4rem;left:50%;transform:translate(-50%,20px);background:var(--pine);color:var(--cream);
   padding:.55rem 1.1rem;border-radius:999px;font-size:.82rem;opacity:0;pointer-events:none;transition:all .35s;z-index:80}
@@ -177,7 +185,11 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .pola:first-child{transform:rotate(-5deg) translateY(22px)}
 .pola .ph{border-radius:3px;aspect-ratio:4/5}
 .pola .pcap{font-family:var(--serif);font-style:italic;font-size:.68rem;color:var(--ink-soft);text-align:center;margin-top:.45rem}
-@media (max-width:720px){.polas{position:static;justify-content:center;margin-bottom:1.4rem}.day-head{padding-top:5.5rem}}
+@media (max-width:720px){
+  .day-head{flex-direction:column;align-items:stretch;justify-content:flex-end;padding-top:5.5rem}
+  .polas{position:static;justify-content:center;margin-bottom:1.4rem}
+  .pola{width:clamp(110px,38vw,160px)}
+}
 
 .day-body{max-width:1080px;margin:0 auto;padding:3rem 1.2rem 6rem;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:3rem}
 @media (max-width:900px){.day-body{grid-template-columns:1fr}}
@@ -243,6 +255,7 @@ h1,h2,h3,h4,.serif{font-family:var(--serif)}
 .dayArrow:hover{background:var(--pine);color:var(--cream)}
 #prevDay{left:.7rem}#nextDay{right:.7rem}
 body[data-view="day"] .dayArrow{display:flex}
+@media (max-width:720px){body[data-view="day"] .dayArrow{display:none}}
 .day-footer-nav{max-width:1080px;margin:0 auto;padding:0 1.2rem 4rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .day-footer-nav button{background:var(--paper);border:1px solid rgba(27,58,45,.18);border-radius:14px;padding:.8rem 1.2rem;
   text-align:left;font-size:.8rem;color:var(--ink-soft);flex:1;min-width:200px;transition:all .3s}
