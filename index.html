@@ -367,6 +367,25 @@ footer.site{padding:var(--s6) 1.2rem}
 .borrow .stats-strip{margin:3rem 0 1.5rem}
 .borrow .weather{margin-top:1.5rem}
 .borrow .practical{margin-top:3rem}
+/* borrow zone rides on the route illustration; cards go glassy, text goes light */
+.borrow-bg{position:relative;background:#0e1418 url(img/route-pins.jpg) center/cover no-repeat}
+.borrow-bg::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,15,18,.84),rgba(10,15,18,.55) 35%,rgba(10,15,18,.86))}
+.borrow-bg .borrow{position:relative}
+.borrow-bg .borrow h2{color:#f2ede1}
+.borrow-bg .eyebrow{color:#9fc3e4}
+.borrow-bg .borrow>p{color:#d8d2c4}
+.borrow-bg .borrow>p strong{color:#fff}
+.borrow-bg .stat-card,.borrow-bg .weather,.borrow-bg .fn-card{background:rgba(16,22,26,.62);
+  border-color:rgba(246,241,231,.2);backdrop-filter:blur(5px)}
+.borrow-bg .stat-card span{color:#b8b2a4}
+.borrow-bg .wx-text{color:#c9c3b5}
+.borrow-bg .wx-text strong{color:#e9eee4}
+.borrow-bg .fn-card summary{color:#e9eee4}
+.borrow-bg .fn-card .fn-body{color:#c9c3b5}
+.borrow-bg .fn-body strong{color:#f2ede1}
+.borrow-bg .fn-body a{color:#5fc7bf}
+.borrow-bg .bg-note{margin-top:2.4rem;font-size:.72rem;font-style:italic;color:rgba(246,241,231,.6)}
 .stat-card{min-width:130px;padding:1rem 1.4rem}
 /* day at-a-glance chips */
 .glance{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;max-width:640px}
@@ -504,6 +523,7 @@ footer.site{padding:var(--s6) 1.2rem}
 
     <div class="hairline" aria-hidden="true"></div>
 
+    <div class="borrow-bg">
     <div class="borrow wrap" id="borrow">
       <span class="eyebrow">Borrow This Itinerary</span>
       <h2>Traveling this route yourself? Take it — it's yours.</h2>
@@ -559,6 +579,8 @@ footer.site{padding:var(--s6) 1.2rem}
           </div>
         </details>
       </div>
+      <p class="bg-note">The glowing route in this backdrop is an illustration — the numbered pins are artistic, not the actual locations of the eight days' stops.</p>
+    </div>
     </div>
 
 
